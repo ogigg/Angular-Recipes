@@ -1,3 +1,15 @@
+## Running this app 
+
+### Back end
+This app needs backend server to work properly. Run backend server first. Go to backend folder and Run `node server.js`. Backend will work on `http://localhost:4000/`
+### Front end
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
+## Demo video
+[![See demo video](https://i9.ytimg.com/vi/ttDW48_lAJE/mq2.jpg?sqp=CKSjyvcF&rs=AOn4CLANt4tUBqFI7xgTW8v2uXTd2pER9Q)](https://youtu.be/ttDW48_lAJE)
+
+
+
+
 # AngularRecipes
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
