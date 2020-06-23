@@ -66,7 +66,7 @@ const recipes = [
     ingredients: [{quantity: '4', name: 'medium potatoes, peeled and sliced paper-thin'},
     {quantity: '3', name: 'tablespoons salt'},
     {quantity: '1', name: 'quart oil for deep frying'},
-    
+
 ],
 
     preparingSteps: ["Place potato slices into a large bowl of cold water as you slice. Drain, and rinse, then refill the bowl with water, and add the salt. Let the potatoes soak in the salty water for at least 30 minutes. Drain, then rinse and drain again.",
@@ -91,7 +91,7 @@ const recipes = [
     {quantity: "3/4", name: "cup unsalted butter, softened to room temperature"},
     {quantity: "1/2", name: "cup packed brown sugar"},
     {quantity: "1", name: " large egg"},
-    
+
 ],
 
     preparingSteps: [
@@ -137,10 +137,10 @@ app.delete('/api/recipes/:id', (req, res) => {
         if (err) throw err;
         // if no error, file has been deleted successfully
         console.log('File deleted!');
-    }); 
+    });
     // console.log(recipeToDelete)
     recipes.splice(recipeToDeleteIndex, 1);
-    res.send("Deleted");
+    res.send(recipeToDelete);
 })
 
 app.get('/api/recipes/random', (req, res) => {
@@ -159,12 +159,13 @@ app.post('/api/upload', upload.single('file'), function(req, res) { //upload ima
         name: recipe.name,
         preparationTime: recipe.preparationTime,
         ingredients: recipe.ingredients,
-        preparingSteps: recipe.preparingStep,
+        preparingSteps: recipe.preparingSteps,
         imageUrl: `http://localhost:4000/static/${req.file.filename}`,
         description: recipe.description,
     };
     recipes.push(newRecipe)
     console.log(newRecipe)
+    res.send(newRecipe);
 });
 
 app.listen(port, () => console.log(`Server is listening at http://localhost:${port}`))

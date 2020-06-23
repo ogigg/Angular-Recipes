@@ -6,7 +6,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 
 
 const routes: Routes = [
-  { path: 'recipe', component: RecipePageComponent },
+  { path: 'recipe/:id', component: RecipePageComponent },
   { path: 'add-recipe', component: AddRecipePageComponent },
   { path: '', component: HomePageComponent },
   { path: '**', component: HomePageComponent },

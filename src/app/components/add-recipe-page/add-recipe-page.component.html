@@ -1,1 +1,83 @@
-<p>add-recipe-page works!</p>
+<div class="container">
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md">
+        <h3>Recipe details</h3>
+        <input type="text" id="name" class = "add-form-input form-control" formControlName="name" placeholder="Recipe name" >
+        <div *ngIf="f.name.invalid && (f.name.dirty || f.name.touched || submitted)"
+        class="alert alert-danger">
+          Name is required.
+        </div>
+        <input type="text" class = "add-form-input form-control" formControlName="preparationTime" placeholder="Preparation time" >
+        <div *ngIf="f.preparationTime.invalid && (f.preparationTime.dirty || f.preparationTime.touched || submitted)"
+        class="alert alert-danger">
+          Preparation time is required.
+        </div>
+        <div class="add-form-input custom custom-file">
+          <input type="file"
+          name = "custom-file"
+          class = "custom-file-input"
+          formControlName="fileUpload"
+          (change)="handleFileUpload($event.target.files)">
+          <label for="custom-file" class="custom-file-label">
+            <div *ngIf="fileToUpload as file; else elseBlock">{{file.name}}</div>
+            <ng-template #elseBlock>{{fileErrorMessage}}</ng-template>
+          </label>
+        </div>
+        <div *ngIf="f.fileUpload.invalid && (f.fileUpload.dirty || f.fileUpload.touched || submitted)"
+        class="alert alert-danger">
+          Recipe image is required.
+        </div>
+        <textarea autosize  type="text" class = "add-form-input form-control" formControlName="description" placeholder="Recipe description"></textarea>
+        <div *ngIf="f.description.invalid && (f.description.dirty || f.description.touched || submitted)"
+        class="alert alert-danger">
+          Description is required.
+        </div>
+      </div>
+
+      <div formArrayName="ingredients" class="form-group col col-md ">
+        <h3>Ingredients</h3>
+
+        <div *ngFor="let ingredient of ingredients.controls; let i=index" >
+
+          <div [formGroupName]="i" class="row">
+            <div class="col col-xs-6">
+              <input type="text" class = "add-form-input form-control" formControlName="quantity" placeholder="Quantity">
+            </div>
+            <div class="col col-xs-6">
+              <input type="text" class = "add-form-input form-control" formControlName="name" placeholder="Ingredient name" >
+            </div>
+
+          </div>
+        </div>
+        <button class="btn btn-outline-warning" type="button" (click)="addIngredient()">Add Ingredient</button>
+      </div>
+    </div>
+
+  <div class="row">
+  <div class="col col-md">
+    <div formArrayName="preparingSteps" class="form-group">
+      <h3>Preparing Steps</h3>
+
+
+      <div *ngFor="let preparingStep of preparingSteps.controls; let i=index">
+        <textarea autosize [minRows]="1" type="text" class = "add-form-input form-control"
+        [formControlName]="i" placeholder="Step {{i+1}}">
+      </textarea>
+
+        <div *ngIf="preparingStep.invalid &&
+        (preparingStep.dirty || preparingStep.touched || submitted)"
+        class="alert alert-danger">
+          This step is required.
+        </div>
+      </div>
+
+      <button class="btn btn-outline-warning" type="button" (click)="addPreparingStep()">Add Step</button>
+    </div>
+  </div>
+  </div>
+    <button class="btn btn-primary" type="submit" >Submit</button>
+    <!-- <button class="btn btn-primary" type="submit" [disabled]="!recipeForm.valid">Submit</button> -->
+
+  </form>
+</div>

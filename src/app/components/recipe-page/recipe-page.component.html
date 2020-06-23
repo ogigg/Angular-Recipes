@@ -1,1 +1,30 @@
-<p>recipe-page works!</p>
+<div class="container">
+  <div class="row" >
+  <div class="col-md">
+      <app-recipe-thumbnail [recipe] = "recipe" size = "orginal"></app-recipe-thumbnail>
+     <div>{{recipe.description}}</div>
+  </div>
+  <div class="col-md">
+      <div class="mb-md-5">
+        <Button  class = "recipe-button btn btn-outline-warning">Edit</Button>
+        <Button  class = "recipe-button btn btn-outline-danger" (click) = "handleDelete()">Delete</Button>
+      </div>
+      <h2>Ingredients</h2>
+      <div class = "row" *ngFor="let ingredient of recipe.ingredients">
+        <div class="col-2">{{ingredient.quantity}}</div>
+        <div class="col-10">{{ingredient.name}}</div>
+
+      </div>
+
+  </div>
+
+  </div>
+  <div class="row">
+  <div class="col-md">
+      <h2>Preparing</h2>
+      <div class = "row" *ngFor="let preparingStep of recipe.preparingSteps; let i = index;">
+        <div class="col">{{i+1}} {{preparingStep}}</div>
+      </div>
+  </div>
+  </div>
+</div>

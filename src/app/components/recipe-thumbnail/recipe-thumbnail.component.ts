@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Recipe } from '../models/recipe.model';
 
 @Component({
   selector: 'app-recipe-thumbnail',
@@ -8,10 +9,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 
 export class RecipeThumbnailComponent implements OnInit {
-  @Input() recipe: any;
+  @Input() recipe: Recipe;
+  @Input() size: any;
+
+  style: any;
   constructor() { }
 
   ngOnInit(): void {
+    if(this.size == 'orginal') this.style = {width: '100%', height: 'auto'}
+    console.log(this.size)
   }
 
 }
