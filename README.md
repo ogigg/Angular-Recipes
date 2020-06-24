@@ -5,7 +5,7 @@ This app needs backend server to work properly. Run backend server first. Go to 
 ### Front end
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 ## Demo video
-[![See demo video](https://i9.ytimg.com/vi/ttDW48_lAJE/mq2.jpg?sqp=CKSjyvcF&rs=AOn4CLANt4tUBqFI7xgTW8v2uXTd2pER9Q)](https://youtu.be/ttDW48_lAJE)
+[![See demo video](https://i.ytimg.com/vi/ttDW48_lAJE/mqdefault.jpg)](https://youtu.be/ttDW48_lAJE)
 
 
 
