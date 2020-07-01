@@ -10,7 +10,7 @@ import { ApiService } from '../components/api.service';
 })
 export class RecipeEditComponent implements OnInit {
   @Input() recipe: Recipe;
-  @Output() getEditChange = new EventEmitter<boolean>();
+  @Output() onEditChange = new EventEmitter<boolean>();
 
   recipeForm = this.fb.group({
     name: ['', Validators.required],
@@ -36,7 +36,6 @@ export class RecipeEditComponent implements OnInit {
   constructor(private fb: FormBuilder, private recipesService: ApiService) {}
 
   ngOnInit(): void {
-    console.log(this.recipe);
     this.bindInputToForm();
   }
 
@@ -71,16 +70,14 @@ export class RecipeEditComponent implements OnInit {
   }
 
   handleCancel(): void {
-    this.getEditChange.emit(true);
+    this.onEditChange.emit(true);
   }
 
   handleSubmit(): void {
-    console.log(this.recipeForm);
-    console.log(this.recipeForm.value);
     this.recipesService
       .updateRecipe(this.recipeForm.value, this.recipe.id)
       .toPromise()
-      .then((response) => console.log(response))
+      // .then((response) => console.log(response))
       .then(() => alert('Updated!'))
       .then(() => this.handleCancel());
     // .then(() => this.router.navigate(['/']));

@@ -27,7 +27,6 @@ export class RecipePageComponent implements OnInit {
   getRecipe(): void {
     this.recipesService.getRecipe(this.id).subscribe((recipe: Recipe) => {
       this.recipe = recipe;
-      console.log(recipe);
     });
   }
 
@@ -40,8 +39,8 @@ export class RecipePageComponent implements OnInit {
   }
 
   handleEdit(): void {
-    console.log('Handling edit');
     this.edit = !this.edit;
     this.getRecipe();
+    window.scrollTo(0, 0);
   }
 }
