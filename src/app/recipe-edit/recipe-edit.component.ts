@@ -40,7 +40,7 @@ export class RecipeEditComponent implements OnInit {
     this.bindInputToForm();
   }
 
-  bindInputToForm() {
+  bindInputToForm(): void {
     this.recipeForm.controls.name.setValue(this.recipe.name);
     this.recipeForm.controls.preparationTime.setValue(
       this.recipe.preparationTime
@@ -62,11 +62,11 @@ export class RecipeEditComponent implements OnInit {
     });
   }
 
-  addIngredient() {
+  addIngredient(): void {
     this.ingredients.push(this.fb.group({ quantity: [''], name: [''] }));
   }
 
-  addPreparingStep() {
+  addPreparingStep(): void {
     this.preparingSteps.push(this.fb.control('', Validators.required));
   }
 
@@ -74,7 +74,7 @@ export class RecipeEditComponent implements OnInit {
     this.getEditChange.emit(true);
   }
 
-  onSubmit() {
+  handleSubmit(): void {
     console.log(this.recipeForm);
     console.log(this.recipeForm.value);
     this.recipesService

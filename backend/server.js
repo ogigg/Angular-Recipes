@@ -167,15 +167,12 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
 });
 
 app.put("/api/recipes/:id", upload.single("file"), function (req, res) {
-  // console.log(req.body);
-  console.log(req.body.json);
-
-  // console.log(req.file);
   const recipe = JSON.parse(req.body.json);
   console.log(`Updating recipe with id ${req.params.id}`);
   const recipeToUpdateIndex = recipes.findIndex(function (i) {
     return i.id == req.params.id;
   });
+
   const recipeToUpdate = recipes[recipeToUpdateIndex];
   const updatedRecipe = {
     ...recipeToUpdate,
@@ -185,19 +182,13 @@ app.put("/api/recipes/:id", upload.single("file"), function (req, res) {
     ingredients: recipe.ingredients,
     preparingSteps: recipe.preparingSteps,
   };
-  console.log(updatedRecipe);
-
   const updatedRecipes = [
     ...recipes.slice(0, recipeToUpdateIndex),
     updatedRecipe,
     ...recipes.slice(recipeToUpdateIndex + 1),
   ];
-
   recipes = updatedRecipes;
-  // const recipe = JSON.parse(req.body.json);
 
-  // recipes.push(newRecipe);
-  // console.log(newRecipe);
   res.send(recipeToUpdate);
 });
 

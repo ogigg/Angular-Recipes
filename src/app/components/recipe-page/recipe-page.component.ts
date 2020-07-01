@@ -21,13 +21,17 @@ export class RecipePageComponent implements OnInit {
   ngOnInit(): void {
     this.edit = false;
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.getRecipe();
+  }
+
+  getRecipe(): void {
     this.recipesService.getRecipe(this.id).subscribe((recipe: Recipe) => {
       this.recipe = recipe;
       console.log(recipe);
     });
   }
 
-  handleDelete() {
+  handleDelete(): void {
     this.recipesService
       .deleteRecipe(this.id)
       .toPromise()
@@ -35,12 +39,9 @@ export class RecipePageComponent implements OnInit {
       .then(() => this.router.navigate(['/']));
   }
 
-  handleEdit() {
+  handleEdit(): void {
     console.log('Handling edit');
     this.edit = !this.edit;
-  }
-  handleSubmit() {
-    console.log('Form is done!');
-    this.edit = false;
+    this.getRecipe();
   }
 }
