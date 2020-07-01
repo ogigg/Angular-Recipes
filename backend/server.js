@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 // const upload = multer({ storage: storage }).single('file')
 
-const recipes = [
+var recipes = [
   {
     id: 1,
     name: "Caesar salad",
@@ -166,8 +166,10 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
   res.send(newRecipe);
 });
 
-app.put("/api/recipes/:id", (req, res) => {
-  // console.log(req.body.json);
+app.put("/api/recipes/:id", upload.single("file"), function (req, res) {
+  // console.log(req.body);
+  console.log(req.body.json);
+
   // console.log(req.file);
   const recipe = JSON.parse(req.body.json);
   console.log(`Updating recipe with id ${req.params.id}`);
@@ -183,12 +185,12 @@ app.put("/api/recipes/:id", (req, res) => {
     ingredients: recipe.ingredients,
     preparingSteps: recipe.preparingSteps,
   };
-  console.log(recipeToUpdate);
+  console.log(updatedRecipe);
 
   const updatedRecipes = [
     ...recipes.slice(0, recipeToUpdateIndex),
     updatedRecipe,
-    ...projects.slice(recipeToUpdateIndex + 1),
+    ...recipes.slice(recipeToUpdateIndex + 1),
   ];
 
   recipes = updatedRecipes;
