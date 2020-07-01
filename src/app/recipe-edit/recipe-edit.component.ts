@@ -73,4 +73,14 @@ export class RecipeEditComponent implements OnInit {
   handleCancel(): void {
     this.getEditChange.emit(true);
   }
+
+  onSubmit() {
+    console.log(this.recipeForm);
+    console.log(this.recipeForm.value);
+  //   this.recipesService
+  //     .addRecipe(this.recipeForm.value, this.fileToUpload)
+  //     .toPromise()
+  //     .then(() => alert('Added!'))
+  //     .then(() => this.router.navigate(['/']));
+  // }
 }
