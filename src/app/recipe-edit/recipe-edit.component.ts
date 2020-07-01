@@ -77,10 +77,12 @@ export class RecipeEditComponent implements OnInit {
   onSubmit() {
     console.log(this.recipeForm);
     console.log(this.recipeForm.value);
-  //   this.recipesService
-  //     .addRecipe(this.recipeForm.value, this.fileToUpload)
-  //     .toPromise()
-  //     .then(() => alert('Added!'))
-  //     .then(() => this.router.navigate(['/']));
-  // }
+    this.recipesService
+      .updateRecipe(this.recipeForm.value, this.recipe.id)
+      .toPromise()
+      .then((response) => console.log(response))
+      .then(() => alert('Updated!'))
+      .then(() => this.handleCancel());
+    // .then(() => this.router.navigate(['/']));
+  }
 }

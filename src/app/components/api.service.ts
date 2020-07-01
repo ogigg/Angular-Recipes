@@ -30,4 +30,10 @@ export class ApiService {
   deleteRecipe(id: Number): Observable<Recipe> {
     return this.http.delete<Recipe>(`${pageUrl}/api/recipes/${id}`);
   }
+
+  updateRecipe(formData, id): Observable<Recipe> {
+    const data = new FormData();
+    data.append('json', JSON.stringify(formData));
+    return this.http.put<Recipe>(`${pageUrl}/api/recipes/${id}`, data);
+  }
 }
