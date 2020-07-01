@@ -1,0 +1,105 @@
+<div class="container">
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md">
+        <app-recipe-thumbnail
+          [recipe]="recipe"
+          size="orginal"
+        ></app-recipe-thumbnail>
+        <h3>Recipe details</h3>
+        <input
+          type="text"
+          id="name"
+          class="add-form-input form-control"
+          formControlName="name"
+          placeholder="Recipe name"
+        />
+        <input
+          type="text"
+          class="add-form-input form-control"
+          formControlName="preparationTime"
+          placeholder="Preparation time"
+        />
+
+        <textarea
+          autosize
+          type="text"
+          class="add-form-input form-control"
+          formControlName="description"
+          placeholder="Recipe description"
+        ></textarea>
+      </div>
+
+      <div formArrayName="ingredients" class="form-group col col-md">
+        <h3>Ingredients</h3>
+
+        <div *ngFor="let ingredient of ingredients.controls; let i = index">
+          <div [formGroupName]="i" class="row">
+            <div class="col col-xs-6">
+              <input
+                type="text"
+                class="add-form-input form-control"
+                formControlName="quantity"
+                placeholder="Quantity"
+              />
+            </div>
+            <div class="col col-xs-6">
+              <input
+                type="text"
+                class="add-form-input form-control"
+                formControlName="name"
+                placeholder="Ingredient name"
+              />
+            </div>
+          </div>
+        </div>
+        <button
+          class="btn btn-outline-warning"
+          type="button"
+          (click)="addIngredient()"
+        >
+          Add Ingredient
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-md">
+        <div formArrayName="preparingSteps" class="form-group">
+          <h3>Preparing Steps</h3>
+
+          <div
+            *ngFor="let preparingStep of preparingSteps.controls; let i = index"
+          >
+            <textarea
+              autosize
+              [minRows]="1"
+              type="text"
+              class="add-form-input form-control"
+              [formControlName]="i"
+              placeholder="Step {{ i + 1 }}"
+            >
+            </textarea>
+          </div>
+
+          <button
+            class="btn btn-outline-warning"
+            type="button"
+            (click)="addPreparingStep()"
+          >
+            Add Step
+          </button>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-outline-primary" type="submit">Submit</button>
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      (click)="handleCancel()"
+    >
+      Cancel
+    </button>
+    <!-- <button class="btn btn-primary" type="submit" [disabled]="!recipeForm.valid">Submit</button> -->
+  </form>
+</div>

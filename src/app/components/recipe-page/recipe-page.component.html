@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="!edit">
   <div class="row">
     <div class="col-md">
       <app-recipe-thumbnail
@@ -79,4 +79,11 @@
   >
     Save
   </Button>
+</div>
+
+<div class="container" *ngIf="edit">
+  <app-recipe-edit
+    [recipe]="recipe"
+    (getEditChange)="handleEdit()"
+  ></app-recipe-edit>
 </div>
