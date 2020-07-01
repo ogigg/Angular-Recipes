@@ -1,30 +1,82 @@
 <div class="container">
-  <div class="row" >
-  <div class="col-md">
-      <app-recipe-thumbnail [recipe] = "recipe" size = "orginal"></app-recipe-thumbnail>
-     <div>{{recipe.description}}</div>
-  </div>
-  <div class="col-md">
+  <div class="row">
+    <div class="col-md">
+      <app-recipe-thumbnail
+        [recipe]="recipe"
+        size="orginal"
+      ></app-recipe-thumbnail>
+      <div *ngIf="!edit">{{ recipe.description }}</div>
+      <textarea
+        *ngIf="edit"
+        autosize
+        type="text"
+        class="recipe-form-input form-control"
+        formControlName="description"
+        placeholder="Recipe description"
+        value="{{ recipe.description }}"
+      ></textarea>
+    </div>
+    <div class="col-md">
       <div class="mb-md-5">
-        <Button  class = "recipe-button btn btn-outline-warning">Edit</Button>
-        <Button  class = "recipe-button btn btn-outline-danger" (click) = "handleDelete()">Delete</Button>
+        <Button
+          class="recipe-button btn btn-outline-warning"
+          (click)="handleEdit()"
+          >Edit</Button
+        >
+        <Button
+          class="recipe-button btn btn-outline-danger"
+          (click)="handleDelete()"
+          >Delete</Button
+        >
       </div>
       <h2>Ingredients</h2>
-      <div class = "row" *ngFor="let ingredient of recipe.ingredients">
-        <div class="col-2">{{ingredient.quantity}}</div>
-        <div class="col-10">{{ingredient.name}}</div>
-
+      <div class="row" *ngFor="let ingredient of recipe.ingredients">
+        <div *ngIf="!edit" class="col-2">{{ ingredient.quantity }}</div>
+        <div *ngIf="!edit" class="col-10">{{ ingredient.name }}</div>
+        <input
+          *ngIf="edit"
+          type="text"
+          id="quantity"
+          class="form-control col-2 recipe-form-input"
+          placeholder="Recipe quantity"
+          value="{{ ingredient.quantity }}"
+        />
+        <input
+          *ngIf="edit"
+          type="text"
+          id="name"
+          class="form-control col-10 recipe-form-input"
+          placeholder="Recipe name"
+          value="{{ ingredient.name }}"
+        />
       </div>
-
-  </div>
-
+    </div>
   </div>
   <div class="row">
-  <div class="col-md">
+    <div class="col-md">
       <h2>Preparing</h2>
-      <div class = "row" *ngFor="let preparingStep of recipe.preparingSteps; let i = index;">
-        <div class="col">{{i+1}} {{preparingStep}}</div>
+      <div
+        class="row"
+        *ngFor="let preparingStep of recipe.preparingSteps; let i = index"
+      >
+        <div *ngIf="!edit" class="col">{{ i + 1 }} {{ preparingStep }}</div>
+        <textarea
+          autosize
+          *ngIf="edit"
+          type="text"
+          class="recipe-form-input form-control col"
+          formControlName="description"
+          placeholder="Recipe description"
+          value="{{ preparingStep }}"
+        ></textarea>
       </div>
+    </div>
   </div>
-  </div>
+  <Button
+    *ngIf="edit"
+    class="recipe-button btn btn-outline-primary"
+    (click)="handleSubmit()"
+  >
+    Save
+  </Button>
 </div>
