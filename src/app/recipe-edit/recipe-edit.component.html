@@ -7,27 +7,37 @@
           size="orginal"
         ></app-recipe-thumbnail>
         <h3>Recipe details</h3>
-        <input
-          type="text"
-          id="name"
-          class="add-form-input form-control"
-          formControlName="name"
-          placeholder="Recipe name"
-        />
-        <input
-          type="text"
-          class="add-form-input form-control"
-          formControlName="preparationTime"
-          placeholder="Preparation time"
-        />
-
-        <textarea
-          autosize
-          type="text"
-          class="add-form-input form-control"
-          formControlName="description"
-          placeholder="Recipe description"
-        ></textarea>
+        <div class="form-group">
+          <label for="name">Recipe name</label>
+          <input
+            type="text"
+            id="name"
+            class="add-form-input form-control"
+            formControlName="name"
+            placeholder="Recipe name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="preparationTime">Preparation time</label>
+          <input
+            id="preparationTime"
+            type="text"
+            class="add-form-input form-control"
+            formControlName="preparationTime"
+            placeholder="Preparation time"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            autosize
+            id="description"
+            type="text"
+            class="add-form-input form-control"
+            formControlName="description"
+            placeholder="Recipe description"
+          ></textarea>
+        </div>
       </div>
 
       <div formArrayName="ingredients" class="form-group col col-md">
