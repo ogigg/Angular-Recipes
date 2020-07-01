@@ -62,6 +62,14 @@ export class RecipeEditComponent implements OnInit {
     });
   }
 
+  addIngredient() {
+    this.ingredients.push(this.fb.group({ quantity: [''], name: [''] }));
+  }
+
+  addPreparingStep() {
+    this.preparingSteps.push(this.fb.control('', Validators.required));
+  }
+
   handleCancel(): void {
     this.getEditChange.emit(true);
   }

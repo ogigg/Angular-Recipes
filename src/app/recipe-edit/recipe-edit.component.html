@@ -48,7 +48,7 @@
             <div class="col col-xs-6">
               <input
                 type="text"
-                class="add-form-input form-control"
+                class="edit-form-input form-control"
                 formControlName="quantity"
                 placeholder="Quantity"
               />
@@ -56,7 +56,7 @@
             <div class="col col-xs-6">
               <input
                 type="text"
-                class="add-form-input form-control"
+                class="edit-form-input form-control"
                 formControlName="name"
                 placeholder="Ingredient name"
               />
@@ -85,7 +85,7 @@
               autosize
               [minRows]="1"
               type="text"
-              class="add-form-input form-control"
+              class="edit-form-input form-control"
               [formControlName]="i"
               placeholder="Step {{ i + 1 }}"
             >
@@ -102,9 +102,11 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-outline-primary" type="submit">Submit</button>
+    <button class="btn btn-outline-primary edit-form-button" type="submit">
+      Submit
+    </button>
     <button
-      class="btn btn-outline-secondary"
+      class="btn btn-outline-secondary edit-form-button"
       type="button"
       (click)="handleCancel()"
     >
