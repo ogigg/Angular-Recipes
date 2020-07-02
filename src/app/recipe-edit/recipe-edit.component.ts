@@ -6,7 +6,7 @@ import { ApiService } from '../components/api.service';
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
-  styleUrls: ['./recipe-edit.component.css'],
+  styleUrls: ['./recipe-edit.component.scss'],
 })
 export class RecipeEditComponent implements OnInit {
   @Input() recipe: Recipe;
