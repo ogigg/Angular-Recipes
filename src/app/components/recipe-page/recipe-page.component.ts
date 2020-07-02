@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./recipe-page.component.css'],
 })
 export class RecipePageComponent implements OnInit {
-  recipe: Recipe;
+  public recipe: Recipe;
   public edit: boolean;
   public id: Number;
   constructor(
@@ -18,29 +18,32 @@ export class RecipePageComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.edit = false;
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.getRecipe();
+    this.recipe = await this.getRecipe();
   }
 
-  getRecipe(): void {
-    this.recipesService.getRecipe(this.id).subscribe((recipe: Recipe) => {
-      this.recipe = recipe;
-    });
+  async getRecipe(): Promise<Recipe> {
+    return await this.recipesService.getRecipe(this.id).toPromise();
   }
 
-  handleDelete(): void {
-    this.recipesService
-      .deleteRecipe(this.id)
-      .toPromise()
-      .then(() => alert('Deleted!'))
-      .then(() => this.router.navigate(['/']));
+  async handleDelete(): Promise<void> {
+    await this.recipesService.deleteRecipe(this.id).toPromise();
+    await alert('Deleted!');
+    await this.router.navigate(['/']);
   }
 
-  handleEdit(): void {
-    this.edit = !this.edit;
-    this.getRecipe();
+  handleEditButton(): void {
+    this.edit = true;
+  }
+
+  async handleEdit(isEdited: boolean): Promise<void> {
+    this.edit = false;
     window.scrollTo(0, 0);
+    if (isEdited) {
+      //if user clicks submit button download updated version of recipe
+      this.recipe = await this.getRecipe();
+    }
   }
 }

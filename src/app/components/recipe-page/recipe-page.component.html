@@ -20,7 +20,7 @@
       <div class="mb-md-5">
         <Button
           class="recipe-button btn btn-outline-warning"
-          (click)="handleEdit()"
+          (click)="handleEditButton()"
           >Edit</Button
         >
         <Button
@@ -77,6 +77,6 @@
 <div class="container" *ngIf="edit">
   <app-recipe-edit
     [recipe]="recipe"
-    (onEditChange)="handleEdit()"
+    (onEditChange)="handleEdit($event)"
   ></app-recipe-edit>
 </div>
