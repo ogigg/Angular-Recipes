@@ -77,7 +77,7 @@ export class AddRecipePageComponent implements OnInit {
     await this.apiService
       .addRecipe(this.recipeForm.value, this.fileToUpload)
       .toPromise();
-    await alert('Added!');
-    await this.router.navigate(['/']);
+    alert('Added!');
+    this.router.navigate(['/']);
   }
 }

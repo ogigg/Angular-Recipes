@@ -77,6 +77,6 @@
 <div class="container" *ngIf="edit">
   <app-recipe-edit
     [recipe]="recipe"
-    (onEditChange)="handleEdit($event)"
+    (onEditChange)="onRecipeEdited($event)"
   ></app-recipe-edit>
 </div>

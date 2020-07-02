@@ -29,10 +29,6 @@ export class RecipeEditComponent implements OnInit {
     return this.recipeForm.get('preparingSteps') as FormArray;
   }
 
-  get f() {
-    return this.recipeForm.controls;
-  }
-
   constructor(private fb: FormBuilder, private apiService: ApiService) {}
 
   ngOnInit(): void {
@@ -77,7 +73,7 @@ export class RecipeEditComponent implements OnInit {
     await this.apiService
       .updateRecipe(this.recipeForm.value, this.recipe.id)
       .toPromise();
-    await alert('Updated!');
-    await this.onEditChange.emit(true);
+    alert('Updated!');
+    this.onEditChange.emit(true);
   }
 }

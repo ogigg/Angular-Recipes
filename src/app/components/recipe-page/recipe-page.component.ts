@@ -30,15 +30,15 @@ export class RecipePageComponent implements OnInit {
 
   async handleDelete(): Promise<void> {
     await this.recipesService.deleteRecipe(this.id).toPromise();
-    await alert('Deleted!');
-    await this.router.navigate(['/']);
+    alert('Deleted!');
+    this.router.navigate(['/']);
   }
 
   handleEditButton(): void {
     this.edit = true;
   }
 
-  async handleEdit(isEdited: boolean): Promise<void> {
+  async onRecipeEdited(isEdited: boolean): Promise<void> {
     this.edit = false;
     window.scrollTo(0, 0);
     if (isEdited) {
