@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {}
 
   handleChangeLanguage(): void {
-    if (this.currentLanguage == 'en') {
+    if (this.currentLanguage === 'en') {
       this.translate.use('pl');
       this.currentLanguage = 'pl';
     } else {

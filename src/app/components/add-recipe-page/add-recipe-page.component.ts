@@ -38,11 +38,9 @@ export class AddRecipePageComponent implements OnInit {
     private router: Router,
     private translate: TranslateService
   ) {
-    translate
-      .get('file.initMessage', { value: 'world' })
-      .subscribe((res: string) => {
-        this.fileMessage = res;
-      });
+    translate.get('file.initMessage').subscribe((res: string) => {
+      this.fileMessage = res;
+    });
   }
 
   ngOnInit() {}
@@ -53,7 +51,7 @@ export class AddRecipePageComponent implements OnInit {
 
     if (types.every((type) => image.type !== type))
       this.translate
-        .get('file.error.wrongExtension', { value: 'world' })
+        .get('file.error.wrongExtension')
         .subscribe((res: string) => {
           this.fileMessage = res;
         });
