@@ -37,10 +37,4 @@ export class RecipePageComponent implements OnInit {
   handleEditButton(): void {
     this.edit = true;
   }
-
-  async onRecipeEdited(editedRecipe: Recipe): Promise<void> {
-    this.edit = false;
-    window.scrollTo(0, 0);
-    this.recipe = editedRecipe;
-  }
 }
