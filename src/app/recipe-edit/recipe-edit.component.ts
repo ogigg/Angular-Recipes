@@ -33,7 +33,7 @@ export class RecipeEditComponent implements OnInit {
     return this.recipeForm.controls;
   }
 
-  constructor(private fb: FormBuilder, private recipesService: ApiService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.bindInputToForm();
@@ -69,17 +69,15 @@ export class RecipeEditComponent implements OnInit {
     this.preparingSteps.push(this.fb.control('', Validators.required));
   }
 
-  handleCancel(): void {
-    this.onEditChange.emit(true);
+  handleCancelButton(): void {
+    this.onEditChange.emit(false);
   }
 
-  handleSubmit(): void {
-    this.recipesService
+  async handleSubmit(): Promise<void> {
+    await this.apiService
       .updateRecipe(this.recipeForm.value, this.recipe.id)
-      .toPromise()
-      // .then((response) => console.log(response))
-      .then(() => alert('Updated!'))
-      .then(() => this.handleCancel());
-    // .then(() => this.router.navigate(['/']));
+      .toPromise();
+    await alert('Updated!');
+    await this.onEditChange.emit(true);
   }
 }
