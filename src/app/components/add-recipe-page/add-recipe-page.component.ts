@@ -33,13 +33,11 @@ export class AddRecipePageComponent implements OnInit {
   submitted: Boolean = false;
   constructor(
     private fb: FormBuilder,
-    private recipesService: ApiService,
+    private apiService: ApiService,
     private router: Router
   ) {}
 
-  ngOnInit() {
-    // this.addPreparingStep();
-  }
+  ngOnInit() {}
 
   handleFileUpload(files: FileList) {
     const types = ['image/png', 'image/jpeg'];
@@ -67,21 +65,19 @@ export class AddRecipePageComponent implements OnInit {
     return this.recipeForm.get('preparingSteps') as FormArray;
   }
 
-  get f() {
+  get form() {
     return this.recipeForm.controls;
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.submitted = true;
-    console.log(this.recipeForm);
     if (this.recipeForm.invalid) {
       return;
     }
-    console.log(this.recipeForm.value);
-    this.recipesService
+    await this.apiService
       .addRecipe(this.recipeForm.value, this.fileToUpload)
-      .toPromise()
-      .then(() => alert('Added!'))
-      .then(() => this.router.navigate(['/']));
+      .toPromise();
+    await alert('Added!');
+    await this.router.navigate(['/']);
   }
 }
