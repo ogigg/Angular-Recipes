@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   private currentLanguage = this.translate.getDefaultLang();
   ngOnInit(): void {}
 
-  handleChangeLanguage() {
+  handleChangeLanguage(): void {
     if (this.currentLanguage == 'en') {
       this.translate.use('pl');
       this.currentLanguage = 'pl';

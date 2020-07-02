@@ -1,15 +1,16 @@
-<a href="/recipe/{{recipe.id}}">
+<a routerLink="/recipe/{{ recipe.id }}" routerLinkActive="active">
   <div class="card" [style]="style">
-      <div class="img-gradient">
-          <img class="card-img" src={{recipe.imageUrl}} alt="Card"/>
-      </div>
+    <div class="img-gradient">
+      <img class="card-img" src="{{ recipe.imageUrl }}" alt="Card" />
+    </div>
 
-      <div class="card-img-overlay">
-          <div class = "thumbnail-text">
-          <div class="text-light card-text text-small">{{recipe.preparationTime}}</div>
-              <h5 class="card-title text-light text-big">{{recipe.name}}</h5>
-          </div>
-
+    <div class="card-img-overlay">
+      <div class="thumbnail-text">
+        <div class="text-light card-text text-small">
+          {{ recipe.preparationTime }}
+        </div>
+        <h5 class="card-title text-light text-big">{{ recipe.name }}</h5>
       </div>
+    </div>
   </div>
-  </a>
+</a>
