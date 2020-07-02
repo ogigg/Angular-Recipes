@@ -22,6 +22,7 @@
   "recipeName": "Recipe name",
   "something": "Something",
   "submit": "Submit",
+  "changeLanguage": "Change language",
   "validation": {
     "description": "Description is required",
     "image": "Recipe Image is required.",

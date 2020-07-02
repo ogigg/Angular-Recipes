@@ -50,9 +50,9 @@
           class="nav-link text-light"
           data-toggle="collapse"
           data-target=".navbar-collapse.show"
-          routerLink="/something"
           routerLinkActive="active"
-          >{{ "something" | translate }}</a
+          (click)="handleChangeLanguage()"
+          >{{ "changeLanguage" | translate }}</a
         >
       </li>
     </ul>

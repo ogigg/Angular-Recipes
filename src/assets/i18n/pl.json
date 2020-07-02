@@ -22,6 +22,7 @@
   "recipeName": "Nazwa przepisu",
   "something": "Jakiś przycisk",
   "submit": "Wyślij",
+  "changeLanguage": "Przełącz język",
   "validation": {
     "description": "Opis jest wymagany",
     "image": "Zdjęcie jest wymagane.",
