@@ -38,12 +38,9 @@ export class RecipePageComponent implements OnInit {
     this.edit = true;
   }
 
-  async onRecipeEdited(isEdited: boolean): Promise<void> {
+  async onRecipeEdited(editedRecipe: Recipe): Promise<void> {
     this.edit = false;
     window.scrollTo(0, 0);
-    if (isEdited) {
-      //if user clicks submit button download updated version of recipe
-      this.recipe = await this.getRecipe();
-    }
+    this.recipe = editedRecipe;
   }
 }

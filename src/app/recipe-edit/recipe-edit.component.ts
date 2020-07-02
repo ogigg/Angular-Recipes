@@ -10,7 +10,7 @@ import { ApiService } from '../components/api.service';
 })
 export class RecipeEditComponent implements OnInit {
   @Input() recipe: Recipe;
-  @Output() onEditChange = new EventEmitter<boolean>();
+  @Output() recipeChange = new EventEmitter<Recipe>();
 
   recipeForm = this.fb.group({
     name: ['', Validators.required],
@@ -66,14 +66,22 @@ export class RecipeEditComponent implements OnInit {
   }
 
   handleCancelButton(): void {
-    this.onEditChange.emit(false);
+    this.recipeChange.emit(this.recipe);
   }
 
   async handleSubmit(): Promise<void> {
+    const updatedRecipe = {
+      ...this.recipe,
+      name: this.recipeForm.value.name,
+      preparationTime: this.recipeForm.value.preparationTime,
+      description: this.recipeForm.value.description,
+      ingredients: this.recipeForm.value.ingredients,
+      preparingSteps: this.recipeForm.value.preparingSteps,
+    };
     await this.apiService
       .updateRecipe(this.recipeForm.value, this.recipe.id)
       .toPromise();
     alert('Updated!');
-    this.onEditChange.emit(true);
+    this.recipeChange.emit(updatedRecipe);
   }
 }
