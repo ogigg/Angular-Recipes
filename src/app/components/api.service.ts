@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Recipe } from './models/recipe.model';
 import { Observable } from 'rxjs';
 
-export const pageUrl = "http://localhost:4000";
+export const pageUrl = 'http://localhost:4000';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllRecipes(): Observable<Recipe[]> {
     return this.http.get<Recipe[]>(`${pageUrl}/api/recipes`);
@@ -29,5 +29,11 @@ export class ApiService {
 
   deleteRecipe(id: Number): Observable<Recipe> {
     return this.http.delete<Recipe>(`${pageUrl}/api/recipes/${id}`);
+  }
+
+  updateRecipe(formData, id): Observable<Recipe> {
+    const data = new FormData();
+    data.append('json', JSON.stringify(formData));
+    return this.http.put<Recipe>(`${pageUrl}/api/recipes/${id}`, data);
   }
 }

@@ -13,6 +13,7 @@ import { RecipePageComponent } from './components/recipe-page/recipe-page.compon
 import { AddRecipePageComponent } from './components/add-recipe-page/add-recipe-page.component';
 import { RecipeThumbnailComponent } from './components/recipe-thumbnail/recipe-thumbnail.component';
 import {AutosizeModule} from 'ngx-autosize';
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {AutosizeModule} from 'ngx-autosize';
     RecipePageComponent,
     AddRecipePageComponent,
     RecipeThumbnailComponent,
+    RecipeEditComponent,
 
   ],
   imports: [

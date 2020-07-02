@@ -7,17 +7,14 @@ import { Recipe } from '../models/recipe.model';
   styleUrls: ['./recipe-thumbnail.component.css'],
   // inputs: ['recipe']
 })
-
 export class RecipeThumbnailComponent implements OnInit {
   @Input() recipe: Recipe;
   @Input() size: any;
 
   style: any;
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    if(this.size == 'orginal') this.style = {width: '100%', height: 'auto'}
-    console.log(this.size)
+    if (this.size == 'orginal') this.style = { width: '100%', height: 'auto' };
   }
-
 }
