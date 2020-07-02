@@ -21,15 +21,15 @@
         <Button
           class="recipe-button btn btn-outline-warning"
           (click)="handleEditButton()"
-          >Edit</Button
+          >{{ "edit" | translate }}</Button
         >
         <Button
           class="recipe-button btn btn-outline-danger"
           (click)="handleDelete()"
-          >Delete</Button
+          >{{ "delete" | translate }}</Button
         >
       </div>
-      <h2>Ingredients</h2>
+      <h2>{{ "ingredients" | translate }}</h2>
       <div class="row" *ngFor="let ingredient of recipe.ingredients">
         <div *ngIf="!edit" class="col-2">{{ ingredient.quantity }}</div>
         <div *ngIf="!edit" class="col-10">{{ ingredient.name }}</div>
@@ -54,7 +54,7 @@
   </div>
   <div class="row">
     <div class="col-md">
-      <h2>Preparing</h2>
+      <h2>{{ "preparing" | translate }}</h2>
       <div
         class="row"
         *ngFor="let preparingStep of recipe.preparingSteps; let i = index"

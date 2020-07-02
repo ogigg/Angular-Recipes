@@ -1,0 +1,38 @@
+{
+  "addIngredient": "Add Intregient",
+  "addPreparingStep": "Add Step",
+  "addRecipe": "Add Recipe",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "edit": "Edit",
+  "ingredient": {
+    "name": "Ingredient name",
+    "quantity": "Quantity"
+  },
+  "ingredients": "Ingredients",
+  "lastRecipe": "Last Recipe",
+  "latestRecipes": "Latest Recipes",
+  "preparationTime": "Preparation time",
+  "preparing": "Preparing",
+  "preparingStep": "Step",
+  "preparingSteps": "Preparing Steps",
+  "randomRecipe": "Random Recipe",
+  "recipeDescription": "Recipe description",
+  "recipeDetails": "Recipe Details",
+  "recipeName": "Recipe name",
+  "something": "Something",
+  "submit": "Submit",
+  "validation": {
+    "description": "Description is required",
+    "image": "Recipe Image is required.",
+    "name": "Name is required.",
+    "preparationTime": "Preparation time is required.",
+    "step": "This step is required."
+  },
+  "file": {
+    "initMessage": "Upload recipe image here.",
+    "error": {
+      "wrongExtension": "Ooops, wrong extension. Upload only image"
+    }
+  }
+}

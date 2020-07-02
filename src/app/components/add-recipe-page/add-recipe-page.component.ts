@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { ApiService } from './../api.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-add-recipe-page',
   templateUrl: './add-recipe-page.component.html',
@@ -28,14 +29,21 @@ export class AddRecipePageComponent implements OnInit {
     preparingSteps: this.fb.array([this.fb.control('', Validators.required)]),
   });
 
-  fileErrorMessage = 'Upload recipe image here.';
+  public fileMessage: String;
   fileToUpload: File = null;
   submitted: Boolean = false;
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private translate: TranslateService
+  ) {
+    translate
+      .get('file.initMessage', { value: 'world' })
+      .subscribe((res: string) => {
+        this.fileMessage = res;
+      });
+  }
 
   ngOnInit() {}
 
@@ -44,7 +52,11 @@ export class AddRecipePageComponent implements OnInit {
     let image = files.item(0);
 
     if (types.every((type) => image.type !== type))
-      this.fileErrorMessage = 'Ooops, wrong extension. Upload only image';
+      this.translate
+        .get('file.error.wrongExtension', { value: 'world' })
+        .subscribe((res: string) => {
+          this.fileMessage = res;
+        });
     else {
       this.fileToUpload = image;
     }

@@ -6,42 +6,44 @@
           [recipe]="recipe"
           size="orginal"
         ></app-recipe-thumbnail>
-        <h3>Recipe details</h3>
+        <h3>{{ "recipeDetails" | translate }}</h3>
         <div class="form-group">
-          <label for="name">Recipe name</label>
+          <label for="name">{{ "recipeName" | translate }}</label>
           <input
             type="text"
             id="name"
             class="add-form-input form-control"
             formControlName="name"
-            placeholder="Recipe name"
+            placeholder="{{ 'recipeName' | translate }}"
           />
         </div>
         <div class="form-group">
-          <label for="preparationTime">Preparation time</label>
+          <label for="preparationTime">{{
+            "preparationTime" | translate
+          }}</label>
           <input
             id="preparationTime"
             type="text"
             class="add-form-input form-control"
             formControlName="preparationTime"
-            placeholder="Preparation time"
+            placeholder="{{ 'preparationTime' | translate }}"
           />
         </div>
         <div class="form-group">
-          <label for="description">Description</label>
+          <label for="description">{{ "recipeDescription" | translate }}</label>
           <textarea
             autosize
             id="description"
             type="text"
             class="add-form-input form-control"
             formControlName="description"
-            placeholder="Recipe description"
+            placeholder="{{ 'recipeDescription' | translate }}"
           ></textarea>
         </div>
       </div>
 
       <div formArrayName="ingredients" class="form-group col col-md">
-        <h3>Ingredients</h3>
+        <h3>{{ "ingredients" | translate }}</h3>
 
         <div *ngFor="let ingredient of ingredients.controls; let i = index">
           <div [formGroupName]="i" class="row">
@@ -50,7 +52,7 @@
                 type="text"
                 class="edit-form-input form-control"
                 formControlName="quantity"
-                placeholder="Quantity"
+                placeholder="{{ 'ingredient.quantity' | translate }}"
               />
             </div>
             <div class="col col-xs-6">
@@ -58,7 +60,7 @@
                 type="text"
                 class="edit-form-input form-control"
                 formControlName="name"
-                placeholder="Ingredient name"
+                placeholder="{{ 'ingredient.name' | translate }}"
               />
             </div>
           </div>
@@ -68,7 +70,7 @@
           type="button"
           (click)="addIngredient()"
         >
-          Add Ingredient
+          {{ "addIngredient" | translate }}
         </button>
       </div>
     </div>
@@ -76,7 +78,7 @@
     <div class="row">
       <div class="col col-md">
         <div formArrayName="preparingSteps" class="form-group">
-          <h3>Preparing Steps</h3>
+          <h3>{{ "preparingSteps" | translate }}</h3>
 
           <div
             *ngFor="let preparingStep of preparingSteps.controls; let i = index"
@@ -87,7 +89,7 @@
               type="text"
               class="edit-form-input form-control"
               [formControlName]="i"
-              placeholder="Step {{ i + 1 }}"
+              placeholder="{{ 'preparingStep' | translate }} {{ i + 1 }}"
             >
             </textarea>
           </div>
@@ -97,20 +99,20 @@
             type="button"
             (click)="addPreparingStep()"
           >
-            Add Step
+            {{ "addPreparingStep" | translate }}
           </button>
         </div>
       </div>
     </div>
     <button class="btn btn-outline-primary edit-form-button" type="submit">
-      Submit
+      {{ "submit" | translate }}
     </button>
     <button
       class="btn btn-outline-secondary edit-form-button"
       type="button"
       (click)="handleCancelButton()"
     >
-      Cancel
+      {{ "cancel" | translate }}
     </button>
   </form>
 </div>
