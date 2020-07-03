@@ -15,7 +15,8 @@ import { AutosizeModule } from 'ngx-autosize';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatInputModule } from '@angular/material/input';
+import { TextFieldModule } from '@angular/cdk/text-field';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,8 @@ import { MatButtonModule } from '@angular/material/button';
     AutosizeModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatInputModule,
+    TextFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
