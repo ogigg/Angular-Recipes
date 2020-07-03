@@ -5,15 +5,8 @@ const cors = require("cors");
 const app = express();
 const port = 4000;
 const fs = require("fs");
-const databaseUrl = "mongodb://localhost:27017/MyDb";
-const { MongoClient } = require("mongodb");
 
-//mongo Db database
-MongoClient.connect(databaseUrl, function (err, db) {
-  if (err) throw err;
-
-  //Write databse Insert/Update/Query code here..
-});
+const db = require("./database.js");
 
 app.use(cors());
 app.use("/static", express.static("images"));
@@ -155,13 +148,10 @@ app.get("/api/recipes/random", (req, res) => {
   res.send(randomRecipe);
 });
 
-app.post("/api/upload", upload.single("file"), function (req, res) {
-  //upload image
-  console.log(req.body.json);
-  // console.log(req.file);
-
+app.post("/api/upload", upload.single("file"), async function (req, res) {
+  // console.log(req.body.json);
   const recipe = JSON.parse(req.body.json);
-  let newRecipe = {
+  const newRecipe = {
     id: Math.floor(Math.random() * 100000),
     name: recipe.name,
     preparationTime: recipe.preparationTime,
@@ -170,6 +160,7 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
     imageUrl: `http://localhost:4000/static/${req.file.filename}`,
     description: recipe.description,
   };
+  await db.insert(newRecipe);
   recipes.push(newRecipe);
   console.log(newRecipe);
   res.send(newRecipe);
