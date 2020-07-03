@@ -5,6 +5,15 @@ const cors = require("cors");
 const app = express();
 const port = 4000;
 const fs = require("fs");
+const databaseUrl = "mongodb://localhost:27017/MyDb";
+const { MongoClient } = require("mongodb");
+
+//mongo Db database
+MongoClient.connect(databaseUrl, function (err, db) {
+  if (err) throw err;
+
+  //Write databse Insert/Update/Query code here..
+});
 
 app.use(cors());
 app.use("/static", express.static("images"));
