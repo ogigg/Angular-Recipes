@@ -1,0 +1,25 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
+$recipes-custom-primary: mat-palette($mat-indigo);
+$recipes-custom-accent: mat-palette($mat-amber);
+$recipes-custom-warn: mat-palette($mat-red);
+
+$recipes-custom-theme: mat-light-theme(
+  $recipes-custom-primary,
+  $recipes-custom-accent,
+  $recipes-custom-warn
+);
+
+// Default
+@include angular-material-theme($recipes-custom-theme);
+
+// Alternative dark theme.
+$dark-primary: mat-palette($mat-blue-grey);
+$dark-accent: mat-palette($mat-amber, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+.recipes-dark-theme {
+  @include angular-material-theme($dark-theme);
+}
