@@ -1,0 +1,39 @@
+{
+  "addIngredient": "Dodaj składnik",
+  "addPreparingStep": "Dodaj krok",
+  "addRecipe": "Dodaj przepis",
+  "delete": "Usuń",
+  "edit": "Edytuj",
+  "cancel": "Anuluj",
+  "ingredient": {
+    "name": "Nazwa składnika",
+    "quantity": "Ilość"
+  },
+  "ingredients": "Składniki",
+  "lastRecipe": "Ostatni przepis",
+  "latestRecipes": "Najnowsze przepisy",
+  "preparationTime": "Czas przygotowania",
+  "preparing": "Przygotowanie",
+  "preparingStep": "Krok",
+  "preparingSteps": "Kroki do przygotowania",
+  "randomRecipe": "Losowy przepis",
+  "recipeDescription": "Opis przepisu",
+  "recipeDetails": "Szczegóły Przepisu",
+  "recipeName": "Nazwa przepisu",
+  "something": "Jakiś przycisk",
+  "submit": "Wyślij",
+  "changeLanguage": "Przełącz język",
+  "validation": {
+    "description": "Opis jest wymagany",
+    "image": "Zdjęcie jest wymagane.",
+    "name": "Nazwa przepisu jest wymagana.",
+    "preparationTime": "Czas przygotowania jest wymagany.",
+    "step": "Ten krok jest wymagany."
+  },
+  "file": {
+    "initMessage": "Wyślij zdjęcie przepisu tutaj",
+    "error": {
+      "wrongExtension": "Ooops, złe rozszerzenie. Wyślij tylko zdjęcie."
+    }
+  }
+}

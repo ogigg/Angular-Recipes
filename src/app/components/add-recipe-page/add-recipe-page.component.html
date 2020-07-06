@@ -2,13 +2,13 @@
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="col-md">
-        <h3>Recipe details</h3>
+        <h3>{{ "recipeDetails" | translate }}</h3>
         <input
           type="text"
           id="name"
           class="add-form-input form-control"
           formControlName="name"
-          placeholder="Recipe name"
+          placeholder="{{ 'recipeName' | translate }}"
         />
         <div
           *ngIf="
@@ -17,13 +17,13 @@
           "
           class="alert alert-danger"
         >
-          Name is required.
+          {{ "validation.name" | translate }}
         </div>
         <input
           type="text"
           class="add-form-input form-control"
           formControlName="preparationTime"
-          placeholder="Preparation time"
+          placeholder="{{ 'preparationTime' | translate }}"
         />
         <div
           *ngIf="
@@ -34,7 +34,7 @@
           "
           class="alert alert-danger"
         >
-          Preparation time is required.
+          {{ "validation.preparationTime" | translate }}
         </div>
         <div class="add-form-input custom custom-file">
           <input
@@ -48,7 +48,7 @@
             <div *ngIf="fileToUpload as file; else elseBlock">
               {{ file.name }}
             </div>
-            <ng-template #elseBlock>{{ fileErrorMessage }}</ng-template>
+            <ng-template #elseBlock>{{ fileMessage }}</ng-template>
           </label>
         </div>
         <div
@@ -58,14 +58,14 @@
           "
           class="alert alert-danger"
         >
-          Recipe image is required.
+          {{ "validation.image" | translate }}
         </div>
         <textarea
           autosize
           type="text"
           class="add-form-input form-control"
           formControlName="description"
-          placeholder="Recipe description"
+          placeholder="{{ 'recipeDescription' | translate }}"
         ></textarea>
         <div
           *ngIf="
@@ -74,12 +74,12 @@
           "
           class="alert alert-danger"
         >
-          Description is required.
+          {{ "validation.description" | translate }}
         </div>
       </div>
 
       <div formArrayName="ingredients" class="form-group col col-md">
-        <h3>Ingredients</h3>
+        <h3>{{ "ingredients" | translate }}</h3>
 
         <div *ngFor="let ingredient of ingredients.controls; let i = index">
           <div [formGroupName]="i" class="row">
@@ -88,7 +88,7 @@
                 type="text"
                 class="add-form-input form-control"
                 formControlName="quantity"
-                placeholder="Quantity"
+                placeholder="{{ 'ingredient.quantity' | translate }}"
               />
             </div>
             <div class="col col-xs-6">
@@ -96,7 +96,7 @@
                 type="text"
                 class="add-form-input form-control"
                 formControlName="name"
-                placeholder="Ingredient name"
+                placeholder="{{ 'ingredient.name' | translate }}"
               />
             </div>
           </div>
@@ -106,7 +106,7 @@
           type="button"
           (click)="addIngredient()"
         >
-          Add Ingredient
+          {{ "addIngredient" | translate }}
         </button>
       </div>
     </div>
@@ -114,7 +114,7 @@
     <div class="row">
       <div class="col col-md">
         <div formArrayName="preparingSteps" class="form-group">
-          <h3>Preparing Steps</h3>
+          <h3>{{ "preparingSteps" | translate }}</h3>
 
           <div
             *ngFor="let preparingStep of preparingSteps.controls; let i = index"
@@ -125,7 +125,7 @@
               type="text"
               class="add-form-input form-control"
               [formControlName]="i"
-              placeholder="Step {{ i + 1 }}"
+              placeholder="{{ 'preparingStep' | translate }} {{ i + 1 }}"
             >
             </textarea>
 
@@ -136,7 +136,7 @@
               "
               class="alert alert-danger"
             >
-              This step is required.
+              {{ "validation.step" | translate }}
             </div>
           </div>
 
@@ -145,11 +145,13 @@
             type="button"
             (click)="addPreparingStep()"
           >
-            Add Step
+            {{ "addPreparingStep" | translate }}
           </button>
         </div>
       </div>
     </div>
-    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-primary" type="submit">
+      {{ "submit" | translate }}
+    </button>
   </form>
 </div>
