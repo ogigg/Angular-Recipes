@@ -13,19 +13,24 @@
       <div class="mb-md-5">
         <button
           mat-raised-button
+          color="accent"
           class="recipe-button"
           (click)="handleEditButton()"
         >
           Edit
+          <mat-icon>edit</mat-icon>
         </button>
-        <button
-          mat-raised-button
-          color="warn"
-          class="recipe-button"
-          (click)="handleDelete()"
-        >
-          Delete
-        </button>
+        <div class="override-button">
+          <button
+            mat-raised-button
+            color="warn"
+            class="recipe-button"
+            (click)="handleDelete()"
+          >
+            Delete
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </div>
       <h2>Ingredients</h2>
 
