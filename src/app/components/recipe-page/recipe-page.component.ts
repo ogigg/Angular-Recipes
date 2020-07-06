@@ -17,7 +17,7 @@ export class RecipePageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {}
-
+  public displayedColumns: string[] = ['quantity', 'name'];
   async ngOnInit(): Promise<void> {
     this.edit = false;
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
