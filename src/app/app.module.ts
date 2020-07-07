@@ -22,6 +22,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
     AddRecipePageComponent,
     RecipeThumbnailComponent,
     RecipeEditComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
