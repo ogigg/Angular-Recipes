@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../api.service';
+import { Recipe } from '../models/recipe.model';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css'],
+  styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  recipes: any[];
+  public recipes: Recipe[];
   constructor(private recipesService: ApiService) {
     this.recipes = [];
   }
 
   ngOnInit(): void {
-    this.recipesService.getAllRecipes().subscribe((recipes: any[]) => {
-      this.recipes = recipes;
-    });
+    this.getAllRecipes();
+  }
+
+  async getAllRecipes(): Promise<void> {
+    this.recipes = await this.recipesService.getAllRecipes().toPromise();
   }
 }

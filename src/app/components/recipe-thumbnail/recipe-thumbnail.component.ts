@@ -4,8 +4,7 @@ import { Recipe } from '../models/recipe.model';
 @Component({
   selector: 'app-recipe-thumbnail',
   templateUrl: './recipe-thumbnail.component.html',
-  styleUrls: ['./recipe-thumbnail.component.css'],
-  // inputs: ['recipe']
+  styleUrls: ['./recipe-thumbnail.component.scss'],
 })
 export class RecipeThumbnailComponent implements OnInit {
   @Input() recipe: Recipe;

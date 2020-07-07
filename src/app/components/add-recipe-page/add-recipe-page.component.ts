@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-add-recipe-page',
   templateUrl: './add-recipe-page.component.html',
-  styleUrls: ['./add-recipe-page.component.css'],
+  styleUrls: ['./add-recipe-page.component.scss'],
 })
 export class AddRecipePageComponent implements OnInit {
   recipeForm = this.fb.group({

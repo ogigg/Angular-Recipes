@@ -26,6 +26,7 @@
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
     "bootstrap": "4.4.0",
+    "bootstrap-scss": "4.5.0",
     "cors": "2.8.5",
     "multer": "1.4.2",
     "ngx-autosize": "1.8.0",
