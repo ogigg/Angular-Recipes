@@ -1,1 +1,61 @@
-<p>login works!</p>
+<div class="container">
+  <mat-card class="login-card mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>{{ "login" | translate }}</mat-card-title>
+    </mat-card-header>
+
+    <form
+      #myform="ngForm"
+      (ngSubmit)="login(myform)"
+      class="form form-register"
+    >
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="login-input">
+          <mat-label>{{ "email-label" | translate }}</mat-label>
+          <input
+            matInput
+            name="email"
+            id="register-email"
+            type="text"
+            class="form-input"
+            placeholder="Example@email.com"
+            ngModel
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="login-input">
+          <mat-label>{{ "password-label" | translate }}</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            name="password"
+            id="register-password"
+            type="password"
+            class="form-input"
+            placeholder="Password"
+            ngModel
+            required
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-card-content>
+
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        class="login-input"
+      >
+        {{ "login" | translate }}
+      </button>
+    </form>
+  </mat-card>
+</div>
