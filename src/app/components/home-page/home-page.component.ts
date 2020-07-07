@@ -7,12 +7,6 @@ import { ApiService } from './../api.service';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  model = {
-    left: true,
-    middle: false,
-    right: false,
-  };
-
   recipes: any[];
   constructor(private recipesService: ApiService) {
     this.recipes = [];
@@ -21,7 +15,6 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.recipesService.getAllRecipes().subscribe((recipes: any[]) => {
       this.recipes = recipes;
-      console.log(recipes);
     });
   }
 }
