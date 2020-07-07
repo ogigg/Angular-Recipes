@@ -8,7 +8,7 @@ const fs = require("fs");
 
 app.use(cors());
 app.use("/static", express.static("images"));
-// app.use(express.json());
+app.use(express.json());
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -164,6 +164,19 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
   recipes.push(newRecipe);
   console.log(newRecipe);
   res.send(newRecipe);
+});
+
+app.post("/api/login", function (req, res) {
+  console.log(req.body);
+  const loginData = req.body;
+  let isLoggedIn = false;
+  if (loginData.email === "admin" && loginData.password === "admin") {
+    isLoggedIn = true;
+  } else {
+    isLoggedIn = false;
+  }
+
+  res.send({ status: isLoggedIn });
 });
 
 app.put("/api/recipes/:id", upload.single("file"), function (req, res) {
