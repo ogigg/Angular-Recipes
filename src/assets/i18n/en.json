@@ -24,6 +24,8 @@
   "submit": "Submit",
   "changeLanguage": "Change language",
   "login": "Login",
+  "password-label": "Enter your password",
+  "email-label": "Enter your email",
   "validation": {
     "description": "Description is required",
     "image": "Recipe Image is required.",

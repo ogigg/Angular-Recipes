@@ -24,6 +24,8 @@
   "submit": "Wyślij",
   "changeLanguage": "Przełącz język",
   "login": "Zaloguj się",
+  "password-label": "Wpisz swoje hasło",
+  "email-label": "Wpisz swój email",
   "validation": {
     "description": "Opis jest wymagany",
     "image": "Zdjęcie jest wymagane.",
