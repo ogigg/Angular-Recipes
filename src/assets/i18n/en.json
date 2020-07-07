@@ -23,6 +23,7 @@
   "something": "Something",
   "submit": "Submit",
   "changeLanguage": "Change language",
+  "login": "Login",
   "validation": {
     "description": "Description is required",
     "image": "Recipe Image is required.",

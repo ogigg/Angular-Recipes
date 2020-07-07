@@ -23,6 +23,7 @@
   "something": "Jakiś przycisk",
   "submit": "Wyślij",
   "changeLanguage": "Przełącz język",
+  "login": "Zaloguj się",
   "validation": {
     "description": "Opis jest wymagany",
     "image": "Zdjęcie jest wymagane.",
