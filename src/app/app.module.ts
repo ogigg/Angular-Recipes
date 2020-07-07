@@ -15,6 +15,13 @@ import { AddRecipePageComponent } from './components/add-recipe-page/add-recipe-
 import { RecipeThumbnailComponent } from './components/recipe-thumbnail/recipe-thumbnail.component';
 import { AutosizeModule } from 'ngx-autosize';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -41,6 +48,13 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
         deps: [HttpClient],
       },
     }),
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    TextFieldModule,
+    MatTableModule,
+    MatCardModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
