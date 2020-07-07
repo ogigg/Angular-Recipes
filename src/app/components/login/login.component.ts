@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +9,20 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private apiService: ApiService) {}
   public hide: boolean = true;
 
   ngOnInit(): void {}
 
-  login(form) {
+  async login(form) {
     console.log(form.value);
+    const response = await this.apiService
+      .login(form.value.email, form.value.password)
+      .toPromise();
+    if (response.status) {
+      alert('Zalogowano!');
+    } else {
+      alert('Złe dane');
+    }
   }
 }
