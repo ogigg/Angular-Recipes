@@ -36,4 +36,12 @@ export class ApiService {
     data.append('json', JSON.stringify(formData));
     return this.http.put<Recipe>(`${pageUrl}/api/recipes/${id}`, data);
   }
+
+  login(email: string, password: string) {
+    const data = {
+      email: email,
+      password: password,
+    };
+    return this.http.post<any>(`${pageUrl}/api/login/`, data);
+  }
 }
