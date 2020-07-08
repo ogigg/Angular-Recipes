@@ -16,10 +16,13 @@ export class AuthService {
       password: password,
     };
     const response = await this.http
-      .post<{ token: string }>(`${pageUrl}/api/login/`, data)
+      .post<{ token: string; success: boolean }>(`${pageUrl}/api/login/`, data)
       .toPromise();
-    localStorage.setItem('token', response.token);
-    this.isLogged.next(true);
+    if (response.success) {
+      localStorage.setItem('token', response.token);
+      this.isLogged.next(true);
+    }
+    return response;
   }
 
   logout(): void {

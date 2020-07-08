@@ -15,10 +15,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login(form) {
-    const response = this.authService.login(
+  async login(form) {
+    const response = await this.authService.login(
       form.value.email,
       form.value.password
     );
+    if (response.success === true) {
+      this.router.navigate(['/']);
+    } else {
+      alert('Bad login/password!');
+    }
   }
 }

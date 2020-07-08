@@ -168,10 +168,12 @@ app.post("/api/upload", authenticateToken, upload.single("file"), function (
 app.post("/api/login", function (req, res) {
   const loginData = req.body;
   let token = null;
+  let success = false;
   if (loginData.email === "admin" && loginData.password === "admin") {
     token = generateAccessToken(loginData.email);
+    success = true;
   }
-  res.send({ token: token });
+  res.send({ token: token, success: success });
 });
 
 const generateAccessToken = (email) => {
