@@ -124,7 +124,7 @@ app.get("/api/recipes/:id", authenticateToken, (req, res) => {
   });
   res.send(result);
 });
-app.delete("/api/recipes/:id", (req, res) => {
+app.delete("/api/recipes/:id", authenticateToken, (req, res) => {
   console.log(`Deleting recipe with id ${req.params.id}`);
   const recipeToDeleteIndex = recipes.findIndex(function (i) {
     return i.id == req.params.id;
@@ -147,11 +147,10 @@ app.get("/api/recipes/random", (req, res) => {
   res.send(randomRecipe);
 });
 
-app.post("/api/upload", upload.single("file"), function (req, res) {
-  //upload image
-  console.log(req.body.json);
-  // console.log(req.file);
-
+app.post("/api/upload", authenticateToken, upload.single("file"), function (
+  req,
+  res
+) {
   const recipe = JSON.parse(req.body.json);
   let newRecipe = {
     id: Math.floor(Math.random() * 100000),
@@ -163,46 +162,48 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
     description: recipe.description,
   };
   recipes.push(newRecipe);
-  console.log(newRecipe);
   res.send(newRecipe);
 });
 
 app.post("/api/login", function (req, res) {
-  console.log(req.body);
-
   const loginData = req.body;
-  // let isLoggedIn = false;
   let token = null;
   if (loginData.email === "admin" && loginData.password === "admin") {
-    // isLoggedIn = true;
     token = generateAccessToken(loginData.email);
-  } else {
-    // isLoggedIn = false;
   }
-  console.log(token);
   res.send({ token: token });
 });
 
 const generateAccessToken = (email) => {
-  return jwt.sign(email, "test");
-  // return jwt.sign(email, process.env.TOKEN_SECRET, { expiresIn: "1800s" });
+  return jwt.sign(
+    { email: email },
+    "d188544ad6fdb0687a443159b21fd894030a95436ff615846f2ba6f4644a1f91015e85084df1925a082d563cdac5fbfe06efc7a874253503e611743d387970ed",
+    {
+      expiresIn: "1h",
+    }
+  );
 };
 
 function authenticateToken(req, res, next) {
-  // Gather the jwt access token from the request header
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401); // if there isn't any token
+  if (token == null) return res.sendStatus(401);
 
-  jwt.verify(token, "test", (err, user) => {
-    console.log(err);
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next(); // pass the execution off to whatever request the client intended
-  });
+  jwt.verify(
+    token,
+    "d188544ad6fdb0687a443159b21fd894030a95436ff615846f2ba6f4644a1f91015e85084df1925a082d563cdac5fbfe06efc7a874253503e611743d387970ed",
+    (err, user) => {
+      if (err) return res.sendStatus(403);
+      req.user = user;
+      next();
+    }
+  );
 }
 
-app.put("/api/recipes/:id", upload.single("file"), function (req, res) {
+app.put("/api/recipes/:id", authenticateToken, upload.single("file"), function (
+  req,
+  res
+) {
   const recipe = JSON.parse(req.body.json);
   console.log(`Updating recipe with id ${req.params.id}`);
   const recipeToUpdateIndex = recipes.findIndex(function (i) {
