@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 })
 export class AuthService {
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
-  isLogged: Subject<boolean> = new Subject<boolean>();
+  public isLoggedIn: Subject<boolean> = new Subject<boolean>();
   async login(email: string, password: string) {
     const data = {
       email: email,
@@ -20,23 +20,25 @@ export class AuthService {
       .toPromise();
     if (response.success) {
       localStorage.setItem('token', response.token);
-      this.isLogged.next(true);
+      this.isLoggedIn.next(true);
     }
     return response;
   }
 
-  logout(): void {
+  public logout(): void {
     localStorage.removeItem('token');
-    this.isLogged.next(false);
+    this.isLoggedIn.next(false);
   }
-  getToken(): string {
+
+  public getToken(): string {
     return localStorage.getItem('token');
   }
-  isAuthenticated(): boolean {
+
+  public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        this.isLogged.next(true);
+        this.isLoggedIn.next(true);
         return !this.jwtHelper.isTokenExpired(token);
       } catch (error) {
         return false;

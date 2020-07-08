@@ -21,7 +21,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-// const upload = multer({ storage: storage }).single('file')
 
 var recipes = [
   {
@@ -133,11 +132,10 @@ app.delete("/api/recipes/:id", authenticateToken, (req, res) => {
 
   const imageName = recipeToDelete.imageUrl.split("/").pop();
   fs.unlink(`./images/${imageName}`, function (err) {
-    if (err) throw err;
-    // if no error, file has been deleted successfully
-    console.log("File deleted!");
+    if (err) {
+      throw err;
+    }
   });
-  // console.log(recipeToDelete)
   recipes.splice(recipeToDeleteIndex, 1);
   res.send(recipeToDelete);
 });
@@ -189,13 +187,17 @@ const generateAccessToken = (email) => {
 function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
+  if (token == null) {
+    return res.sendStatus(401);
+  }
 
   jwt.verify(
     token,
     "d188544ad6fdb0687a443159b21fd894030a95436ff615846f2ba6f4644a1f91015e85084df1925a082d563cdac5fbfe06efc7a874253503e611743d387970ed",
     (err, user) => {
-      if (err) return res.sendStatus(403);
+      if (err) {
+        return res.sendStatus(403);
+      }
       req.user = user;
       next();
     }
