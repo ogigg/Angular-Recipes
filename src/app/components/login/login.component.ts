@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
-import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +9,11 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
+  ) {}
   public hide: boolean = true;
 
   ngOnInit(): void {}
@@ -23,7 +26,9 @@ export class LoginComponent implements OnInit {
     if (response.success === true) {
       this.router.navigate(['/']);
     } else {
-      alert('Bad login/password!');
+      this._snackBar.open('Bad login/password!', 'OK', {
+        duration: 2000,
+      });
     }
   }
 }

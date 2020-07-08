@@ -30,6 +30,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginComponent } from './components/login/login.component';
 import { JwtInterceptor } from './components/jwt.interceptor';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { JwtInterceptor } from './components/jwt.interceptor';
     MatTableModule,
     MatCardModule,
     MatIconModule,
+    MatSnackBarModule,
     FormsModule,
     JwtModule.forRoot({
       config: {
