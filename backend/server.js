@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 const port = 4000;
 const fs = require("fs");
+const jwt = require("jsonwebtoken");
 
 app.use(cors());
 app.use("/static", express.static("images"));
@@ -117,7 +118,7 @@ app.get("/api/recipes", (req, res) => {
   res.send(recipes);
 });
 
-app.get("/api/recipes/:id", (req, res) => {
+app.get("/api/recipes/:id", authenticateToken, (req, res) => {
   let result = recipes.find((obj) => {
     return obj.id == req.params.id;
   });
@@ -168,16 +169,38 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
 
 app.post("/api/login", function (req, res) {
   console.log(req.body);
-  const loginData = req.body;
-  let isLoggedIn = false;
-  if (loginData.email === "admin" && loginData.password === "admin") {
-    isLoggedIn = true;
-  } else {
-    isLoggedIn = false;
-  }
 
-  res.send({ status: isLoggedIn });
+  const loginData = req.body;
+  // let isLoggedIn = false;
+  let token = null;
+  if (loginData.email === "admin" && loginData.password === "admin") {
+    // isLoggedIn = true;
+    token = generateAccessToken(loginData.email);
+  } else {
+    // isLoggedIn = false;
+  }
+  console.log(token);
+  res.send({ token: token });
 });
+
+const generateAccessToken = (email) => {
+  return jwt.sign(email, "test");
+  // return jwt.sign(email, process.env.TOKEN_SECRET, { expiresIn: "1800s" });
+};
+
+function authenticateToken(req, res, next) {
+  // Gather the jwt access token from the request header
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) return res.sendStatus(401); // if there isn't any token
+
+  jwt.verify(token, "test", (err, user) => {
+    console.log(err);
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next(); // pass the execution off to whatever request the client intended
+  });
+}
 
 app.put("/api/recipes/:id", upload.single("file"), function (req, res) {
   const recipe = JSON.parse(req.body.json);
