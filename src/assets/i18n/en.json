@@ -25,6 +25,7 @@
   "changeLanguage": "Change language",
   "login": "Login",
   "logout": "Logout",
+  "login-snackbar": "Wrong email/password!",
   "password-label": "Enter your password",
   "email-label": "Enter your email",
   "validation": {
