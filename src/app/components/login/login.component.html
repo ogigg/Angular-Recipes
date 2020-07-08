@@ -1,16 +1,23 @@
-<div class="container">
-  <mat-card class="login-card mat-elevation-z8">
-    <mat-card-header>
-      <mat-card-title>{{ "login" | translate }}</mat-card-title>
-    </mat-card-header>
-
+<div class="login-background">
+  <div class="login-card">
+    <div class="row logo">
+      <> Recipes App
+    </div>
+    <div class="row login-label">
+      <!-- {{ "login" | translate }} -->
+      Log Into My Account
+    </div>
     <form
       #myform="ngForm"
       (ngSubmit)="login(myform)"
       class="form form-register"
     >
-      <mat-card-content>
-        <mat-form-field appearance="outline" class="login-input">
+      <div class="row">
+        <mat-form-field
+          appearance="outline"
+          class="login-input input-test"
+          [hideRequiredMarker]="true"
+        >
           <mat-label>{{ "email-label" | translate }}</mat-label>
           <input
             matInput
@@ -23,7 +30,13 @@
             required
           />
         </mat-form-field>
-        <mat-form-field appearance="outline" class="login-input">
+      </div>
+      <div class="row">
+        <mat-form-field
+          appearance="outline"
+          class="login-input"
+          [hideRequiredMarker]="true"
+        >
           <mat-label>{{ "password-label" | translate }}</mat-label>
           <input
             matInput
@@ -46,16 +59,32 @@
             <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
         </mat-form-field>
-      </mat-card-content>
+      </div>
+      <div class="row">
+        <div class="col col-6 login-button">
+          <div class="override-button">
+            <button
+              class="login-button"
+              mat-raised-button
+              type="submit"
+              color="primary"
+              class="login-input"
+            >
+              {{ "login" | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="col col-6 login-links">
+          <a routerLink="/register" routerLinkActive="active"
+            >Don't have an account?</a
+          >
 
-      <button
-        mat-raised-button
-        type="submit"
-        color="primary"
-        class="login-input"
-      >
-        {{ "login" | translate }}
-      </button>
+          <br />
+          <a routerLink="/forget-password" routerLinkActive="active"
+            >Forgot password?</a
+          >
+        </div>
+      </div>
     </form>
-  </mat-card>
+  </div>
 </div>
