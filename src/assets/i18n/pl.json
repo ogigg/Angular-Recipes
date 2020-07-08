@@ -24,6 +24,7 @@
   "submit": "Wyślij",
   "changeLanguage": "Przełącz język",
   "login": "Zaloguj się",
+  "logout": "Wyloguj się",
   "password-label": "Wpisz swoje hasło",
   "email-label": "Wpisz swój email",
   "validation": {

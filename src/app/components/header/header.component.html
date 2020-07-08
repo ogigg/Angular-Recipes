@@ -55,7 +55,7 @@
           >{{ "changeLanguage" | translate }}</a
         >
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!isLogged">
         <a
           class="nav-link text-light"
           data-toggle="collapse"
@@ -63,6 +63,15 @@
           routerLink="/login"
           routerLinkActive="active"
           >{{ "login" | translate }}</a
+        >
+      </li>
+      <li class="nav-item" *ngIf="isLogged">
+        <a
+          class="nav-link text-light"
+          data-toggle="collapse"
+          data-target=".navbar-collapse.show"
+          (click)="handleLogOut()"
+          >{{ "logout" | translate }}</a
         >
       </li>
     </ul>
