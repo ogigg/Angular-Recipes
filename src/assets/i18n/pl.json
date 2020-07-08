@@ -23,6 +23,11 @@
   "something": "Jakiś przycisk",
   "submit": "Wyślij",
   "changeLanguage": "Przełącz język",
+  "login": "Zaloguj się",
+  "logout": "Wyloguj się",
+  "login-snackbar": "Zły email/hasło!",
+  "password-label": "Wpisz swoje hasło",
+  "email-label": "Wpisz swój email",
   "validation": {
     "description": "Opis jest wymagany",
     "image": "Zdjęcie jest wymagane.",

@@ -5,10 +5,11 @@ const cors = require("cors");
 const app = express();
 const port = 4000;
 const fs = require("fs");
+const jwt = require("jsonwebtoken");
 
 app.use(cors());
 app.use("/static", express.static("images"));
-// app.use(express.json());
+app.use(express.json());
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,7 +21,6 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-// const upload = multer({ storage: storage }).single('file')
 
 var recipes = [
   {
@@ -117,13 +117,13 @@ app.get("/api/recipes", (req, res) => {
   res.send(recipes);
 });
 
-app.get("/api/recipes/:id", (req, res) => {
+app.get("/api/recipes/:id", authenticateToken, (req, res) => {
   let result = recipes.find((obj) => {
     return obj.id == req.params.id;
   });
   res.send(result);
 });
-app.delete("/api/recipes/:id", (req, res) => {
+app.delete("/api/recipes/:id", authenticateToken, (req, res) => {
   console.log(`Deleting recipe with id ${req.params.id}`);
   const recipeToDeleteIndex = recipes.findIndex(function (i) {
     return i.id == req.params.id;
@@ -132,11 +132,10 @@ app.delete("/api/recipes/:id", (req, res) => {
 
   const imageName = recipeToDelete.imageUrl.split("/").pop();
   fs.unlink(`./images/${imageName}`, function (err) {
-    if (err) throw err;
-    // if no error, file has been deleted successfully
-    console.log("File deleted!");
+    if (err) {
+      throw err;
+    }
   });
-  // console.log(recipeToDelete)
   recipes.splice(recipeToDeleteIndex, 1);
   res.send(recipeToDelete);
 });
@@ -146,11 +145,10 @@ app.get("/api/recipes/random", (req, res) => {
   res.send(randomRecipe);
 });
 
-app.post("/api/upload", upload.single("file"), function (req, res) {
-  //upload image
-  console.log(req.body.json);
-  // console.log(req.file);
-
+app.post("/api/upload", authenticateToken, upload.single("file"), function (
+  req,
+  res
+) {
   const recipe = JSON.parse(req.body.json);
   let newRecipe = {
     id: Math.floor(Math.random() * 100000),
@@ -162,11 +160,54 @@ app.post("/api/upload", upload.single("file"), function (req, res) {
     description: recipe.description,
   };
   recipes.push(newRecipe);
-  console.log(newRecipe);
   res.send(newRecipe);
 });
 
-app.put("/api/recipes/:id", upload.single("file"), function (req, res) {
+app.post("/api/login", function (req, res) {
+  const loginData = req.body;
+  let token = null;
+  let success = false;
+  if (loginData.email === "admin" && loginData.password === "admin") {
+    token = generateAccessToken(loginData.email);
+    success = true;
+  }
+  res.send({ token: token, success: success });
+});
+
+const generateAccessToken = (email) => {
+  return jwt.sign(
+    { email: email },
+    "d188544ad6fdb0687a443159b21fd894030a95436ff615846f2ba6f4644a1f91015e85084df1925a082d563cdac5fbfe06efc7a874253503e611743d387970ed",
+    {
+      expiresIn: "1h",
+    }
+  );
+};
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) {
+    return res.sendStatus(401);
+  }
+
+  jwt.verify(
+    token,
+    "d188544ad6fdb0687a443159b21fd894030a95436ff615846f2ba6f4644a1f91015e85084df1925a082d563cdac5fbfe06efc7a874253503e611743d387970ed",
+    (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      req.user = user;
+      next();
+    }
+  );
+}
+
+app.put("/api/recipes/:id", authenticateToken, upload.single("file"), function (
+  req,
+  res
+) {
   const recipe = JSON.parse(req.body.json);
   console.log(`Updating recipe with id ${req.params.id}`);
   const recipeToUpdateIndex = recipes.findIndex(function (i) {
