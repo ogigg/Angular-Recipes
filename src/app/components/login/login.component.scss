@@ -3,16 +3,13 @@ $source-sans-pro: "Source Sans Pro", sans-serif;
 
 $gray-font-size: 1em;
 $gray-color: rgba(152, 155, 155, 0.9);
-.container {
-  margin: 0 0 0 0;
-}
 
 .login-background {
   background-color: rgb(247, 247, 247);
   font-family: $source-sans-pro;
   height: 100%;
   width: 100%;
-  top: 0;
+  margin-top: 0;
 }
 
 .login-label {
@@ -27,8 +24,9 @@ $gray-color: rgba(152, 155, 155, 0.9);
 
 .login-container {
   margin: auto;
-  margin-top: 0;
-  max-width: 350px;
+  padding-top: 20vh;
+  max-width: 400px;
+  padding: 30px;
 }
 
 .logo-container {
