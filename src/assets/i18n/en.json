@@ -28,6 +28,9 @@
   "login-snackbar": "Wrong email/password!",
   "password-label": "Password",
   "email-label": "Email",
+  "login-label": "Log Into My Account",
+  "loginNoAccount": "Don't have an account?",
+  "loginForgotPassword": "Forgot password?",
   "validation": {
     "description": "Description is required",
     "image": "Recipe Image is required.",

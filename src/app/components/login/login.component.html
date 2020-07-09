@@ -1,11 +1,11 @@
 <div class="login-background">
-  <div class="login-card">
-    <div class="row logo">
-      <> Recipes App
+  <div class="login-container">
+    <div class="row logo-container">
+      <mat-icon class="logo col-3">outdoor_grill</mat-icon>
+      <div class="col logo-text">Recipes App</div>
     </div>
     <div class="row login-label">
-      <!-- {{ "login" | translate }} -->
-      Log Into My Account
+      {{ "login-label" | translate }}
     </div>
     <form
       #myform="ngForm"
@@ -17,6 +17,7 @@
           appearance="outline"
           class="login-input input-test"
           [hideRequiredMarker]="true"
+          [color]="'accent'"
         >
           <mat-label>{{ "email-label" | translate }}</mat-label>
           <input
@@ -36,11 +37,12 @@
           appearance="outline"
           class="login-input"
           [hideRequiredMarker]="true"
+          [color]="'accent'"
         >
           <mat-label>{{ "password-label" | translate }}</mat-label>
           <input
             matInput
-            [type]="hide ? 'password' : 'text'"
+            type="password"
             name="password"
             id="register-password"
             type="password"
@@ -49,18 +51,9 @@
             ngModel
             required
           />
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            tabindex="-1"
-            type="button"
-          >
-            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-          </button>
         </mat-form-field>
       </div>
-      <div class="row">
+      <div class="row login-actions">
         <div class="col col-6 login-button">
           <div class="override-button">
             <button
@@ -75,14 +68,14 @@
           </div>
         </div>
         <div class="col col-6 login-links">
-          <a routerLink="/register" routerLinkActive="active"
-            >Don't have an account?</a
-          >
+          <a routerLink="/register" routerLinkActive="active">{{
+            "loginNoAccount" | translate
+          }}</a>
 
           <br />
-          <a routerLink="/forget-password" routerLinkActive="active"
-            >Forgot password?</a
-          >
+          <a routerLink="/forget-password" routerLinkActive="active">{{
+            "loginForgotPassword" | translate
+          }}</a>
         </div>
       </div>
     </form>
