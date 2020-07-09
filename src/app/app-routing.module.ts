@@ -25,9 +25,23 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
 
-  { path: '', component: HomePageComponent, canActivate: [AuthGuard] },
+  {
+    path: '',
+    loadChildren: () =>
+      import('src/app/components/home-page/home-page.module').then(
+        (m) => m.HomePageModule
+      ),
+    canActivate: [AuthGuard],
+  },
 
-  { path: '**', component: HomePageComponent, canActivate: [AuthGuard] },
+  {
+    path: '**',
+    loadChildren: () =>
+      import('src/app/components/home-page/home-page.module').then(
+        (m) => m.HomePageModule
+      ),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
