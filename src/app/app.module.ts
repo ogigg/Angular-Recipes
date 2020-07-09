@@ -31,42 +31,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { LoginComponent } from './components/login/login.component';
 import { JwtInterceptor } from './components/jwt.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SharedModule } from './shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    HeaderComponent,
-    RecipePageComponent,
-    AddRecipePageComponent,
-    RecipeThumbnailComponent,
-    RecipeEditComponent,
-    LoginComponent,
-  ],
+  declarations: [],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    AutosizeModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatInputModule,
-    TextFieldModule,
-    MatTableModule,
-    MatCardModule,
-    MatIconModule,
-    MatSnackBarModule,
-    FormsModule,
+    SharedModule,
+    AppRoutingModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

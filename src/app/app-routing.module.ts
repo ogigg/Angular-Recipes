@@ -9,7 +9,6 @@ import { AuthGuardService as AuthGuard } from './components/auth-guard.service';
 const routes: Routes = [
   {
     path: 'recipe/:id',
-    // component: RecipePageComponent,
     loadChildren: () =>
       import('src/app/components/recipe-page/recipe-page.module').then(
         (m) => m.RecipePageModule
