@@ -1,4 +1,5 @@
 {
+  "appName": "Alikacja z przepisami",
   "addIngredient": "Dodaj składnik",
   "addPreparingStep": "Dodaj krok",
   "addRecipe": "Dodaj przepis",
@@ -28,6 +29,9 @@
   "login-snackbar": "Zły email/hasło!",
   "password-label": "Wpisz swoje hasło",
   "email-label": "Wpisz swój email",
+  "login-label": "Zaloguj się na swoje konto",
+  "loginNoAccount": "Nie masz konta?",
+  "loginForgotPassword": "Zapomniałeś hasła?",
   "validation": {
     "description": "Opis jest wymagany",
     "image": "Zdjęcie jest wymagane.",

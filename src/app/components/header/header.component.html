@@ -1,5 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-warning">
-  <a class="navbar-brand" routerLink="/" routerLinkActive="active">LOGO</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-warning" *ngIf="isLoggedIn">
+  <a class="navbar-brand" routerLink="/" routerLinkActive="active"
+    ><mat-icon>outdoor_grill</mat-icon></a
+  >
   <button
     class="navbar-toggler"
     type="button"
@@ -55,7 +57,7 @@
           >{{ "changeLanguage" | translate }}</a
         >
       </li>
-      <li class="nav-item" *ngIf="!isLogged">
+      <li class="nav-item" *ngIf="!isLoggedIn">
         <a
           class="nav-link text-light"
           data-toggle="collapse"
@@ -65,12 +67,14 @@
           >{{ "login" | translate }}</a
         >
       </li>
-      <li class="nav-item" *ngIf="isLogged">
+      <li class="nav-item" *ngIf="isLoggedIn">
         <a
           class="nav-link text-light"
           data-toggle="collapse"
           data-target=".navbar-collapse.show"
           (click)="handleLogOut()"
+          routerLink="/login"
+          routerLinkActive="active"
           >{{ "logout" | translate }}</a
         >
       </li>

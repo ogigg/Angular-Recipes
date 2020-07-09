@@ -1,4 +1,5 @@
 {
+  "appName": "Recipes App",
   "addIngredient": "Add Intregient",
   "addPreparingStep": "Add Step",
   "addRecipe": "Add Recipe",
@@ -23,11 +24,14 @@
   "something": "Something",
   "submit": "Submit",
   "changeLanguage": "Change language",
-  "login": "Login",
+  "login": "Log in",
   "logout": "Logout",
   "login-snackbar": "Wrong email/password!",
-  "password-label": "Enter your password",
-  "email-label": "Enter your email",
+  "password-label": "Password",
+  "email-label": "Email",
+  "login-label": "Log Into My Account",
+  "loginNoAccount": "Don't have an account?",
+  "loginForgotPassword": "Forgot password?",
   "validation": {
     "description": "Description is required",
     "image": "Recipe Image is required.",
