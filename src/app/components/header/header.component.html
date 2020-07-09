@@ -1,5 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-warning">
-  <a class="navbar-brand" routerLink="/" routerLinkActive="active">LOGO</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-warning" *ngIf="isLogged">
+  <a class="navbar-brand" routerLink="/" routerLinkActive="active"
+    ><mat-icon>outdoor_grill</mat-icon></a
+  >
   <button
     class="navbar-toggler"
     type="button"
@@ -71,6 +73,8 @@
           data-toggle="collapse"
           data-target=".navbar-collapse.show"
           (click)="handleLogOut()"
+          routerLink="/login"
+          routerLinkActive="active"
           >{{ "logout" | translate }}</a
         >
       </li>
