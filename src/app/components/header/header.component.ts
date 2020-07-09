@@ -16,14 +16,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.isLoggedIn
       .pipe(takeWhile(() => this.alive))
       .subscribe((value) => {
-        this.isLogged = value;
+        this.isLoggedIn = value;
       });
   }
 
   private alive: boolean = true;
   private currentLanguage = this.translate.getDefaultLang();
 
-  public isLogged: boolean = false;
+  public isLoggedIn: boolean = false;
 
   ngOnInit(): void {}
 
