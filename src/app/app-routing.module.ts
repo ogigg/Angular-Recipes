@@ -17,7 +17,10 @@ const routes: Routes = [
   },
   {
     path: 'add-recipe',
-    component: AddRecipePageComponent,
+    loadChildren: () =>
+      import('src/app/components/add-recipe-page/add-recipe-page.module').then(
+        (m) => m.AddRecipePageModule
+      ),
     canActivate: [AuthGuard],
   },
   { path: 'login', component: LoginComponent },
