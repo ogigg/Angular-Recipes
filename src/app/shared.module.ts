@@ -49,13 +49,10 @@ import { RouterModule } from '@angular/router';
     TranslateModule,
     FormsModule,
     CommonModule,
-    MatCardModule,
     RecipeEditComponent,
     RecipeThumbnailComponent,
     LoginComponent,
-    MatCardModule,
     NgbModule,
-    HttpClientModule,
     ReactiveFormsModule,
     AutosizeModule,
     HttpClientModule,
@@ -66,7 +63,6 @@ import { RouterModule } from '@angular/router';
     MatCardModule,
     MatIconModule,
     MatSnackBarModule,
-    FormsModule,
   ],
 })
 export class SharedModule {}
