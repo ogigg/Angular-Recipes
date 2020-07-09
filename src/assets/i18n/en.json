@@ -1,4 +1,5 @@
 {
+  "appName": "Recipes App",
   "addIngredient": "Add Intregient",
   "addPreparingStep": "Add Step",
   "addRecipe": "Add Recipe",
