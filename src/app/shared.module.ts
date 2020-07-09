@@ -5,10 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { HomePageComponent } from './components/home-page/home-page.component';
 import { HeaderComponent } from './components/header/header.component';
-import { RecipePageComponent } from './components/recipe-page/recipe-page.component';
-import { AddRecipePageComponent } from './components/add-recipe-page/add-recipe-page.component';
 import { RecipeThumbnailComponent } from './components/recipe-thumbnail/recipe-thumbnail.component';
 import { AutosizeModule } from 'ngx-autosize';
 import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
@@ -26,10 +23,7 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent,
     HeaderComponent,
-    RecipePageComponent,
-    AddRecipePageComponent,
     RecipeThumbnailComponent,
     RecipeEditComponent,
     LoginComponent,
@@ -56,11 +50,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     CommonModule,
     MatCardModule,
-    HomePageComponent,
-    HomePageComponent,
-    AddRecipePageComponent,
     RecipeEditComponent,
-    RecipePageComponent,
     RecipeThumbnailComponent,
     LoginComponent,
     MatCardModule,
