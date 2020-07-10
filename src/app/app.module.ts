@@ -13,6 +13,8 @@ import { StoreModule } from '@ngrx/store';
 import { authReducer } from './components/login/auth.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthModule } from './components/login/auth.module';
 
 @NgModule({
   declarations: [],
@@ -35,8 +37,13 @@ import { environment } from '../environments/environment';
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({ count: authReducer }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreModule.forRoot({ authReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([]),
+    AuthModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
