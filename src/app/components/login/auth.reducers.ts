@@ -15,7 +15,7 @@ export interface AuthState {
 }
 
 export const initialAuthState: AuthState = {
-  user: undefined,
+  user: null,
 };
 
 export const authReducer = createReducer(

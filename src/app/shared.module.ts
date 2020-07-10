@@ -21,12 +21,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    RecipeThumbnailComponent,
-    LoginComponent,
-  ],
+  declarations: [AppComponent, HeaderComponent, RecipeThumbnailComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -49,7 +44,6 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     CommonModule,
     RecipeThumbnailComponent,
-    LoginComponent,
     NgbModule,
     ReactiveFormsModule,
     AutosizeModule,

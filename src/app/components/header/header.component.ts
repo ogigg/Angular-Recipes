@@ -2,6 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../auth.service';
 import { takeWhile } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { logout } from '../login/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +14,8 @@ import { takeWhile } from 'rxjs/operators';
 export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private translate: TranslateService,
-    private authService: AuthService
+    private authService: AuthService,
+    private store: Store<AppState>
   ) {
     this.authService.isLoggedIn
       .pipe(takeWhile(() => this.alive))
@@ -42,5 +46,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   handleLogOut() {
     this.authService.logout();
+    this.store.dispatch(logout());
   }
 }

@@ -42,14 +42,13 @@ export class LoginComponent implements OnInit {
       form.value.password
     );
     if (response.success === true) {
-      this.store.dispatch(
-        login({ user: { id: 1, name: 'test', email: 'd', token: 'asda' } })
-      );
+      this.store.dispatch(login({ user: response.user }));
       this.router.navigate([this.redirectUrl]);
     } else {
       this.snackBar.open(this.snackBarMessage, 'OK', {
         duration: 2000,
       });
+      this.store.dispatch(login({ user: null }));
     }
   }
 }

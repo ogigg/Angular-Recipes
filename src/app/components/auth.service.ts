@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { pageUrl } from './api.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject } from 'rxjs';
+import { User } from './models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +17,12 @@ export class AuthService {
       password: password,
     };
     const response = await this.http
-      .post<{ token: string; success: boolean }>(`${pageUrl}/api/login/`, data)
+      .post<{ user: User; success: boolean }>(`${pageUrl}/api/login/`, data)
       .toPromise();
-    if (response.success) {
-      localStorage.setItem('token', response.token);
-      this.isLoggedIn.next(true);
-    }
+    // if (response.success) {
+    //   localStorage.setItem('token', response.token);
+    //   this.isLoggedIn.next(true);
+    // }
     return response;
   }
 
