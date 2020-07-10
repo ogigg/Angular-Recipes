@@ -3,6 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
+import { login } from './auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +20,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private snackBar: MatSnackBar,
     translate: TranslateService,
-    activatedRoute: ActivatedRoute
+    activatedRoute: ActivatedRoute,
+    private store: Store<AppState>
   ) {
     activatedRoute.queryParams.subscribe((params) => {
       if (params.returnUrl) {
@@ -36,6 +42,9 @@ export class LoginComponent implements OnInit {
       form.value.password
     );
     if (response.success === true) {
+      this.store.dispatch(
+        login({ user: { id: 1, name: 'test', email: 'd', token: 'asda' } })
+      );
       this.router.navigate([this.redirectUrl]);
     } else {
       this.snackBar.open(this.snackBarMessage, 'OK', {
