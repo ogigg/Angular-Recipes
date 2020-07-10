@@ -25,7 +25,6 @@ import { RouterModule } from '@angular/router';
     AppComponent,
     HeaderComponent,
     RecipeThumbnailComponent,
-    RecipeEditComponent,
     LoginComponent,
   ],
   imports: [
@@ -49,7 +48,6 @@ import { RouterModule } from '@angular/router';
     TranslateModule,
     FormsModule,
     CommonModule,
-    RecipeEditComponent,
     RecipeThumbnailComponent,
     LoginComponent,
     NgbModule,
