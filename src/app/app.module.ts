@@ -9,6 +9,10 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './components/jwt.interceptor';
 import { SharedModule } from './shared.module';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './components/login/auth.reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [],
@@ -31,6 +35,8 @@ import { SharedModule } from './shared.module';
         deps: [HttpClient],
       },
     }),
+    StoreModule.forRoot({ count: authReducer }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
