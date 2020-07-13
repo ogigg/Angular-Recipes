@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../api.service';
 import { Recipe } from './../models/recipe.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { selectRecipe, selectAllRecipes } from '../recipes/recipes.selectors';
 
 @Component({
   selector: 'app-recipe-page',
@@ -15,18 +18,18 @@ export class RecipePageComponent implements OnInit {
   constructor(
     private recipesService: ApiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
   public displayedColumns: string[] = ['quantity', 'name'];
-
   async ngOnInit(): Promise<void> {
     this.edit = false;
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.recipe = await this.getRecipe();
-  }
+    console.log(this.id);
 
-  async getRecipe(): Promise<Recipe> {
-    return await this.recipesService.getRecipe(this.id).toPromise();
+    this.store
+      .select(selectRecipe, { id: this.id })
+      .subscribe((recipe) => (this.recipe = recipe));
   }
 
   async handleDelete(): Promise<void> {

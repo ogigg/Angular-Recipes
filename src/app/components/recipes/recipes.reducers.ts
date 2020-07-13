@@ -43,4 +43,4 @@ export const recipesReducer = createReducer(
   on(clearRecipes, (state, action) => adapter.removeAll(state))
 );
 
-export const { selectAll } = adapter.getSelectors();
+export const selector = adapter.getSelectors();

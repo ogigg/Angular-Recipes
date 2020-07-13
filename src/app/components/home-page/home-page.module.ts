@@ -5,7 +5,7 @@ import { SharedModule } from 'src/app/shared.module';
 import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
 import { EffectsModule } from '@ngrx/effects';
-import { recipesReducer } from '../recipes/recpes.reducers';
+import { recipesReducer } from '../recipes/recipes.reducers';
 import { StoreModule } from '@ngrx/store';
 import { RecipesEffects } from '../recipes/recipes.effects';
 

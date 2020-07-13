@@ -15,7 +15,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthModule } from './components/login/auth.module';
-import { recipesReducer } from './components/recipes/recpes.reducers';
+import { recipesReducer } from './components/recipes/recipes.reducers';
 import { RecipesEffects } from './components/recipes/recipes.effects';
 @NgModule({
   declarations: [],
