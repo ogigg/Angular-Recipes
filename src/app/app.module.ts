@@ -16,6 +16,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthModule } from './components/login/auth.module';
 import { recipesReducer } from './components/recipes/recpes.reducers';
+import { RecipesEffects } from './components/recipes/recipes.effects';
 @NgModule({
   declarations: [],
   imports: [
@@ -43,7 +44,8 @@ import { recipesReducer } from './components/recipes/recpes.reducers';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([]),
+    StoreModule.forFeature('recipes', recipesReducer),
+    EffectsModule.forRoot([RecipesEffects]),
     AuthModule.forRoot(),
   ],
   providers: [

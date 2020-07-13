@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
     );
     if (response.success === true) {
       this.store.dispatch(login({ user: response.user }));
-      const recipes = await this.recipesService.getAllRecipes().toPromise();
-      this.store.dispatch(loadAllRecipes());
+
       this.router.navigate([this.redirectUrl]);
     } else {
       this.snackBar.open(this.snackBarMessage, 'OK', {

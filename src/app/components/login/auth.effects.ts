@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { login, logout } from './auth.actions';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { clearRecipes } from '../recipes/recipes.actions';
+import { clearRecipes, loadAllRecipes } from '../recipes/recipes.actions';
 import { Store } from '@ngrx/store';
 
 @Injectable()
@@ -12,9 +12,10 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(login),
-        tap((action) =>
-          localStorage.setItem('user', JSON.stringify(action.user))
-        )
+        tap((action) => {
+          localStorage.setItem('user', JSON.stringify(action.user)),
+            this.store.dispatch(loadAllRecipes());
+        })
       ),
     { dispatch: false }
   );

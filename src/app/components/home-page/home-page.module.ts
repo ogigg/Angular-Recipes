@@ -11,12 +11,6 @@ import { RecipesEffects } from '../recipes/recipes.effects';
 
 @NgModule({
   declarations: [HomePageComponent],
-  imports: [
-    CommonModule,
-    HomePageRoutingModule,
-    SharedModule,
-    StoreModule.forFeature('recipes', recipesReducer),
-    EffectsModule.forFeature([RecipesEffects]),
-  ],
+  imports: [CommonModule, HomePageRoutingModule, SharedModule],
 })
 export class HomePageModule {}

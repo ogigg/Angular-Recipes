@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { loadAllRecipes } from '../recipes/recipes.actions';
 import { Observable } from 'rxjs';
-import { selectRecipes } from '../recipes/recipes.selectors';
+import { selectAllRecipes } from '../recipes/recipes.selectors';
 
 @Component({
   selector: 'app-home-page',
@@ -13,22 +13,14 @@ import { selectRecipes } from '../recipes/recipes.selectors';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  public recipes: Recipe[];
   public recipes$: Observable<Recipe[]>;
-  constructor(
-    private recipesService: ApiService,
-    private store: Store<AppState>
-  ) {
-    this.recipes = [];
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.getAllRecipes();
   }
 
   async getAllRecipes(): Promise<void> {
-    this.recipes$ = this.store.select(selectRecipes);
-    this.recipes = await this.recipesService.getAllRecipes().toPromise();
-    this.store.dispatch(loadAllRecipes());
+    this.recipes$ = this.store.select(selectAllRecipes);
   }
 }
