@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
       this.snackBar.open(this.snackBarMessage, 'OK', {
         duration: 2000,
       });
-      this.store.dispatch(login({ user: null }));
     }
   }
 }

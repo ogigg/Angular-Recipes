@@ -15,7 +15,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthModule } from './components/login/auth.module';
-
+import { recipesReducer } from './components/recipes/recpes.reducers';
 @NgModule({
   declarations: [],
   imports: [
@@ -37,7 +37,7 @@ import { AuthModule } from './components/login/auth.module';
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ recipesReducer }),
     // StoreModule.forRoot({ authReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
