@@ -9,11 +9,11 @@ import {
 } from '@ngrx/store';
 import { User } from '../models/user.model';
 import {
-  createRecipe,
   editRecipe,
   loadAllRecipes,
   allRecipesLoaded,
   clearRecipes,
+  deleteRecipe,
 } from './recipes.actions';
 import { Recipe } from '../models/recipe.model';
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
@@ -32,7 +32,9 @@ export const recipesReducer = createReducer(
     adapter.addAll(action.recipes, state)
   ),
 
-  on(createRecipe, (state, action) => adapter.removeAll(state)),
+  on(deleteRecipe, (state, action) =>
+    adapter.removeOne(action.recipe.id, state)
+  ),
 
   on(clearRecipes, (state, action) => adapter.removeAll(state)),
 

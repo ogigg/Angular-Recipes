@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { selectRecipe, selectAllRecipes } from '../recipes/recipes.selectors';
+import { deleteRecipe } from '../recipes/recipes.actions';
 
 @Component({
   selector: 'app-recipe-page',
@@ -33,7 +34,7 @@ export class RecipePageComponent implements OnInit {
   }
 
   async handleDelete(): Promise<void> {
-    await this.recipesService.deleteRecipe(this.id).toPromise();
+    this.store.dispatch(deleteRecipe({ recipe: this.recipe }));
     alert('Deleted!');
     this.router.navigate(['/']);
   }

@@ -2,11 +2,6 @@ import { createAction, props } from '@ngrx/store';
 import { Recipe } from '../models/recipe.model';
 import { Update } from '@ngrx/entity';
 
-export const createRecipe = createAction(
-  '[Add Recipe Page] Create new recipe',
-  props<{ recipe: Recipe }>()
-);
-
 export const loadAllRecipes = createAction(
   '[Home Page] Load all recipes event'
   // props<{ recipes: Recipe[] }>()
@@ -22,4 +17,9 @@ export const clearRecipes = createAction('[Logout] Clear all recipes');
 export const editRecipe = createAction(
   '[Edit Page] Edit recipe',
   props<{ update: Update<Recipe> }>()
+);
+
+export const deleteRecipe = createAction(
+  '[Recipe Page] Delete recipe',
+  props<{ recipe: Recipe }>()
 );

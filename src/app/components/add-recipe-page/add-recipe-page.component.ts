@@ -9,6 +9,8 @@ import {
 import { ApiService } from './../api.service';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngrx/store';
+import { loadAllRecipes } from '../recipes/recipes.actions';
 @Component({
   selector: 'app-add-recipe-page',
   templateUrl: './add-recipe-page.component.html',
@@ -36,7 +38,8 @@ export class AddRecipePageComponent implements OnInit {
     private fb: FormBuilder,
     private apiService: ApiService,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private store: Store
   ) {
     translate.get('file.initMessage').subscribe((res: string) => {
       this.fileMessage = res;
@@ -84,9 +87,11 @@ export class AddRecipePageComponent implements OnInit {
     if (this.recipeForm.invalid) {
       return;
     }
+
     await this.apiService
       .addRecipe(this.recipeForm.value, this.fileToUpload)
       .toPromise();
+    this.store.dispatch(loadAllRecipes());
     alert('Added!');
     this.router.navigate(['/']);
   }

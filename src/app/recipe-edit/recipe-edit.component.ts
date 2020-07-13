@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../components/models/recipe.model';
 import { FormBuilder, FormArray, Validators } from '@angular/forms';
-import { ApiService } from '../components/api.service';
 import { Store } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { editRecipe } from '../components/recipes/recipes.actions';
@@ -34,11 +33,7 @@ export class RecipeEditComponent implements OnInit {
     return this.recipeForm.get('preparingSteps') as FormArray;
   }
 
-  constructor(
-    private fb: FormBuilder,
-    private apiService: ApiService,
-    private store: Store
-  ) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
     this.bindInputToForm();
@@ -94,9 +89,6 @@ export class RecipeEditComponent implements OnInit {
       changes: updatedRecipe,
     };
     this.store.dispatch(editRecipe({ update }));
-    // await this.apiService
-    //   .updateRecipe(this.recipeForm.value, this.recipe.id)
-    //   .toPromise();
     alert('Updated!');
     this.recipeChange.emit(updatedRecipe);
     this.editChange.emit(false);

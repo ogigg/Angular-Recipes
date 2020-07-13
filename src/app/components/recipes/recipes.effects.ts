@@ -6,6 +6,7 @@ import {
   loadAllRecipes,
   allRecipesLoaded,
   editRecipe,
+  deleteRecipe,
 } from './recipes.actions';
 import { ApiService } from '../api.service';
 
@@ -32,7 +33,16 @@ export class RecipesEffects {
       ),
     { dispatch: false }
   );
-
+  deleteRecipe$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(deleteRecipe),
+        concatMap((action) =>
+          this.recipesService.deleteRecipe(action.recipe.id)
+        )
+      ),
+    { dispatch: false }
+  );
   // logout$ = createEffect(
   //   () =>
   //     this.actions$.pipe(
