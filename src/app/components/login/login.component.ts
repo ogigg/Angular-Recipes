@@ -8,6 +8,8 @@ import { AppState } from 'src/app/reducers';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { login } from './auth.actions';
+import { loadAllRecipes } from '../recipes/recipes.actions';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     translate: TranslateService,
     activatedRoute: ActivatedRoute,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private recipesService: ApiService
   ) {
     activatedRoute.queryParams.subscribe((params) => {
       if (params.returnUrl) {
@@ -43,6 +46,8 @@ export class LoginComponent implements OnInit {
     );
     if (response.success === true) {
       this.store.dispatch(login({ user: response.user }));
+      const recipes = await this.recipesService.getAllRecipes().toPromise();
+      this.store.dispatch(loadAllRecipes());
       this.router.navigate([this.redirectUrl]);
     } else {
       this.snackBar.open(this.snackBarMessage, 'OK', {

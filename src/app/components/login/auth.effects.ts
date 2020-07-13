@@ -3,6 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { login, logout } from './auth.actions';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { clearRecipes } from '../recipes/recipes.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthEffects {
@@ -23,11 +25,16 @@ export class AuthEffects {
         ofType(logout),
         tap((action) => {
           localStorage.removeItem('user');
+          this.store.dispatch(clearRecipes());
           this.router.navigateByUrl('/login');
         })
       ),
     { dispatch: false }
   );
 
-  constructor(private actions$: Actions, private router: Router) {}
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    private store: Store
+  ) {}
 }

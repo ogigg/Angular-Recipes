@@ -37,7 +37,7 @@ import { recipesReducer } from './components/recipes/recpes.reducers';
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({ recipesReducer }),
+    StoreModule.forRoot({}),
     // StoreModule.forRoot({ authReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

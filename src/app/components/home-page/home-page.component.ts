@@ -4,6 +4,8 @@ import { Recipe } from '../models/recipe.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/reducers';
 import { loadAllRecipes } from '../recipes/recipes.actions';
+import { Observable } from 'rxjs';
+import { selectRecipes } from '../recipes/recipes.selectors';
 
 @Component({
   selector: 'app-home-page',
@@ -12,6 +14,7 @@ import { loadAllRecipes } from '../recipes/recipes.actions';
 })
 export class HomePageComponent implements OnInit {
   public recipes: Recipe[];
+  public recipes$: Observable<Recipe[]>;
   constructor(
     private recipesService: ApiService,
     private store: Store<AppState>
@@ -24,7 +27,8 @@ export class HomePageComponent implements OnInit {
   }
 
   async getAllRecipes(): Promise<void> {
+    this.recipes$ = this.store.select(selectRecipes);
     this.recipes = await this.recipesService.getAllRecipes().toPromise();
-    this.store.dispatch(loadAllRecipes({ recipes: this.recipes }));
+    this.store.dispatch(loadAllRecipes());
   }
 }
