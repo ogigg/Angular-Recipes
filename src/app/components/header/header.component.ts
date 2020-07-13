@@ -20,13 +20,11 @@ export class HeaderComponent implements OnInit {
     private store: Store<AppState>
   ) {
     this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
-    this.isLoggedOut$ = this.store.pipe(select(isLoggedOut));
   }
 
   private currentLanguage = this.translate.getDefaultLang();
 
   public isLoggedIn$: Observable<boolean>;
-  public isLoggedOut$: Observable<boolean>;
   ngOnInit(): void {}
 
   handleChangeLanguage(): void {
@@ -40,7 +38,6 @@ export class HeaderComponent implements OnInit {
   }
 
   handleLogOut() {
-    // this.authService.logout();
     this.store.dispatch(logout());
   }
 }

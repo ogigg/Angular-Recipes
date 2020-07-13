@@ -10,7 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './components/jwt.interceptor';
 import { SharedModule } from './shared.module';
 import { StoreModule } from '@ngrx/store';
-import { authReducer } from './components/login/auth.reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
@@ -39,7 +38,6 @@ import { RecipesEffects } from './components/recipes/recipes.effects';
       },
     }),
     StoreModule.forRoot({}),
-    // StoreModule.forRoot({ authReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

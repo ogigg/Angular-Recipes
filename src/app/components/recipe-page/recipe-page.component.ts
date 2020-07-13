@@ -17,7 +17,6 @@ export class RecipePageComponent implements OnInit {
   public edit: boolean;
   public id: Number;
   constructor(
-    private recipesService: ApiService,
     private route: ActivatedRoute,
     private router: Router,
     private store: Store
@@ -26,8 +25,6 @@ export class RecipePageComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.edit = false;
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    console.log(this.id);
-
     this.store
       .select(selectRecipe, { id: this.id })
       .subscribe((recipe) => (this.recipe = recipe));

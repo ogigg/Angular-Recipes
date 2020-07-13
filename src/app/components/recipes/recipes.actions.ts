@@ -4,7 +4,6 @@ import { Update } from '@ngrx/entity';
 
 export const loadAllRecipes = createAction(
   '[Home Page] Load all recipes event'
-  // props<{ recipes: Recipe[] }>()
 );
 
 export const allRecipesLoaded = createAction(
