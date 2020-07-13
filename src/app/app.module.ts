@@ -37,7 +37,8 @@ import { AuthModule } from './components/login/auth.module';
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({ authReducer }),
+    StoreModule.forRoot({}),
+    // StoreModule.forRoot({ authReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
