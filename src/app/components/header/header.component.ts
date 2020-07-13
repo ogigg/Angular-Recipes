@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
   }
 
   handleLogOut() {
-    this.authService.logout();
+    // this.authService.logout();
     this.store.dispatch(logout());
   }
 }

@@ -28,17 +28,7 @@ export class AuthService {
     const response = await this.http
       .post<{ user: User; success: boolean }>(`${pageUrl}/api/login/`, data)
       .toPromise();
-    // if (response.success) {
-    //   localStorage.setItem('token', response.user.token);
-    //   this.isLoggedIn.next(true);
-    // }
     return response;
-  }
-
-  public logout(): void {
-    localStorage.removeItem('user');
-    this.store.dispatch(logout());
-    this.isLoggedIn.next(false);
   }
 
   public getToken(): string {
@@ -57,7 +47,6 @@ export class AuthService {
     if (this.user) {
       if (this.user.token) {
         try {
-          // this.isLoggedIn.next(true);
           return !this.jwtHelper.isTokenExpired(this.user.token);
         } catch (error) {
           this.store.dispatch(logout());
