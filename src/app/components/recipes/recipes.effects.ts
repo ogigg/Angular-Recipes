@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap, map, concatMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { loadAllRecipes, allRecipesLoaded } from './recipes.actions';
+import {
+  loadAllRecipes,
+  allRecipesLoaded,
+  editRecipe,
+} from './recipes.actions';
 import { ApiService } from '../api.service';
 
 @Injectable()
@@ -15,16 +19,19 @@ export class RecipesEffects {
     )
   );
 
-  // login$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(login),
-  //       tap((action) =>
-  //         localStorage.setItem('user', JSON.stringify(action.user))
-  //       )
-  //     ),
-  //   { dispatch: false }
-  // );
+  saveRecipe$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(editRecipe),
+        concatMap((action) =>
+          this.recipesService.updateRecipe(
+            action.update.changes,
+            action.update.id
+          )
+        )
+      ),
+    { dispatch: false }
+  );
 
   // logout$ = createEffect(
   //   () =>

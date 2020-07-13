@@ -34,6 +34,7 @@ export class ApiService {
   updateRecipe(formData, id): Observable<Recipe> {
     const data = new FormData();
     data.append('json', JSON.stringify(formData));
+    console.log(data);
     return this.http.put<Recipe>(`${pageUrl}/api/recipes/${id}`, data);
   }
 }

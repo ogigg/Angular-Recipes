@@ -7,11 +7,6 @@ export const createRecipe = createAction(
   props<{ recipe: Recipe }>()
 );
 
-export const editRecipe = createAction(
-  '[Edit Recipe Page] Edit recipe',
-  props<{ recipe: Update<Recipe> }>()
-);
-
 export const loadAllRecipes = createAction(
   '[Home Page] Load all recipes event'
   // props<{ recipes: Recipe[] }>()
@@ -23,3 +18,8 @@ export const allRecipesLoaded = createAction(
 );
 
 export const clearRecipes = createAction('[Logout] Clear all recipes');
+
+export const editRecipe = createAction(
+  '[Edit Page] Edit recipe',
+  props<{ update: Update<Recipe> }>()
+);

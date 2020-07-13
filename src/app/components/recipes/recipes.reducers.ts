@@ -25,9 +25,6 @@ export interface RecipeState extends EntityState<Recipe> {
 export const adapter = createEntityAdapter<Recipe>();
 
 export const initialRecipeState = adapter.getInitialState();
-// export const initialRecipeState: RecipeState = {
-//   recipes: [],
-// };
 
 export const recipesReducer = createReducer(
   initialRecipeState,
@@ -37,10 +34,9 @@ export const recipesReducer = createReducer(
 
   on(createRecipe, (state, action) => adapter.removeAll(state)),
 
-  on(editRecipe, (state, action) => adapter.removeAll(state)),
-  // on(loadAllRecipes, (state, action) => adapter.),
+  on(clearRecipes, (state, action) => adapter.removeAll(state)),
 
-  on(clearRecipes, (state, action) => adapter.removeAll(state))
+  on(editRecipe, (state, action) => adapter.updateOne(action.update, state))
 );
 
 export const selector = adapter.getSelectors();
