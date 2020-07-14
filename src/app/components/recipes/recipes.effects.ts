@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { tap, map, concatMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { map, concatMap, withLatestFrom, filter } from 'rxjs/operators';
+
 import {
   loadAllRecipes,
   allRecipesLoaded,
@@ -9,12 +11,15 @@ import {
   deleteRecipe,
 } from './recipes.actions';
 import { ApiService } from '../api.service';
+import { selectIsLoggedIn } from '../login/auth.selectors';
 
 @Injectable()
 export class RecipesEffects {
   loadRecipes$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadAllRecipes),
+      withLatestFrom(this.store.select(selectIsLoggedIn)),
+      filter(([_, loaded]) => !loaded),
       concatMap((action) => this.recipesService.getAllRecipes()),
       map((recipes) => allRecipesLoaded({ recipes }))
     )
@@ -46,7 +51,7 @@ export class RecipesEffects {
 
   constructor(
     private actions$: Actions,
-    private router: Router,
+    private store: Store,
     private recipesService: ApiService
   ) {}
 }
