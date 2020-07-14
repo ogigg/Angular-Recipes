@@ -5,6 +5,8 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { clearRecipes, loadAllRecipes } from '../recipes/recipes.actions';
 import { Store } from '@ngrx/store';
+import { RecipeEntityService } from '../recipes/recipes-entity.service';
+import { recipesReducer } from '../recipes/recipes.reducers';
 
 @Injectable()
 export class AuthEffects {
@@ -14,7 +16,6 @@ export class AuthEffects {
         ofType(login),
         tap((action) => {
           localStorage.setItem('user', JSON.stringify(action.user));
-          // this.store.dispatch(loadAllRecipes());
         })
       ),
     { dispatch: false }
@@ -26,7 +27,6 @@ export class AuthEffects {
         ofType(logout),
         tap((action) => {
           localStorage.removeItem('user');
-          this.store.dispatch(clearRecipes());
           this.router.navigateByUrl('/login');
         })
       ),

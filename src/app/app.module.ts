@@ -87,5 +87,5 @@ export function tokenGetter() {
 }
 
 const entityMetadata: EntityMetadataMap = {
-  Recipe: {},
+  Recipes: {},
 };

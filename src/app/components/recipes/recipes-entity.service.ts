@@ -8,6 +8,6 @@ import { Recipe } from '../models/recipe.model';
 @Injectable({ providedIn: 'root' })
 export class RecipeEntityService extends EntityCollectionServiceBase<Recipe> {
   constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory) {
-    super('Recipe', serviceElementsFactory);
+    super('Recipes', serviceElementsFactory);
   }
 }

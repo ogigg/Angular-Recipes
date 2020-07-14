@@ -33,7 +33,7 @@ export class RecipePageComponent implements OnInit {
   }
 
   async handleDelete(): Promise<void> {
-    this.store.dispatch(deleteRecipe({ recipe: this.recipe }));
+    this.recipeService.delete(this.recipe.id);
     alert('Deleted!');
     this.router.navigate(['/']);
   }

@@ -93,8 +93,7 @@ export class RecipeEditComponent implements OnInit {
       id: updatedRecipe.id,
       changes: updatedRecipe,
     };
-    // this.recipeService.update(updatedRecipe);
-    this.store.dispatch(editRecipe({ update }));
+    this.recipeService.update(updatedRecipe);
     alert('Updated!');
     this.recipeChange.emit(updatedRecipe);
     this.editChange.emit(false);
