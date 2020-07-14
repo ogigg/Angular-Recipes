@@ -26,7 +26,7 @@ const routes: Routes = [
   },
 
   {
-    path: '',
+    path: 'dashboard',
     loadChildren: () =>
       import('src/app/components/home-page/home-page.module').then(
         (m) => m.HomePageModule
@@ -36,11 +36,7 @@ const routes: Routes = [
 
   {
     path: '**',
-    loadChildren: () =>
-      import('src/app/components/home-page/home-page.module').then(
-        (m) => m.HomePageModule
-      ),
-    canActivate: [AuthGuard],
+    redirectTo: '/dashboard',
   },
 ];
 

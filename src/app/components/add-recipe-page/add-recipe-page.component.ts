@@ -93,6 +93,6 @@ export class AddRecipePageComponent implements OnInit {
       .toPromise();
     this.store.dispatch(loadAllRecipes());
     alert('Added!');
-    this.router.navigate(['/']);
+    this.router.navigate(['/dashboard']);
   }
 }
