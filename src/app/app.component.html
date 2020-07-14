@@ -1,3 +1,9 @@
-<router-outlet>
+<div class="spinner" *ngIf="isLoading">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<router-outlet *ngIf="!isLoading">
   <app-header></app-header>
 </router-outlet>
