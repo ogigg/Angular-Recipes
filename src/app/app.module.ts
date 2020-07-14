@@ -16,6 +16,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthModule } from './components/login/auth.module';
 import { recipesReducer } from './components/recipes/recipes.reducers';
 import { RecipesEffects } from './components/recipes/recipes.effects';
+import { RecipeEntityService } from './components/recipes/recipes-entity.service';
+import { RecipesResolver } from './components/recipes/recipes.resolver';
+import { EntityDataModule } from '@ngrx/data';
 @NgModule({
   declarations: [],
   imports: [
@@ -45,6 +48,7 @@ import { RecipesEffects } from './components/recipes/recipes.effects';
     StoreModule.forFeature('recipes', recipesReducer),
     EffectsModule.forRoot([RecipesEffects]),
     AuthModule.forRoot(),
+    EntityDataModule.forRoot({}),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

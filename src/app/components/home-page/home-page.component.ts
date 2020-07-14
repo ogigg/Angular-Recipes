@@ -6,6 +6,7 @@ import { AppState } from 'src/app/reducers';
 import { loadAllRecipes } from '../recipes/recipes.actions';
 import { Observable } from 'rxjs';
 import { selectAllRecipes } from '../recipes/recipes.selectors';
+import { RecipeEntityService } from '../recipes/recipes-entity.service';
 
 @Component({
   selector: 'app-home-page',
@@ -14,13 +15,17 @@ import { selectAllRecipes } from '../recipes/recipes.selectors';
 })
 export class HomePageComponent implements OnInit {
   public recipes$: Observable<Recipe[]>;
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    private recipeService: RecipeEntityService
+  ) {}
 
   ngOnInit(): void {
     this.getAllRecipes();
   }
 
   async getAllRecipes(): Promise<void> {
-    this.recipes$ = this.store.select(selectAllRecipes);
+    this.recipes$ = this.recipeService.entities$;
+    // this.recipes$ = this.store.select(selectAllRecipes);
   }
 }
