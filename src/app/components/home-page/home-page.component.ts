@@ -26,6 +26,5 @@ export class HomePageComponent implements OnInit {
 
   async getAllRecipes(): Promise<void> {
     this.recipes$ = this.recipeService.entities$;
-    // this.recipes$ = this.store.select(selectAllRecipes);
   }
 }

@@ -18,7 +18,12 @@ import { recipesReducer } from './components/recipes/recipes.reducers';
 import { RecipesEffects } from './components/recipes/recipes.effects';
 import { RecipeEntityService } from './components/recipes/recipes-entity.service';
 import { RecipesResolver } from './components/recipes/recipes.resolver';
-import { EntityDataModule } from '@ngrx/data';
+import { EntityDataModule, DefaultDataServiceConfig } from '@ngrx/data';
+
+const defaultDataServiceConfig: DefaultDataServiceConfig = {
+  root: 'http://localhost:4000/api/',
+};
+
 @NgModule({
   declarations: [],
   imports: [
@@ -52,6 +57,7 @@ import { EntityDataModule } from '@ngrx/data';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
   ],
   bootstrap: [AppComponent],
 })

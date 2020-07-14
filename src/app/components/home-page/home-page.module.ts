@@ -4,17 +4,17 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared.module';
 import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
-import { EffectsModule } from '@ngrx/effects';
-import { recipesReducer } from '../recipes/recipes.reducers';
-import { StoreModule } from '@ngrx/store';
-import { RecipesEffects } from '../recipes/recipes.effects';
 import { RecipesResolver } from '../recipes/recipes.resolver';
 import { RecipeEntityService } from '../recipes/recipes-entity.service';
 import {
   EntityCollectionServiceElementsFactory,
   EntityMetadataMap,
   EntityDefinitionService,
+  EntityDataService,
+  DefaultDataServiceConfig,
+  DefaultDataService,
 } from '@ngrx/data';
+import { RecipesDataService } from '../recipes/recipes-data.service';
 
 const entityMetadata: EntityMetadataMap = {
   Recipe: {},
@@ -27,10 +27,16 @@ const entityMetadata: EntityMetadataMap = {
     RecipesResolver,
     RecipeEntityService,
     EntityCollectionServiceElementsFactory,
+    RecipesDataService,
   ],
 })
 export class HomePageModule {
-  constructor(private eds: EntityDefinitionService) {
+  constructor(
+    private eds: EntityDefinitionService,
+    private entityDataService: EntityDataService,
+    private recipesDataService: RecipesDataService
+  ) {
     eds.registerMetadataMap(entityMetadata);
+    // entityDataService.registerService('Recipes', recipesDataService);
   }
 }

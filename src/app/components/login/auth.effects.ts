@@ -13,8 +13,8 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(login),
         tap((action) => {
-          localStorage.setItem('user', JSON.stringify(action.user)),
-            this.store.dispatch(loadAllRecipes());
+          localStorage.setItem('user', JSON.stringify(action.user));
+          // this.store.dispatch(loadAllRecipes());
         })
       ),
     { dispatch: false }
