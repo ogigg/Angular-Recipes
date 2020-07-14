@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { RecipeThumbnailComponent } from './components/recipe-thumbnail/recipe-thumbnail.component';
 import { AutosizeModule } from 'ngx-autosize';
-import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
+import { RecipeEditComponent } from './components/recipe-edit/recipe-edit.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { TextFieldModule } from '@angular/cdk/text-field';

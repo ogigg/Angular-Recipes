@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RecipePageRoutingModule } from './recipe-page-routing.module';
 import { SharedModule } from 'src/app/shared.module';
 import { RecipePageComponent } from './recipe-page.component';
-import { RecipeEditComponent } from 'src/app/recipe-edit/recipe-edit.component';
+import { RecipeEditComponent } from 'src/app/components/recipe-edit/recipe-edit.component';
 
 @NgModule({
   declarations: [RecipePageComponent, RecipeEditComponent],
