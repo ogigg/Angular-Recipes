@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../auth.service';
-import { takeWhile } from 'rxjs/operators';
-import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/reducers';
-import { logout } from '../login/auth.actions';
 import { Observable } from 'rxjs';
-import { isLoggedIn, isLoggedOut } from '../login/auth.selectors';
+import { TranslateService } from '@ngx-translate/core';
+import { Store, select } from '@ngrx/store';
+
+import { AppState } from 'src/app/reducers';
+import { AuthService } from '../auth.service';
+import { logout } from '../login/auth.actions';
+import { selectIsLoggedIn } from '../login/auth.selectors';
 
 @Component({
   selector: 'app-header',
@@ -16,15 +16,15 @@ import { isLoggedIn, isLoggedOut } from '../login/auth.selectors';
 export class HeaderComponent implements OnInit {
   constructor(
     private translate: TranslateService,
-    private authService: AuthService,
     private store: Store<AppState>
   ) {
-    this.isLoggedIn$ = this.store.pipe(select(isLoggedIn));
+    this.isLoggedIn$ = this.store.pipe(select(selectIsLoggedIn));
   }
 
   private currentLanguage = this.translate.getDefaultLang();
 
   public isLoggedIn$: Observable<boolean>;
+
   ngOnInit(): void {}
 
   handleChangeLanguage(): void {

@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { pageUrl } from './api.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject, Observable } from 'rxjs';
-import { User } from './models/user.model';
-import { AppState } from '../reducers';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { Store, select } from '@ngrx/store';
+
+import { pageUrl } from './api.service';
+import { User } from './models/user.model';
 import { selectUser } from './login/auth.selectors';
 import { AuthState } from './login/auth.reducers';
 import { logout } from './login/auth.actions';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -39,20 +41,19 @@ export class AuthService {
     }
     return null;
   }
-
   user$: Observable<User>;
   user: User = null;
   public async isAuthenticated(): Promise<boolean> {
-    this.store.pipe(select(selectUser)).subscribe((s) => (this.user = s));
-    if (this.user) {
-      if (this.user.token) {
-        try {
-          return !this.jwtHelper.isTokenExpired(this.user.token);
-        } catch (error) {
-          this.store.dispatch(logout());
-          return false;
-        }
-      }
+    this.store.pipe(select(selectUser)).subscribe(user=> this.user = user);
+    if (this.user?.token) {
+      let isAuthenticated = false;
+      new Observable(observer =>
+        observer.next(!this.jwtHelper.isTokenExpired(this.user.token))
+      ).subscribe(
+        (resp: boolean) => (isAuthenticated = resp),
+        err => this.store.dispatch(logout())
+      );
+      return isAuthenticated;
     }
 
     return false;

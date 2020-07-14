@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './../api.service';
-import { Recipe } from './../models/recipe.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { selectRecipe, selectAllRecipes } from '../recipes/recipes.selectors';
-import { deleteRecipe } from '../recipes/recipes.actions';
-import { RecipeEntityService } from '../recipes/recipes-entity.service';
 
+import { Store } from '@ngrx/store';
+
+import { RecipeEntityService } from '../recipes/recipes-entity.service';
+import { Recipe } from './../models/recipe.model';
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',

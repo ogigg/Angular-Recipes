@@ -1,31 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { login, logout } from './auth.actions';
-import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { clearRecipes, loadAllRecipes } from '../recipes/recipes.actions';
+
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Observable } from 'rxjs';
+import { tap, withLatestFrom, filter } from 'rxjs/operators';
+
+import { User } from '../models/user.model';
+import { login, logout } from './auth.actions';
+import { selectIsLoggedIn } from './auth.selectors';
 import { Store } from '@ngrx/store';
-import { RecipeEntityService } from '../recipes/recipes-entity.service';
-import { recipesReducer } from '../recipes/recipes.reducers';
 
 @Injectable()
 export class AuthEffects {
-  login$ = createEffect(
+  public login$: Observable<{ user: User }> = createEffect(
     () =>
       this.actions$.pipe(
         ofType(login),
         tap((action) => {
-          localStorage.setItem('user', JSON.stringify(action.user));
+          withLatestFrom(this.store.select(selectIsLoggedIn)),
+            filter(([_, loaded]) => !loaded),
+            localStorage.setItem('user', JSON.stringify(action.user));
         })
       ),
     { dispatch: false }
   );
 
-  logout$ = createEffect(
+  public logout$: Observable<any> = createEffect(
     () =>
       this.actions$.pipe(
         ofType(logout),
-        tap((action) => {
+        tap(() => {
           localStorage.removeItem('user');
           this.router.navigateByUrl('/login');
         })

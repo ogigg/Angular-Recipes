@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { RecipeState } from './recipes.reducers';
 import { selector } from './recipes.reducers';
-import { Recipe } from '../models/recipe.model';
 
 export const selectRecipesState = createFeatureSelector<RecipeState>('recipes');
 

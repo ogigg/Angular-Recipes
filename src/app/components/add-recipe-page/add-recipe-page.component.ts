@@ -36,7 +36,7 @@ export class AddRecipePageComponent implements OnInit {
   submitted: Boolean = false;
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private recipesService: ApiService,
     private router: Router,
     private translate: TranslateService,
     private store: Store
@@ -88,7 +88,7 @@ export class AddRecipePageComponent implements OnInit {
       return;
     }
 
-    await this.apiService
+    await this.recipesService
       .addRecipe(this.recipeForm.value, this.fileToUpload)
       .toPromise();
     this.store.dispatch(loadAllRecipes());
