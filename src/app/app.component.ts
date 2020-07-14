@@ -28,7 +28,7 @@ export class AppComponent {
     translate.setDefaultLang(translate.getBrowserLang());
   }
   title = 'angular-recipes';
-  public isLoading = true;
+  public isLoading: boolean = true;
   ngOnInit() {
     const userProfile = localStorage.getItem('user');
 

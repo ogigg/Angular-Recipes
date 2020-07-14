@@ -23,7 +23,9 @@ export class AuthGuardService implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    this.store.pipe(select(selectIsLoggedIn)).subscribe(resp => this.isAuthenticated = resp);
+    this.store
+      .pipe(select(selectIsLoggedIn))
+      .subscribe((resp: boolean) => this.isAuthenticated = resp);
     if (this.isAuthenticated) {
       return true;
     } else {
