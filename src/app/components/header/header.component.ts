@@ -1,35 +1,32 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { Store, select } from '@ngrx/store';
+
+import { AppState } from 'src/app/reducers';
 import { AuthService } from '../auth.service';
-import { takeWhile } from 'rxjs/operators';
+import { logout } from '../login/auth.actions';
+import { selectIsLoggedIn } from '../login/auth.selectors';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
   constructor(
     private translate: TranslateService,
-    private authService: AuthService
+    private store: Store<AppState>
   ) {
-    this.authService.isLoggedIn
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((value) => {
-        this.isLoggedIn = value;
-      });
+    this.isLoggedIn$ = this.store.pipe(select(selectIsLoggedIn));
   }
 
-  private alive: boolean = true;
   private currentLanguage = this.translate.getDefaultLang();
 
-  public isLoggedIn: boolean = false;
+  public isLoggedIn$: Observable<boolean>;
 
   ngOnInit(): void {}
 
-  ngOnDestroy(): void {
-    this.alive = false;
-  }
   handleChangeLanguage(): void {
     if (this.currentLanguage === 'en') {
       this.translate.use('pl');
@@ -41,6 +38,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   handleLogOut() {
-    this.authService.logout();
+    this.store.dispatch(logout());
   }
 }

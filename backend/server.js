@@ -167,11 +167,13 @@ app.post("/api/login", function (req, res) {
   const loginData = req.body;
   let token = null;
   let success = false;
+  let user = undefined;
   if (loginData.email === "admin" && loginData.password === "admin") {
     token = generateAccessToken(loginData.email);
     success = true;
+    user = { id: "1", name: "admin", email: "admin@recipes.com", token: token };
   }
-  res.send({ token: token, success: success });
+  res.send({ user: user, success: success });
 });
 
 const generateAccessToken = (email) => {

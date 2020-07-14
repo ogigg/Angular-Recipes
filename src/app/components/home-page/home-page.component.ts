@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './../api.service';
+import { Observable } from 'rxjs';
+
 import { Recipe } from '../models/recipe.model';
+import { RecipeEntityService } from '../recipes/recipes-entity.service';
 
 @Component({
   selector: 'app-home-page',
@@ -8,16 +10,10 @@ import { Recipe } from '../models/recipe.model';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  public recipes: Recipe[];
-  constructor(private recipesService: ApiService) {
-    this.recipes = [];
-  }
+  public recipes$: Observable<Recipe[]>;
+  constructor(private recipeService: RecipeEntityService) {}
 
   ngOnInit(): void {
-    this.getAllRecipes();
-  }
-
-  async getAllRecipes(): Promise<void> {
-    this.recipes = await this.recipesService.getAllRecipes().toPromise();
+    this.recipes$ = this.recipeService.entities$;
   }
 }

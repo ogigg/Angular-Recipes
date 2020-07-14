@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { pageUrl } from './api.service';
+import { Subject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Subject } from 'rxjs';
+
+import { Store, select } from '@ngrx/store';
+
+import { pageUrl } from './api.service';
+import { User } from './models/user.model';
+import { selectUser } from './login/auth.selectors';
+import { AuthState } from './login/auth.reducers';
+import { logout } from './login/auth.actions';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
+  constructor(
+    private http: HttpClient,
+    public jwtHelper: JwtHelperService,
+    private store: Store<AuthState>
+  ) {}
   public isLoggedIn: Subject<boolean> = new Subject<boolean>();
   async login(email: string, password: string) {
     const data = {
@@ -16,34 +28,34 @@ export class AuthService {
       password: password,
     };
     const response = await this.http
-      .post<{ token: string; success: boolean }>(`${pageUrl}/api/login/`, data)
+      .post<{ user: User; success: boolean }>(`${pageUrl}/api/login/`, data)
       .toPromise();
-    if (response.success) {
-      localStorage.setItem('token', response.token);
-      this.isLoggedIn.next(true);
-    }
     return response;
   }
 
-  public logout(): void {
-    localStorage.removeItem('token');
-    this.isLoggedIn.next(false);
-  }
-
   public getToken(): string {
-    return localStorage.getItem('token');
-  }
-
-  public isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        this.isLoggedIn.next(true);
-        return !this.jwtHelper.isTokenExpired(token);
-      } catch (error) {
-        return false;
-      }
+    const user = localStorage.getItem('user');
+    if (user) {
+      const token = JSON.parse(user).token;
+      return token;
     }
+    return null;
+  }
+  user$: Observable<User>;
+  user: User = null;
+  public async isAuthenticated(): Promise<boolean> {
+    this.store.pipe(select(selectUser)).subscribe(user=> this.user = user);
+    if (this.user?.token) {
+      let isAuthenticated = false;
+      new Observable(observer =>
+        observer.next(!this.jwtHelper.isTokenExpired(this.user.token))
+      ).subscribe(
+        (resp: boolean) => (isAuthenticated = resp),
+        err => this.store.dispatch(logout())
+      );
+      return isAuthenticated;
+    }
+
     return false;
   }
 }
