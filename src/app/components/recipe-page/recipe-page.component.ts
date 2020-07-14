@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { selectRecipe, selectAllRecipes } from '../recipes/recipes.selectors';
 import { deleteRecipe } from '../recipes/recipes.actions';
+import { RecipeEntityService } from '../recipes/recipes-entity.service';
 
 @Component({
   selector: 'app-recipe-page',
@@ -15,19 +16,20 @@ import { deleteRecipe } from '../recipes/recipes.actions';
 export class RecipePageComponent implements OnInit {
   public recipe: Recipe;
   public edit: boolean;
-  public id: Number;
+  public id: number;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private recipeService: RecipeEntityService
   ) {}
   public displayedColumns: string[] = ['quantity', 'name'];
   async ngOnInit(): Promise<void> {
     this.edit = false;
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.store
-      .select(selectRecipe, { id: this.id })
-      .subscribe((recipe) => (this.recipe = recipe));
+    this.recipeService.collection$.subscribe((collection) => {
+      this.recipe = collection.entities[this.id];
+    });
   }
 
   async handleDelete(): Promise<void> {

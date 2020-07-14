@@ -18,7 +18,14 @@ import { recipesReducer } from './components/recipes/recipes.reducers';
 import { RecipesEffects } from './components/recipes/recipes.effects';
 import { RecipeEntityService } from './components/recipes/recipes-entity.service';
 import { RecipesResolver } from './components/recipes/recipes.resolver';
-import { EntityDataModule, DefaultDataServiceConfig } from '@ngrx/data';
+import {
+  EntityDataModule,
+  DefaultDataServiceConfig,
+  EntityDefinitionService,
+  EntityDataService,
+  EntityMetadataMap,
+} from '@ngrx/data';
+import { RecipesDataService } from './components/recipes/recipes-data.service';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:4000/api/',
@@ -58,13 +65,27 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: DefaultDataServiceConfig, useValue: defaultDataServiceConfig },
+    RecipesDataService,
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    private eds: EntityDefinitionService,
+    private entityDataService: EntityDataService,
+    private recipesDataService: RecipesDataService
+  ) {
+    eds.registerMetadataMap(entityMetadata);
+    entityDataService.registerService('Recipes', recipesDataService);
+  }
+}
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
+
+const entityMetadata: EntityMetadataMap = {
+  Recipe: {},
+};

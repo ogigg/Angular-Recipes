@@ -15,16 +15,9 @@ import { RecipeEntityService } from '../recipes/recipes-entity.service';
 })
 export class HomePageComponent implements OnInit {
   public recipes$: Observable<Recipe[]>;
-  constructor(
-    private store: Store<AppState>,
-    private recipeService: RecipeEntityService
-  ) {}
+  constructor(private recipeService: RecipeEntityService) {}
 
   ngOnInit(): void {
-    this.getAllRecipes();
-  }
-
-  async getAllRecipes(): Promise<void> {
     this.recipes$ = this.recipeService.entities$;
   }
 }

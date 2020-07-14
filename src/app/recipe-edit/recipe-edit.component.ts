@@ -4,6 +4,7 @@ import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { editRecipe } from '../components/recipes/recipes.actions';
+import { RecipeEntityService } from '../components/recipes/recipes-entity.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -33,7 +34,11 @@ export class RecipeEditComponent implements OnInit {
     return this.recipeForm.get('preparingSteps') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, private store: Store) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private recipeService: RecipeEntityService
+  ) {}
 
   ngOnInit(): void {
     this.bindInputToForm();
@@ -88,6 +93,7 @@ export class RecipeEditComponent implements OnInit {
       id: updatedRecipe.id,
       changes: updatedRecipe,
     };
+    // this.recipeService.update(updatedRecipe);
     this.store.dispatch(editRecipe({ update }));
     alert('Updated!');
     this.recipeChange.emit(updatedRecipe);
