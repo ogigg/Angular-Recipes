@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       this.snackBarMessage = res;
     });
   }
-  private redirectUrl = '/';
+  private redirectUrl = '/dashboard';
   private snackBarMessage: string = '';
   ngOnInit(): void {}
 

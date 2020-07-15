@@ -6,6 +6,9 @@ import { selectUser } from '../auth.selectors';
 import { User } from '../../models/user.model';
 import { Observable, timer, interval } from 'rxjs';
 import { take, map } from 'rxjs/operators';
+import { login } from '../auth.actions';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-verification',
@@ -22,12 +25,20 @@ export class VerificationComponent implements OnInit {
   @ViewChild('2faForm') form: ElementRef;
   constructor(
     private authService: AuthService,
-    private store: Store<AppState>
+    private router: Router,
+    private store: Store<AppState>,
+    activatedRoute: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.store.select(selectUser).subscribe((user) => (this.user = user));
+    activatedRoute.queryParams.subscribe((params) => {
+      if (params.returnUrl) {
+        this.redirectUrl = params.returnUrl;
+      }
+    });
   }
   public user: User;
-  // public timer = 59;
+  private redirectUrl = '/dashboard';
   private inputs: ElementRef[];
   ngOnInit(): void {
     setTimeout(() => this.input1.nativeElement.focus());
@@ -51,18 +62,15 @@ export class VerificationComponent implements OnInit {
   }
 
   async login(form) {
-    const response = await this.authService.login(
-      form.value.email,
-      form.value.password
-    );
-    //   if (response.success === true) {
-    //     this.store.dispatch(login({ user: response.user }));
-    //     this.router.navigate(['/login/2fa']); //[this.redirectUrl]);
-    //   } else {
-    //     this.snackBar.open(this.snackBarMessage, 'OK', {
-    //       duration: 2000,
-    //     });
-    //   }
+    const response = await this.authService.verify(form.value, this.user);
+    if (response.success === true) {
+      this.store.dispatch(login({ user: response.user }));
+      this.router.navigate([this.redirectUrl]); //[this.redirectUrl]);
+    } else {
+      this.snackBar.open(this.snackBarMessage, 'OK', {
+        duration: 2000,
+      });
+    }
   }
 
   calculateNextInput(currentId: string, key: string, inputValue: string) {
@@ -82,6 +90,7 @@ export class VerificationComponent implements OnInit {
       if (currentInput === 5) {
         console.log(this.form);
         console.log('Login');
+        this.login(this.form);
       } else {
         this.inputs[currentInput + 1].nativeElement.focus();
       }
