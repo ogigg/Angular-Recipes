@@ -7,11 +7,7 @@
     <div class="row login-2fa-label">
       Enter verification code. We sent it to <b>{{ user.email }}</b>
     </div>
-    <form
-      #myform="ngForm"
-      (ngSubmit)="login(myform)"
-      class="form form-register"
-    >
+    <form #2faForm="ngForm" class="form form-register">
       <div class="row">
         <div class="col col-2">
           <mat-form-field
@@ -24,7 +20,7 @@
               matInput
               name="2fa1"
               id="2fa1"
-              type="text"
+              type="password"
               class="form-input"
               ngModel
               required
@@ -43,9 +39,9 @@
           >
             <input
               matInput
-              name="2fa1"
-              id="2fa1"
-              type="text"
+              name="2fa2"
+              id="2fa2"
+              type="password"
               class="form-input"
               ngModel
               required
@@ -64,15 +60,15 @@
           >
             <input
               matInput
-              name="2fa1"
-              id="2fa1"
-              type="text"
+              name="2fa3"
+              id="2fa3"
+              type="password"
               class="form-input"
               ngModel
               required
               maxlength="1"
               (keyup)="onKey($event)"
-              #input2
+              #input3
             />
           </mat-form-field>
         </div>
@@ -85,15 +81,15 @@
           >
             <input
               matInput
-              name="2fa1"
-              id="2fa1"
-              type="text"
+              name="2fa4"
+              id="2fa4"
+              type="password"
               class="form-input"
               ngModel
               required
               maxlength="1"
               (keyup)="onKey($event)"
-              #input2
+              #input4
             />
           </mat-form-field>
         </div>
@@ -106,15 +102,15 @@
           >
             <input
               matInput
-              name="2fa1"
-              id="2fa1"
-              type="text"
+              name="2fa5"
+              id="2fa5"
+              type="password"
               class="form-input"
               ngModel
               required
               maxlength="1"
               (keyup)="onKey($event)"
-              #input2
+              #input5
             />
           </mat-form-field>
         </div>
@@ -127,21 +123,23 @@
           >
             <input
               matInput
-              name="2fa1"
-              id="2fa1"
-              type="text"
+              name="2fa6"
+              id="2fa6"
+              type="password"
               class="form-input"
               ngModel
               required
               maxlength="1"
               (keyup)="onKey($event)"
-              #input2
+              #input6
             />
           </mat-form-field>
         </div>
       </div>
       <div class="row login-actions">
-        <div class="counter">It should arrive in ({{ timer }}) s</div>
+        <div class="counter">
+          It should arrive withing a minute ({{ timer }}s)
+        </div>
         <div class="counter">
           You can change Two-Factor Authentication method in your profile
           settings
@@ -159,7 +157,11 @@
             </button>
           </div>
         </div> -->
-        <div class="row">/-Go back to login page</div>
+        <div class="login-back">
+          <a routerLink="/login" routerLinkActive="active">
+            &larr; Go back to login page</a
+          >
+        </div>
       </div>
     </form>
   </div>
