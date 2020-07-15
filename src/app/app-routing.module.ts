@@ -27,7 +27,10 @@ const routes: Routes = [
   },
   {
     path: 'login/2fa',
-    component: VerificationComponent,
+    loadChildren: () =>
+      import('src/app/components/login/verification/verification.module').then(
+        (m) => m.VerificationModule
+      ),
   },
   {
     path: '',
