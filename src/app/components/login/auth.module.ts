@@ -11,6 +11,7 @@ import { authReducer } from './auth.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth.effects';
 import { SharedModule } from 'src/app/shared.module';
+import { VerificationComponent } from './verification/verification.component';
 export const routes: Routes = [
   {
     path: '',
@@ -18,7 +19,7 @@ export const routes: Routes = [
   },
 ];
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, VerificationComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,

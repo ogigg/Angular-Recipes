@@ -1,0 +1,166 @@
+<div class="login-background">
+  <div class="login-container">
+    <div class="row logo-container">
+      <mat-icon class="logo col-3">outdoor_grill</mat-icon>
+      <div class="col logo-text">{{ "appName" | translate }}</div>
+    </div>
+    <div class="row login-2fa-label">
+      Enter verification code. We sent it to <b>{{ user.email }}</b>
+    </div>
+    <form
+      #myform="ngForm"
+      (ngSubmit)="login(myform)"
+      class="form form-register"
+    >
+      <div class="row">
+        <div class="col col-2">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="2fa1"
+              id="2fa1"
+              type="text"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input1
+            />
+          </mat-form-field>
+        </div>
+        <div class="col col-2">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="2fa1"
+              id="2fa1"
+              type="text"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input2
+            />
+          </mat-form-field>
+        </div>
+        <div class="col col-2">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="2fa1"
+              id="2fa1"
+              type="text"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input2
+            />
+          </mat-form-field>
+        </div>
+        <div class="col col-2">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="2fa1"
+              id="2fa1"
+              type="text"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input2
+            />
+          </mat-form-field>
+        </div>
+        <div class="col col-2">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="2fa1"
+              id="2fa1"
+              type="text"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input2
+            />
+          </mat-form-field>
+        </div>
+        <div class="col col-2">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="2fa1"
+              id="2fa1"
+              type="text"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input2
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row login-actions">
+        <div class="counter">It should arrive in ({{ timer }}) s</div>
+        <div class="counter">
+          You can change Two-Factor Authentication method in your profile
+          settings
+        </div>
+        <!-- <div class="col col-6 login-button">
+          <div class="override-button">
+            <button
+              class="login-button"
+              mat-raised-button
+              type="submit"
+              color="primary"
+              class="login-input"
+            >
+              {{ "login" | translate }}
+            </button>
+          </div>
+        </div> -->
+        <div class="row">/-Go back to login page</div>
+      </div>
+    </form>
+  </div>
+</div>

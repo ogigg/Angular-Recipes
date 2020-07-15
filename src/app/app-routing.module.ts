@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService as AuthGuard } from './components/auth-guard.service';
+import { VerificationComponent } from './components/login/verification/verification.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-
+  {
+    path: 'login/2fa',
+    component: VerificationComponent,
+  },
   {
     path: '',
     loadChildren: () =>
