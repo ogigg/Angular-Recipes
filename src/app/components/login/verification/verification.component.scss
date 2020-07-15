@@ -25,6 +25,10 @@ $gray-color: rgba(152, 155, 155, 0.9);
   height: 1.3em;
   margin-bottom: 20px;
 }
+.form-input {
+  font-size: 1em;
+  font-weight: 600;
+}
 :host ::ng-deep .mat-form-field-outline {
   background-color: white;
 }

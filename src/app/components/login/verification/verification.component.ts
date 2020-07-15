@@ -10,6 +10,7 @@ import { login } from '../auth.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-verification',
@@ -23,7 +24,7 @@ export class VerificationComponent implements OnInit {
   @ViewChild('input4') input4: ElementRef;
   @ViewChild('input5') input5: ElementRef;
   @ViewChild('input6') input6: ElementRef;
-  @ViewChild('2faForm') form: ElementRef;
+  @ViewChild('2faForm', { read: NgForm }) form: any;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -94,9 +95,9 @@ export class VerificationComponent implements OnInit {
       }
     } else {
       if (currentInput === 5) {
-        console.log(this.form);
-        console.log('Login');
-        this.login(this.form);
+        if (this.form.valid) {
+          this.login(this.form);
+        }
       } else {
         this.inputs[currentInput + 1].nativeElement.focus();
       }
