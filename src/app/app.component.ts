@@ -10,6 +10,7 @@ import {
   NavigationError,
   RouterEvent,
 } from '@angular/router';
+import { RecipeEntityService } from './components/recipes/recipes-entity.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,8 @@ export class AppComponent {
   constructor(
     private translate: TranslateService,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private recipeService: RecipeEntityService
   ) {
     this.router.events.subscribe((e: RouterEvent) => {
       this.checkEvent(e);
@@ -34,6 +36,7 @@ export class AppComponent {
 
     if (userProfile) {
       this.store.dispatch(login({ user: JSON.parse(userProfile) }));
+      this.recipeService.getAll();
     }
   }
 
