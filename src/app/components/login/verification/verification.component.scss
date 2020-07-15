@@ -1,7 +1,7 @@
 @import url("./../login.component.scss");
 $source-sans-pro: "Source Sans Pro", sans-serif;
 $blue-color: #2e98ee;
-
+$gray-color: rgba(152, 155, 155, 0.9);
 .login-background {
   background-color: rgb(247, 247, 247);
   font-family: $source-sans-pro;
@@ -31,6 +31,7 @@ $blue-color: #2e98ee;
 
 .login-back {
   color: $blue-color;
+  margin-top: 30px;
 }
 
 .login-back :hover {
@@ -38,4 +39,23 @@ $blue-color: #2e98ee;
 }
 .login-back a {
   text-decoration: none;
+}
+
+.input-2fa-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: right;
+}
+.input-2fa-item {
+  max-width: 40px;
+  margin-right: 5px;
+}
+
+.verification-resend {
+  color: $gray-color;
+}
+.verification-resend :hover {
+  color: darken($gray-color, 10%);
 }

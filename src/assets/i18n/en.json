@@ -33,9 +33,10 @@
   "loginNoAccount": "Don't have an account?",
   "loginForgotPassword": "Forgot password?",
   "verificationLabel": "Enter verification code. We sent it to ",
-  "verificationTimerLabel": "It should arrive withing a minute ",
+  "verificationTimerLabel": "It should arrive within a minute ",
   "verificationInfoLabel": "You can change Two-Factor Authentication method in your profile settings",
   "verificationGoBackLabel": "Go back to login page",
+  "resendCode": "Resend Code",
   "validation": {
     "description": "Description is required",
     "image": "Recipe Image is required.",

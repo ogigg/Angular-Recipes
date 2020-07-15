@@ -36,6 +36,7 @@
   "verificationTimerLabel": "Powinien przyjść w przeciągu minuty ",
   "verificationInfoLabel": "Możesz zmienić ustawienia podwójnej autoryzacji w ustawieniach",
   "verificationGoBackLabel": "Wróć do strony logowania",
+  "resendCode": "Wyślij kod ponownie",
   "validation": {
     "description": "Opis jest wymagany",
     "image": "Zdjęcie jest wymagane.",

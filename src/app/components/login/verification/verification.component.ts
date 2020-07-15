@@ -9,6 +9,7 @@ import { take, map } from 'rxjs/operators';
 import { login } from '../auth.actions';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-verification',
@@ -27,8 +28,9 @@ export class VerificationComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private store: Store<AppState>,
+    private snackBar: MatSnackBar,
     activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar
+    translate: TranslateService
   ) {
     this.store.select(selectUser).subscribe((user) => (this.user = user));
     activatedRoute.queryParams.subscribe((params) => {
@@ -36,14 +38,18 @@ export class VerificationComponent implements OnInit {
         this.redirectUrl = params.returnUrl;
       }
     });
+    translate.get('login-snackbar').subscribe((res: string) => {
+      this.snackBarMessage = res;
+    });
   }
+  private snackBarMessage: string = '';
   public user: User;
   private redirectUrl = '/dashboard';
   private inputs: ElementRef[];
   ngOnInit(): void {
     setTimeout(() => this.input1.nativeElement.focus());
     timer(0, 1000)
-      .pipe(take(60))
+      .pipe(take(61))
       .subscribe((timeElapsed) => (this.timer = 60 - timeElapsed));
   }
 
