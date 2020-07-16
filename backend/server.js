@@ -47,8 +47,8 @@ app.get("/api/recipes", authenticateToken, getUser, async (req, res, next) => {
   res.send(recipes);
 });
 
-app.get("/api/recipes/:id", async (req, res) => {
-  const recipe = await db.getRecipe(req.params.id);
+app.get("/api/recipes/:id", authenticateToken, getUser, async (req, res) => {
+  const recipe = await db.getRecipe(req.params.id, res.locals.user.id);
   res.send(recipe);
 });
 
@@ -69,8 +69,8 @@ app.delete("/api/recipes/:id", authenticateToken, async (req, res) => {
   res.send(recipeToDelete);
 });
 
-app.get("/api/recipes/random", async (req, res) => {
-  const recipes = await db.getAllRecipes();
+app.get("/api/recipes/random", getUser, async (req, res) => {
+  const recipes = await db.getAllRecipes(res.locals.user.id);
   const randomRecipe = recipes[Math.floor(Math.random() * recipes.length)];
   res.send(randomRecipe);
 });
@@ -153,6 +153,30 @@ app.post("/api/login/2fa", async function (req, res) {
   });
 });
 
+app.put(
+  "/api/recipes/:id",
+  authenticateToken,
+  getUser,
+  upload.single("file"),
+  async function (req, res) {
+    const recipe = JSON.parse(req.body.json);
+    const recipeToUpdate = await db.getRecipe(req.params.id);
+
+    const updatedRecipe = {
+      ...recipeToUpdate,
+      name: recipe.name,
+      preparationTime: recipe.preparationTime,
+      description: recipe.description,
+      ingredients: recipe.ingredients,
+      preparingSteps: recipe.preparingSteps,
+      userId: res.locals.user.id,
+    };
+
+    db.updateRecipe(updatedRecipe);
+    res.send(recipeToUpdate);
+  }
+);
+
 const generateAccessToken = (email) => {
   return jwt.sign(
     { email: email },
@@ -190,30 +214,6 @@ async function getUser(req, res, next) {
     next();
   });
 }
-
-app.put(
-  "/api/recipes/:id",
-  authenticateToken,
-  getUser,
-  upload.single("file"),
-  async function (req, res) {
-    const recipe = JSON.parse(req.body.json);
-    const recipeToUpdate = await db.getRecipe(req.params.id);
-
-    const updatedRecipe = {
-      ...recipeToUpdate,
-      name: recipe.name,
-      preparationTime: recipe.preparationTime,
-      description: recipe.description,
-      ingredients: recipe.ingredients,
-      preparingSteps: recipe.preparingSteps,
-      userId: res.locals.user.id,
-    };
-
-    db.updateRecipe(updatedRecipe);
-    res.send(recipeToUpdate);
-  }
-);
 
 app.listen(port, () =>
   console.log(`Server is listening at http://localhost:${port}`)
