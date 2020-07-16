@@ -103,6 +103,7 @@ app.post("/api/login", async (req, res, next) => {
   let verificationCode = await new Promise(function (resolve, reject) {
     User.findOne({ email: loginData.email }, function (err, user) {
       if (err || user === null) {
+        res.status(401);
         res.send({ user: undefined, success: false });
         return reject();
       }
@@ -147,6 +148,7 @@ app.post("/api/login/2fa", async function (req, res) {
       res.send({ user: responseUser, success: true });
       return;
     } else {
+      res.status(401);
       res.send({ user: loginData.user, success: false });
       return;
     }
