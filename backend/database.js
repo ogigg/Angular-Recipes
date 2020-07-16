@@ -5,13 +5,13 @@ const assert = require("assert");
 const mongoose = require("mongoose"),
   User = require("./models/Users");
 
-const getAllRecipes = async () => {
+const getAllRecipes = async (userId) => {
   const client = new MongoClient(databaseUrl);
   await client.connect();
   const db = client.db(databaseName);
   return new Promise(function (resolve, reject) {
     db.collection("recipes")
-      .find()
+      .find({ userId: parseInt(userId) })
       .toArray(function (err, docs) {
         if (err) {
           return reject(err);
@@ -79,6 +79,7 @@ const populateDatabase = async () => {
   const recipes = [
     {
       id: 1,
+      userId: 0,
       name: "Caesar salad",
       preparationTime: "45min",
       ingredients: [
@@ -116,6 +117,7 @@ const populateDatabase = async () => {
     },
     {
       id: 2,
+      userId: 0,
       name: "Homestyle Potato Chips",
       preparationTime: "60min",
       ingredients: [
@@ -137,6 +139,7 @@ const populateDatabase = async () => {
     },
     {
       id: 3,
+      userId: 1,
       name: "Gingerbread cookies",
       preparationTime: "35min",
       ingredients: [
@@ -169,16 +172,30 @@ const populateDatabase = async () => {
         "This classic cut-out gingerbread cookie recipe is easy to make, perfect for decorating, and always so delicious.",
     },
   ];
-
+  const users = [];
+  users.push(
+    new User({
+      id: 1,
+      email: "admin1@recipes.com",
+      name: "admin1",
+      password: "admin1",
+    })
+  );
+  users.push(
+    new User({
+      id: 0,
+      email: "admin@recipes.com",
+      name: "admin",
+      password: "admin",
+    })
+  );
   const client = new MongoClient(databaseUrl);
   await client.connect();
   const db = client.db(databaseName);
-  return new Promise(function (resolve, reject) {
-    db.collection("recipes").insertMany(recipes, function (err, result) {
-      client.close();
-      return resolve(recipe);
-    });
-  });
+  db.collection("recipes").insertMany(recipes, function (err, result) {});
+
+  db.collection("users").insertMany(users, function (err, result) {});
+  client.close();
 };
 
 const insertUser = (user) => {
@@ -200,7 +217,7 @@ const getAllUsers = () => {
 const addVerificationCode = async (email, code) => {
   const client = new MongoClient(databaseUrl);
   await client.connect();
-  const db = client.db("users");
+  const db = client.db("recipes");
   return new Promise(function (resolve, reject) {
     db.collection("users")
       .findOneAndUpdate(
@@ -220,4 +237,5 @@ module.exports = {
   insertUser: insertUser,
   getAllUsers: getAllUsers,
   addVerificationCode: addVerificationCode,
+  populateDatabase: populateDatabase,
 };

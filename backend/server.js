@@ -13,10 +13,12 @@ const passport = require("passport"),
 
 const mongoose = require("mongoose"),
   User = require("./models/Users");
+const { getAllUsers } = require("./database.js");
 
-const databaseName = "users";
+const databaseName = "recipes";
 const databaseUrl = `mongodb://localhost:27017/${databaseName}`;
-
+const jwtSecret =
+  "d188544ad6fdb0687a443159b21fd894030a95436ff615846f2ba6f4644a1f91015e85084df1925a082d563cdac5fbfe06efc7a874253503e611743d387970ed";
 mongoose.connect(databaseUrl, function (err) {
   if (err) throw err;
   console.log("Successfully connected to MongoDB");
@@ -32,6 +34,7 @@ app.use(express.json());
 
 // db.insertUser(testUser);
 // User.find((err, user) => console.log(user));
+// db.populateDatabase();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -44,8 +47,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-app.get("/api/recipes", async (req, res) => {
-  const recipes = await db.getAllRecipes();
+app.get("/api/recipes", authenticateToken, getUser, async (req, res, next) => {
+  const recipes = await db.getAllRecipes(res.locals.user.id);
   res.send(recipes);
 });
 
@@ -80,6 +83,7 @@ app.get("/api/recipes/random", async (req, res) => {
 app.post(
   "/api/upload",
   authenticateToken,
+  getUser,
   upload.single("file"),
   async function (req, res) {
     const recipe = JSON.parse(req.body.json);
@@ -96,9 +100,6 @@ app.post(
     res.send(recipeResponse);
   }
 );
-
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 app.post("/api/login", async (req, res, next) => {
   const loginData = req.body;
@@ -181,9 +182,20 @@ function authenticateToken(req, res, next) {
         return res.sendStatus(403);
       }
       req.user = user;
+      res.locals.user = user;
       next();
     }
   );
+}
+
+async function getUser(req, res, next) {
+  // const userId = await new Promise(function (resolve, reject) {
+  User.findOne({ email: res.locals.user.email }, function (err, user) {
+    res.locals.user = user;
+    next();
+    // return resolve(user.id);
+  });
+  // });
 }
 
 app.put(
