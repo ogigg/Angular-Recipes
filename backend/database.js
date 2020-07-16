@@ -10,20 +10,33 @@ const insert = async (recipe) => {
   try {
     await client.connect();
     console.log("Connected correctly to server");
-
     const db = client.db(databaseName);
-
-    // Insert a single document
     let r = await db.collection("recipes").insertOne(recipe);
     assert.equal(1, r.insertedCount);
   } catch (err) {
     console.log(err.stack);
   }
-
-  // Close connection
   client.close();
+};
+
+const getAll = async () => {
+  const client = new MongoClient(databaseUrl);
+  await client.connect();
+  console.log("Connected correctly to server");
+  const db = client.db(databaseName);
+  return new Promise(function (resolve, reject) {
+    db.collection("recipes")
+      .find()
+      .toArray(function (err, docs) {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(docs);
+      });
+  });
 };
 
 module.exports = {
   insert: insert,
+  getAll: getAll,
 };

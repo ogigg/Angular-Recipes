@@ -115,7 +115,8 @@ var recipes = [
   },
 ];
 
-app.get("/api/recipes", (req, res) => {
+app.get("/api/recipes", async (req, res) => {
+  const recipes = await db.getAll();
   res.send(recipes);
 });
 
