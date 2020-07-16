@@ -82,18 +82,15 @@ export class VerificationComponent implements OnInit {
 
   calculateNextInput(currentId: string, key: string, inputValue: string) {
     const currentInput = parseInt(currentId.slice(-1)) - 1;
-    if (key === 'Backspace') {
+    console.log(key);
+    if (key === 'Backspace' || key === 'ArrowLeft') {
       if (currentInput !== 0) {
-        if (inputValue === '') {
-          this.inputs[currentInput - 1].nativeElement.focus();
+        if (inputValue === '' && key === 'Backspace') {
           this.inputs[currentInput - 1].nativeElement.value = '';
         }
         this.inputs[currentInput - 1].nativeElement.focus();
       }
-      if (currentInput !== 0) {
-        this.inputs[currentInput - 1].nativeElement.focus();
-      }
-    } else {
+    } else if (key !== 'Enter' && key !== 'Tab') {
       if (currentInput === 5) {
         if (this.form.valid) {
           this.login(this.form);
