@@ -229,34 +229,27 @@ function authenticateToken(req, res, next) {
   );
 }
 
-app.put("/api/recipes/:id", authenticateToken, upload.single("file"), function (
-  req,
-  res
-) {
-  const recipe = JSON.parse(req.body.json);
-  console.log(`Updating recipe with id ${req.params.id}`);
-  const recipeToUpdateIndex = recipes.findIndex(function (i) {
-    return i.id == req.params.id;
-  });
+app.put(
+  "/api/recipes/:id",
+  authenticateToken,
+  upload.single("file"),
+  async function (req, res) {
+    const recipe = JSON.parse(req.body.json);
+    const recipeToUpdate = await db.getRecipe(req.params.id);
 
-  const recipeToUpdate = recipes[recipeToUpdateIndex];
-  const updatedRecipe = {
-    ...recipeToUpdate,
-    name: recipe.name,
-    preparationTime: recipe.preparationTime,
-    description: recipe.description,
-    ingredients: recipe.ingredients,
-    preparingSteps: recipe.preparingSteps,
-  };
-  const updatedRecipes = [
-    ...recipes.slice(0, recipeToUpdateIndex),
-    updatedRecipe,
-    ...recipes.slice(recipeToUpdateIndex + 1),
-  ];
-  recipes = updatedRecipes;
+    const updatedRecipe = {
+      ...recipeToUpdate,
+      name: recipe.name,
+      preparationTime: recipe.preparationTime,
+      description: recipe.description,
+      ingredients: recipe.ingredients,
+      preparingSteps: recipe.preparingSteps,
+    };
 
-  res.send(recipeToUpdate);
-});
+    db.updateRecipe(updatedRecipe);
+    res.send(recipeToUpdate);
+  }
+);
 
 app.listen(port, () =>
   console.log(`Server is listening at http://localhost:${port}`)

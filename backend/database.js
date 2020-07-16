@@ -76,10 +76,24 @@ const deleteRecipe = async (recipeId) => {
   });
 };
 
+const updateRecipe = async (recipe) => {
+  console.log(recipe);
+  const client = new MongoClient(databaseUrl);
+  await client.connect();
+  const db = client.db(databaseName);
+  return new Promise(function (resolve, reject) {
+    db.collection("recipes").findOneAndUpdate(
+      { id: parseInt(recipe.id) },
+      { $set: recipe }
+    );
+  });
+};
+
 module.exports = {
   insert: insert,
   getAll: getAll,
   getRecipe: getRecipe,
   insertRecipe: insertRecipe,
   deleteRecipe: deleteRecipe,
+  updateRecipe: updateRecipe,
 };
