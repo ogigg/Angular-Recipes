@@ -100,30 +100,36 @@ app.post(
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-app.post("/api/login", (req, res, next) => {
+app.post("/api/login", async (req, res, next) => {
   const loginData = req.body;
   let token = null;
-  let success = false;
-  let user = undefined;
-  User.findOne({ email: loginData.email }, function (err, user) {
-    console.log(user);
-    if (err) {
-      res.send({ user: undefined, success: false });
-    }
-    user.comparePassword(loginData.password, function (err, isMatch) {
-      if (err) {
+  let verificationCode = await new Promise(function (resolve, reject) {
+    User.findOne({ email: loginData.email }, function (err, user) {
+      console.log(user);
+      if (err || user === null) {
         res.send({ user: undefined, success: false });
-      } else {
-        const responseUser = {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          token: token,
-        };
-        res.send({ user: responseUser, success: true });
+        return reject();
       }
+      user.comparePassword(loginData.password, function (err, isMatch) {
+        if (err) {
+          res.send({ user: undefined, success: false });
+          return reject();
+        } else {
+          const responseUser = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            token: token,
+          };
+          res.send({ user: responseUser, success: true });
+          // verificationCode = 20;
+          const code = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+          return resolve(code);
+        }
+      });
     });
   });
+  console.log("Verification code generated: ", verificationCode);
 });
 
 app.post("/api/login/2fa", function (req, res) {
