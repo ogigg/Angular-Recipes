@@ -42,8 +42,22 @@ const getRecipe = async (recipeId) => {
     db.collection("recipes")
       .findOne({ id: parseInt(recipeId) })
       .then(function (docs) {
+        client.close();
         return resolve(docs);
       });
+  });
+};
+
+const insertRecipe = async (recipe) => {
+  console.log(recipe);
+  const client = new MongoClient(databaseUrl);
+  await client.connect();
+  const db = client.db(databaseName);
+  return new Promise(function (resolve, reject) {
+    db.collection("recipes").insertOne(recipe, function (err, result) {
+      client.close();
+      return resolve(recipe);
+    });
   });
 };
 
@@ -51,4 +65,5 @@ module.exports = {
   insert: insert,
   getAll: getAll,
   getRecipe: getRecipe,
+  insertRecipe: insertRecipe,
 };

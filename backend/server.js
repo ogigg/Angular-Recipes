@@ -122,11 +122,9 @@ app.get("/api/recipes", async (req, res) => {
 
 app.get("/api/recipes/:id", async (req, res) => {
   const recipe = await db.getRecipe(req.params.id);
-  // let result = recipes.find((obj) => {
-  //   return obj.id == req.params.id;
-  // });
   res.send(recipe);
 });
+
 app.delete("/api/recipes/:id", authenticateToken, (req, res) => {
   console.log(`Deleting recipe with id ${req.params.id}`);
   const recipeToDeleteIndex = recipes.findIndex(function (i) {
@@ -149,24 +147,25 @@ app.get("/api/recipes/random", (req, res) => {
   res.send(randomRecipe);
 });
 
-app.post("/api/upload", authenticateToken, upload.single("file"), function (
-  req,
-  res
-) {
-  const recipe = JSON.parse(req.body.json);
-  const newRecipe = {
-    id: Math.floor(Math.random() * 100000),
-    name: recipe.name,
-    preparationTime: recipe.preparationTime,
-    ingredients: recipe.ingredients,
-    preparingSteps: recipe.preparingSteps,
-    imageUrl: `http://localhost:4000/static/${req.file.filename}`,
-    description: recipe.description,
-  };
-  await db.insert(newRecipe);
-  recipes.push(newRecipe);
-  res.send(newRecipe);
-});
+app.post(
+  "/api/upload",
+  authenticateToken,
+  upload.single("file"),
+  async function (req, res) {
+    const recipe = JSON.parse(req.body.json);
+    const newRecipe = {
+      id: Math.floor(Math.random() * 100000),
+      name: recipe.name,
+      preparationTime: recipe.preparationTime,
+      ingredients: recipe.ingredients,
+      preparingSteps: recipe.preparingSteps,
+      imageUrl: `http://localhost:4000/static/${req.file.filename}`,
+      description: recipe.description,
+    };
+    const recipeResponse = await db.insertRecipe(newRecipe);
+    res.send(recipeResponse);
+  }
+);
 
 app.post("/api/login", function (req, res) {
   const loginData = req.body;
