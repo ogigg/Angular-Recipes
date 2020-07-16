@@ -8,17 +8,12 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
 const db = require("./database.js");
-const passport = require("passport"),
-  LocalStrategy = require("passport-local").Strategy;
 
 const mongoose = require("mongoose"),
   User = require("./models/Users");
-const { getAllUsers } = require("./database.js");
 
 const databaseName = "recipes";
 const databaseUrl = `mongodb://localhost:27017/${databaseName}`;
-const jwtSecret =
-  "d188544ad6fdb0687a443159b21fd894030a95436ff615846f2ba6f4644a1f91015e85084df1925a082d563cdac5fbfe06efc7a874253503e611743d387970ed";
 mongoose.connect(databaseUrl, function (err) {
   if (err) throw err;
   console.log("Successfully connected to MongoDB");
@@ -95,6 +90,7 @@ app.post(
       preparingSteps: recipe.preparingSteps,
       imageUrl: `http://localhost:4000/static/${req.file.filename}`,
       description: recipe.description,
+      userId: res.locals.user.id,
     };
     const recipeResponse = await db.insertRecipe(newRecipe);
     res.send(recipeResponse);
@@ -189,18 +185,16 @@ function authenticateToken(req, res, next) {
 }
 
 async function getUser(req, res, next) {
-  // const userId = await new Promise(function (resolve, reject) {
   User.findOne({ email: res.locals.user.email }, function (err, user) {
     res.locals.user = user;
     next();
-    // return resolve(user.id);
   });
-  // });
 }
 
 app.put(
   "/api/recipes/:id",
   authenticateToken,
+  getUser,
   upload.single("file"),
   async function (req, res) {
     const recipe = JSON.parse(req.body.json);
@@ -213,6 +207,7 @@ app.put(
       description: recipe.description,
       ingredients: recipe.ingredients,
       preparingSteps: recipe.preparingSteps,
+      userId: res.locals.user.id,
     };
 
     db.updateRecipe(updatedRecipe);
