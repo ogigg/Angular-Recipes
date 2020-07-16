@@ -8,10 +8,30 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
 const db = require("./database.js");
+const passport = require("passport"),
+  LocalStrategy = require("passport-local").Strategy;
 
+const mongoose = require("mongoose"),
+  User = require("./models/Users");
+
+const databaseName = "users";
+const databaseUrl = `mongodb://localhost:27017/${databaseName}`;
+
+mongoose.connect(databaseUrl, function (err) {
+  if (err) throw err;
+  console.log("Successfully connected to MongoDB");
+});
 app.use(cors());
 app.use("/static", express.static("images"));
 app.use(express.json());
+// var testUser = new User({
+//   email: "andrzej@recipes.com",
+//   name: "Andrzej Nowak",
+//   password: "admin",
+// });
+
+// db.insertUser(testUser);
+// User.find((err, user) => console.log(user));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -25,7 +45,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.get("/api/recipes", async (req, res) => {
-  const recipes = await db.getAll();
+  const recipes = await db.getAllRecipes();
   res.send(recipes);
 });
 
@@ -51,7 +71,8 @@ app.delete("/api/recipes/:id", authenticateToken, async (req, res) => {
   res.send(recipeToDelete);
 });
 
-app.get("/api/recipes/random", (req, res) => {
+app.get("/api/recipes/random", async (req, res) => {
+  const recipes = await db.getAllRecipes();
   const randomRecipe = recipes[Math.floor(Math.random() * recipes.length)];
   res.send(randomRecipe);
 });
@@ -76,16 +97,33 @@ app.post(
   }
 );
 
-app.post("/api/login", function (req, res) {
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+app.post("/api/login", (req, res, next) => {
   const loginData = req.body;
   let token = null;
   let success = false;
   let user = undefined;
-  if (loginData.email === "admin" && loginData.password === "admin") {
-    success = true;
-    user = { id: "1", name: "admin", email: "admin@recipes.com", token: token };
-  }
-  res.send({ user: user, success: success });
+  User.findOne({ email: loginData.email }, function (err, user) {
+    console.log(user);
+    if (err) {
+      res.send({ user: undefined, success: false });
+    }
+    user.comparePassword(loginData.password, function (err, isMatch) {
+      if (err) {
+        res.send({ user: undefined, success: false });
+      } else {
+        const responseUser = {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          token: token,
+        };
+        res.send({ user: responseUser, success: true });
+      }
+    });
+  });
 });
 
 app.post("/api/login/2fa", function (req, res) {

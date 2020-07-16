@@ -2,8 +2,10 @@ const databaseName = "recipes";
 const databaseUrl = `mongodb://localhost:27017/${databaseName}`;
 const MongoClient = require("mongodb").MongoClient;
 const assert = require("assert");
+const mongoose = require("mongoose"),
+  User = require("./models/Users");
 
-const getAll = async () => {
+const getAllRecipes = async () => {
   const client = new MongoClient(databaseUrl);
   await client.connect();
   const db = client.db(databaseName);
@@ -180,11 +182,28 @@ const populateDatabase = async () => {
   });
 };
 
+const insertUser = (user) => {
+  // var testUser = new User({
+  //   email: "Janek@recipes.com",
+  //   name: "jmar777",
+  //   password: "Password123",
+  // });
+  user.save(function (error) {
+    if (error) throw error;
+    console.log("Saved");
+  });
+};
+
+const getAllUsers = () => {
+  User.find((err, user) => console.log(user));
+};
+
 module.exports = {
-  insert: insert,
-  getAll: getAll,
+  getAllRecipes: getAllRecipes,
   getRecipe: getRecipe,
   insertRecipe: insertRecipe,
   deleteRecipe: deleteRecipe,
   updateRecipe: updateRecipe,
+  insertUser: insertUser,
+  getAllUsers: getAllUsers,
 };
