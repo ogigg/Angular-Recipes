@@ -125,20 +125,20 @@ app.get("/api/recipes/:id", async (req, res) => {
   res.send(recipe);
 });
 
-app.delete("/api/recipes/:id", authenticateToken, (req, res) => {
+app.delete("/api/recipes/:id", authenticateToken, async (req, res) => {
   console.log(`Deleting recipe with id ${req.params.id}`);
-  const recipeToDeleteIndex = recipes.findIndex(function (i) {
-    return i.id == req.params.id;
-  });
-  const recipeToDelete = recipes[recipeToDeleteIndex];
+  const recipeToDelete = await db.getRecipe(req.params.id);
+
+  db.deleteRecipe(req.params.id);
 
   const imageName = recipeToDelete.imageUrl.split("/").pop();
+
   fs.unlink(`./images/${imageName}`, function (err) {
     if (err) {
       throw err;
     }
   });
-  recipes.splice(recipeToDeleteIndex, 1);
+
   res.send(recipeToDelete);
 });
 

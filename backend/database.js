@@ -49,7 +49,6 @@ const getRecipe = async (recipeId) => {
 };
 
 const insertRecipe = async (recipe) => {
-  console.log(recipe);
   const client = new MongoClient(databaseUrl);
   await client.connect();
   const db = client.db(databaseName);
@@ -61,9 +60,26 @@ const insertRecipe = async (recipe) => {
   });
 };
 
+const deleteRecipe = async (recipeId) => {
+  console.log(recipeId);
+  const client = new MongoClient(databaseUrl);
+  await client.connect();
+  const db = client.db(databaseName);
+  return new Promise(function (resolve, reject) {
+    db.collection("recipes").deleteOne({ id: parseInt(recipeId) }, function (
+      err,
+      result
+    ) {
+      client.close();
+      return resolve(result);
+    });
+  });
+};
+
 module.exports = {
   insert: insert,
   getAll: getAll,
   getRecipe: getRecipe,
   insertRecipe: insertRecipe,
+  deleteRecipe: deleteRecipe,
 };
