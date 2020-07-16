@@ -15,6 +15,10 @@ const schema = new Schema({
     createIndexes: { unique: true },
   },
   password: { type: String, required: true },
+  verificationCode: {
+    code: { type: Number },
+    deadline: { type: Date },
+  },
 });
 
 schema.pre("save", function (next) {

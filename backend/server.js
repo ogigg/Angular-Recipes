@@ -105,7 +105,6 @@ app.post("/api/login", async (req, res, next) => {
   let token = null;
   let verificationCode = await new Promise(function (resolve, reject) {
     User.findOne({ email: loginData.email }, function (err, user) {
-      console.log(user);
       if (err || user === null) {
         res.send({ user: undefined, success: false });
         return reject();
@@ -122,8 +121,8 @@ app.post("/api/login", async (req, res, next) => {
             token: token,
           };
           res.send({ user: responseUser, success: true });
-          // verificationCode = 20;
           const code = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+          db.addVerificationCode(user.email, code);
           return resolve(code);
         }
       });
@@ -132,24 +131,29 @@ app.post("/api/login", async (req, res, next) => {
   console.log("Verification code generated: ", verificationCode);
 });
 
-app.post("/api/login/2fa", function (req, res) {
-  const twofaData = req.body;
-  let token = null;
-  let success = false;
-  let user = undefined;
-  if (
-    twofaData.verificationCode.input1 == "1" &&
-    twofaData.verificationCode.input2 == "2" &&
-    twofaData.verificationCode.input3 == "3" &&
-    twofaData.verificationCode.input4 == "4" &&
-    twofaData.verificationCode.input5 == "5" &&
-    twofaData.verificationCode.input6 == "6"
-  ) {
-    token = generateAccessToken(twofaData.user.email);
-    success = true;
-    user = { id: "1", name: "admin", email: "admin@recipes.com", token: token };
-  }
-  res.send({ user: user, success: success });
+app.post("/api/login/2fa", async function (req, res) {
+  const loginData = req.body;
+  const codeFromUser =
+    loginData.verificationCode.input1 +
+    loginData.verificationCode.input2 +
+    loginData.verificationCode.input3 +
+    loginData.verificationCode.input4 +
+    loginData.verificationCode.input5 +
+    loginData.verificationCode.input6;
+  User.findOne({ email: loginData.user.email }, function (err, user) {
+    if (codeFromUser == user.verificationCode.code) {
+      const token = generateAccessToken(loginData.user.email);
+      const responseUser = {
+        ...loginData.user,
+        token: token,
+      };
+      res.send({ user: responseUser, success: true });
+      return;
+    } else {
+      res.send({ user: loginData.user, success: false });
+      return;
+    }
+  });
 });
 
 const generateAccessToken = (email) => {

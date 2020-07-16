@@ -69,10 +69,9 @@ const updateRecipe = async (recipe) => {
   await client.connect();
   const db = client.db(databaseName);
   return new Promise(function (resolve, reject) {
-    db.collection("recipes").findOneAndUpdate(
-      { id: parseInt(recipe.id) },
-      { $set: recipe }
-    );
+    db.collection("recipes")
+      .findOneAndUpdate({ id: parseInt(recipe.id) }, { $set: recipe })
+      .then(client.close());
   });
 };
 
@@ -198,6 +197,20 @@ const getAllUsers = () => {
   User.find((err, user) => console.log(user));
 };
 
+const addVerificationCode = async (email, code) => {
+  const client = new MongoClient(databaseUrl);
+  await client.connect();
+  const db = client.db("users");
+  return new Promise(function (resolve, reject) {
+    db.collection("users")
+      .findOneAndUpdate(
+        { email: email },
+        { $set: { "verificationCode.code": code } }
+      )
+      .then(client.close());
+  });
+};
+
 module.exports = {
   getAllRecipes: getAllRecipes,
   getRecipe: getRecipe,
@@ -206,4 +219,5 @@ module.exports = {
   updateRecipe: updateRecipe,
   insertUser: insertUser,
   getAllUsers: getAllUsers,
+  addVerificationCode: addVerificationCode,
 };
