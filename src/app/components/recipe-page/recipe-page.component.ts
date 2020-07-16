@@ -1,35 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from './../api.service';
-import { Recipe } from './../models/recipe.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Store } from '@ngrx/store';
+
+import { RecipeEntityService } from '../recipes/recipes-entity.service';
+import { Recipe } from './../models/recipe.model';
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',
-  styleUrls: ['./recipe-page.component.css'],
+  styleUrls: ['./recipe-page.component.scss'],
 })
 export class RecipePageComponent implements OnInit {
   public recipe: Recipe;
   public edit: boolean;
-  public id: Number;
+  public id: number;
   constructor(
-    private recipesService: ApiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store,
+    private recipeService: RecipeEntityService
   ) {}
-
+  public displayedColumns: string[] = ['quantity', 'name'];
   async ngOnInit(): Promise<void> {
     this.edit = false;
     this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.recipe = await this.getRecipe();
-  }
-
-  async getRecipe(): Promise<Recipe> {
-    return await this.recipesService.getRecipe(this.id).toPromise();
+    this.recipeService.collection$.subscribe((collection) => {
+      this.recipe = collection.entities[this.id];
+    });
   }
 
   async handleDelete(): Promise<void> {
-    await this.recipesService.deleteRecipe(this.id).toPromise();
+    this.recipeService.delete(this.recipe.id);
     alert('Deleted!');
     this.router.navigate(['/']);
   }

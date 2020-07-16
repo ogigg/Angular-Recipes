@@ -6,69 +6,71 @@
           [recipe]="recipe"
           size="orginal"
         ></app-recipe-thumbnail>
-        <h3>Recipe details</h3>
-        <div class="form-group">
-          <label for="name">Recipe name</label>
+        <h3>{{ "recipeDetails" | translate }}</h3>
+        <mat-form-field class="edit-form-input">
+          <mat-label>{{ "recipeName" | translate }}</mat-label>
           <input
-            type="text"
-            id="name"
-            class="add-form-input form-control"
+            matInput
             formControlName="name"
-            placeholder="Recipe name"
+            placeholder="{{ 'recipeName' | translate }}"
           />
-        </div>
-        <div class="form-group">
-          <label for="preparationTime">Preparation time</label>
+        </mat-form-field>
+        <mat-form-field class="edit-form-input">
+          <mat-label>{{ "preparationTime" | translate }}</mat-label>
           <input
-            id="preparationTime"
-            type="text"
-            class="add-form-input form-control"
+            matInput
             formControlName="preparationTime"
-            placeholder="Preparation time"
+            placeholder="{{ 'preparationTime' | translate }}"
           />
-        </div>
-        <div class="form-group">
-          <label for="description">Description</label>
+        </mat-form-field>
+        <mat-form-field class="edit-form-input">
+          <mat-label>{{ "recipeDescription" | translate }}</mat-label>
           <textarea
-            autosize
-            id="description"
-            type="text"
-            class="add-form-input form-control"
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            matInput
             formControlName="description"
-            placeholder="Recipe description"
+            placeholder="{{ 'recipeDescription' | translate }}"
           ></textarea>
-        </div>
+        </mat-form-field>
       </div>
 
       <div formArrayName="ingredients" class="form-group col col-md">
-        <h3>Ingredients</h3>
+        <h3>{{ "ingredients" | translate }}</h3>
 
         <div *ngFor="let ingredient of ingredients.controls; let i = index">
           <div [formGroupName]="i" class="row">
             <div class="col col-xs-6">
-              <input
-                type="text"
-                class="edit-form-input form-control"
-                formControlName="quantity"
-                placeholder="Quantity"
-              />
+              <mat-form-field class="edit-form-input">
+                <mat-label>{{ "ingredient.quantity" | translate }}</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="quantity"
+                  placeholder="{{ 'ingredient.quantity' | translate }}"
+                />
+              </mat-form-field>
             </div>
             <div class="col col-xs-6">
-              <input
-                type="text"
-                class="edit-form-input form-control"
-                formControlName="name"
-                placeholder="Ingredient name"
-              />
+              <mat-form-field class="edit-form-input">
+                <mat-label>{{ "ingredient.name" | translate }}</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="name"
+                  placeholder="{{ 'ingredient.name' | translate }}"
+                />
+              </mat-form-field>
             </div>
           </div>
         </div>
         <button
-          class="btn btn-outline-warning"
           type="button"
+          color="accent"
+          mat-raised-button
           (click)="addIngredient()"
         >
-          Add Ingredient
+          {{ "addIngredient" | translate }}
         </button>
       </div>
     </div>
@@ -76,41 +78,48 @@
     <div class="row">
       <div class="col col-md">
         <div formArrayName="preparingSteps" class="form-group">
-          <h3>Preparing Steps</h3>
+          <h3>{{ "preparingSteps" | translate }}</h3>
 
           <div
             *ngFor="let preparingStep of preparingSteps.controls; let i = index"
           >
-            <textarea
-              autosize
-              [minRows]="1"
-              type="text"
-              class="edit-form-input form-control"
-              [formControlName]="i"
-              placeholder="Step {{ i + 1 }}"
-            >
-            </textarea>
+            <mat-form-field class="edit-form-input">
+              <textarea
+                autosize
+                [minRows]="1"
+                matInput
+                type="text"
+                [formControlName]="i"
+                placeholder="{{ 'preparingStep' | translate }} {{ i + 1 }}"
+              ></textarea>
+            </mat-form-field>
           </div>
-
           <button
-            class="btn btn-outline-warning"
             type="button"
+            color="accent"
+            mat-raised-button
             (click)="addPreparingStep()"
           >
-            Add Step
+            {{ "addPreparingStep" | translate }}
           </button>
         </div>
       </div>
     </div>
-    <button class="btn btn-outline-primary edit-form-button" type="submit">
-      Submit
+    <button
+      mat-raised-button
+      color="primary"
+      class="edit-form-button"
+      type="submit"
+    >
+      {{ "submit" | translate }}
     </button>
     <button
-      class="btn btn-outline-secondary edit-form-button"
       type="button"
+      mat-raised-button
+      class="edit-form-button"
       (click)="handleCancelButton()"
     >
-      Cancel
+      {{ "cancel" | translate }}
     </button>
   </form>
 </div>

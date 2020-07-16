@@ -1,12 +1,8 @@
 <div class="container">
-  <h4>Latest recipes</h4>
+  <h4>{{ "latestRecipes" | translate }}</h4>
   <div class="row justify-content-sm-center justify-content-md-start">
-    <div class="col-md-auto" *ngFor="let recipe of recipes">
-      <app-recipe-thumbnail [recipe] = "recipe"></app-recipe-thumbnail>
+    <div class="col-md-auto" *ngFor="let recipe of recipes$ | async">
+      <app-recipe-thumbnail [recipe]="recipe"></app-recipe-thumbnail>
     </div>
-
-
   </div>
-
-
 </div>

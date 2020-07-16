@@ -1,33 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from "./../api.service";
+import { Observable } from 'rxjs';
 
+import { Recipe } from '../models/recipe.model';
+import { RecipeEntityService } from '../recipes/recipes-entity.service';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  styleUrls: ['./home-page.component.scss'],
 })
-
-
-
 export class HomePageComponent implements OnInit {
-  model = {
-    left: true,
-    middle: false,
-    right: false
-  };
-
-  recipes:any[];
-  constructor(private recipesService: ApiService) {
-    this.recipes = [];
-  }
+  public recipes$: Observable<Recipe[]>;
+  constructor(private recipeService: RecipeEntityService) {}
 
   ngOnInit(): void {
-    this.recipesService.getAllRecipes().subscribe((recipes: any[]) =>
-    {
-      this.recipes = recipes;
-      console.log(recipes)
-    })
+    this.recipes$ = this.recipeService.entities$;
   }
-
 }

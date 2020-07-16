@@ -8,10 +8,13 @@ import {
 } from '@angular/forms';
 import { ApiService } from './../api.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngrx/store';
+import { loadAllRecipes } from '../recipes/recipes.actions';
 @Component({
   selector: 'app-add-recipe-page',
   templateUrl: './add-recipe-page.component.html',
-  styleUrls: ['./add-recipe-page.component.css'],
+  styleUrls: ['./add-recipe-page.component.scss'],
 })
 export class AddRecipePageComponent implements OnInit {
   recipeForm = this.fb.group({
@@ -28,14 +31,20 @@ export class AddRecipePageComponent implements OnInit {
     preparingSteps: this.fb.array([this.fb.control('', Validators.required)]),
   });
 
-  fileErrorMessage = 'Upload recipe image here.';
+  public fileMessage: String;
   fileToUpload: File = null;
   submitted: Boolean = false;
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
-    private router: Router
-  ) {}
+    private recipesService: ApiService,
+    private router: Router,
+    private translate: TranslateService,
+    private store: Store
+  ) {
+    translate.get('file.initMessage').subscribe((res: string) => {
+      this.fileMessage = res;
+    });
+  }
 
   ngOnInit() {}
 
@@ -44,7 +53,11 @@ export class AddRecipePageComponent implements OnInit {
     let image = files.item(0);
 
     if (types.every((type) => image.type !== type))
-      this.fileErrorMessage = 'Ooops, wrong extension. Upload only image';
+      this.translate
+        .get('file.error.wrongExtension')
+        .subscribe((res: string) => {
+          this.fileMessage = res;
+        });
     else {
       this.fileToUpload = image;
     }
@@ -74,9 +87,11 @@ export class AddRecipePageComponent implements OnInit {
     if (this.recipeForm.invalid) {
       return;
     }
-    await this.apiService
+
+    await this.recipesService
       .addRecipe(this.recipeForm.value, this.fileToUpload)
       .toPromise();
+    this.store.dispatch(loadAllRecipes());
     alert('Added!');
     this.router.navigate(['/']);
   }

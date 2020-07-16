@@ -1,0 +1,53 @@
+{
+  "appName": "Recipes App",
+  "addIngredient": "Add Intregient",
+  "addPreparingStep": "Add Step",
+  "addRecipe": "Add Recipe",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "edit": "Edit",
+  "ingredient": {
+    "name": "Ingredient name",
+    "quantity": "Quantity"
+  },
+  "ingredients": "Ingredients",
+  "lastRecipe": "Last Recipe",
+  "latestRecipes": "Latest Recipes",
+  "preparationTime": "Preparation time",
+  "preparing": "Preparing",
+  "preparingStep": "Step",
+  "preparingSteps": "Preparing Steps",
+  "randomRecipe": "Random Recipe",
+  "recipeDescription": "Recipe description",
+  "recipeDetails": "Recipe Details",
+  "recipeName": "Recipe name",
+  "something": "Something",
+  "submit": "Submit",
+  "changeLanguage": "Change language",
+  "login": "Log in",
+  "logout": "Logout",
+  "login-snackbar": "Wrong email/password!",
+  "password-label": "Password",
+  "email-label": "Email",
+  "login-label": "Log Into My Account",
+  "loginNoAccount": "Don't have an account?",
+  "loginForgotPassword": "Forgot password?",
+  "verificationLabel": "Enter verification code. We sent it to ",
+  "verificationTimerLabel": "It should arrive within a minute ",
+  "verificationInfoLabel": "You can change Two-Factor Authentication method in your profile settings",
+  "verificationGoBackLabel": "Go back to login page",
+  "resendCode": "Resend Code",
+  "validation": {
+    "description": "Description is required",
+    "image": "Recipe Image is required.",
+    "name": "Name is required.",
+    "preparationTime": "Preparation time is required.",
+    "step": "This step is required."
+  },
+  "file": {
+    "initMessage": "Upload recipe image here.",
+    "error": {
+      "wrongExtension": "Ooops, wrong extension. Upload only image"
+    }
+  }
+}

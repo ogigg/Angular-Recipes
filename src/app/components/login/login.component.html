@@ -1,0 +1,83 @@
+<div class="login-background">
+  <div class="login-container">
+    <div class="row logo-container">
+      <mat-icon class="logo col-3">outdoor_grill</mat-icon>
+      <div class="col logo-text">{{ "appName" | translate }}</div>
+    </div>
+    <div class="row login-label">
+      {{ "login-label" | translate }}
+    </div>
+    <form
+      #myform="ngForm"
+      (ngSubmit)="login(myform)"
+      class="form form-register"
+    >
+      <div class="row">
+        <mat-form-field
+          appearance="outline"
+          class="login-input input-test"
+          [hideRequiredMarker]="true"
+          [color]="'accent'"
+        >
+          <mat-label>{{ "email-label" | translate }}</mat-label>
+          <input
+            matInput
+            name="email"
+            id="register-email"
+            type="text"
+            class="form-input"
+            placeholder="Example@email.com"
+            ngModel
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field
+          appearance="outline"
+          class="login-input"
+          [hideRequiredMarker]="true"
+          [color]="'accent'"
+        >
+          <mat-label>{{ "password-label" | translate }}</mat-label>
+          <input
+            matInput
+            type="password"
+            name="password"
+            id="register-password"
+            type="password"
+            class="form-input"
+            placeholder="Password"
+            ngModel
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="row login-actions">
+        <div class="col col-6 login-button">
+          <div class="override-button">
+            <button
+              class="login-button"
+              mat-raised-button
+              type="submit"
+              color="primary"
+              class="login-input"
+            >
+              {{ "login" | translate }}
+            </button>
+          </div>
+        </div>
+        <div class="col col-6 login-links">
+          <a routerLink="/register" routerLinkActive="active">{{
+            "loginNoAccount" | translate
+          }}</a>
+
+          <br />
+          <a routerLink="/forget-password" routerLinkActive="active">{{
+            "loginForgotPassword" | translate
+          }}</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

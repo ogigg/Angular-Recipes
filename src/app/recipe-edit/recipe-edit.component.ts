@@ -1,12 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Recipe } from '../components/models/recipe.model';
 import { FormBuilder, FormArray, Validators } from '@angular/forms';
-import { ApiService } from '../components/api.service';
+import { Store } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
+import { editRecipe } from '../components/recipes/recipes.actions';
+import { RecipeEntityService } from '../components/recipes/recipes-entity.service';
 
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
-  styleUrls: ['./recipe-edit.component.css'],
+  styleUrls: ['./recipe-edit.component.scss'],
 })
 export class RecipeEditComponent implements OnInit {
   @Input() recipe: Recipe;
@@ -31,7 +34,11 @@ export class RecipeEditComponent implements OnInit {
     return this.recipeForm.get('preparingSteps') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private recipeService: RecipeEntityService
+  ) {}
 
   ngOnInit(): void {
     this.bindInputToForm();
@@ -73,7 +80,7 @@ export class RecipeEditComponent implements OnInit {
   }
 
   async handleSubmit(): Promise<void> {
-    const updatedRecipe = {
+    const updatedRecipe: Recipe = {
       ...this.recipe,
       name: this.recipeForm.value.name,
       preparationTime: this.recipeForm.value.preparationTime,
@@ -81,9 +88,12 @@ export class RecipeEditComponent implements OnInit {
       ingredients: this.recipeForm.value.ingredients,
       preparingSteps: this.recipeForm.value.preparingSteps,
     };
-    await this.apiService
-      .updateRecipe(this.recipeForm.value, this.recipe.id)
-      .toPromise();
+
+    const update: Update<Recipe> = {
+      id: updatedRecipe.id,
+      changes: updatedRecipe,
+    };
+    this.recipeService.update(updatedRecipe);
     alert('Updated!');
     this.recipeChange.emit(updatedRecipe);
     this.editChange.emit(false);
