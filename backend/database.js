@@ -9,7 +9,6 @@ const insert = async (recipe) => {
 
   try {
     await client.connect();
-    console.log("Connected correctly to server");
     const db = client.db(databaseName);
     let r = await db.collection("recipes").insertOne(recipe);
     assert.equal(1, r.insertedCount);
@@ -22,7 +21,6 @@ const insert = async (recipe) => {
 const getAll = async () => {
   const client = new MongoClient(databaseUrl);
   await client.connect();
-  console.log("Connected correctly to server");
   const db = client.db(databaseName);
   return new Promise(function (resolve, reject) {
     db.collection("recipes")
@@ -36,7 +34,21 @@ const getAll = async () => {
   });
 };
 
+const getRecipe = async (recipeId) => {
+  const client = new MongoClient(databaseUrl);
+  await client.connect();
+  const db = client.db(databaseName);
+  return new Promise(function (resolve, reject) {
+    db.collection("recipes")
+      .findOne({ id: parseInt(recipeId) })
+      .then(function (docs) {
+        return resolve(docs);
+      });
+  });
+};
+
 module.exports = {
   insert: insert,
   getAll: getAll,
+  getRecipe: getRecipe,
 };

@@ -120,11 +120,12 @@ app.get("/api/recipes", async (req, res) => {
   res.send(recipes);
 });
 
-app.get("/api/recipes/:id", (req, res) => {
-  let result = recipes.find((obj) => {
-    return obj.id == req.params.id;
-  });
-  res.send(result);
+app.get("/api/recipes/:id", async (req, res) => {
+  const recipe = await db.getRecipe(req.params.id);
+  // let result = recipes.find((obj) => {
+  //   return obj.id == req.params.id;
+  // });
+  res.send(recipe);
 });
 app.delete("/api/recipes/:id", (req, res) => {
   console.log(`Deleting recipe with id ${req.params.id}`);
