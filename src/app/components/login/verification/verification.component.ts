@@ -43,6 +43,9 @@ export class VerificationComponent implements OnInit {
       this.snackBarMessage = res;
     });
   }
+
+  private allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
   private snackBarMessage: string = '';
   public user: User;
   private redirectUrl = '/dashboard';
@@ -82,15 +85,20 @@ export class VerificationComponent implements OnInit {
 
   calculateNextInput(currentId: string, key: string, inputValue: string) {
     const currentInput = parseInt(currentId.slice(-1)) - 1;
-    console.log(key);
-    if (key === 'Backspace' || key === 'ArrowLeft') {
+    if (key === 'Backspace') {
       if (currentInput !== 0) {
-        if (inputValue === '' && key === 'Backspace') {
-          this.inputs[currentInput - 1].nativeElement.value = '';
-        }
+        this.inputs[currentInput - 1].nativeElement.value = '';
         this.inputs[currentInput - 1].nativeElement.focus();
       }
-    } else if (key !== 'Enter' && key !== 'Tab') {
+    } else if (key === 'ArrowLeft') {
+      if (currentInput !== 0) {
+        this.inputs[currentInput - 1].nativeElement.focus();
+      }
+    } else if (key === 'ArrowRight') {
+      if (currentInput < 5) {
+        this.inputs[currentInput + 1].nativeElement.focus();
+      }
+    } else if (this.allowedKeys.includes(key)) {
       if (currentInput === 5) {
         if (this.form.valid) {
           this.login(this.form);
@@ -98,10 +106,12 @@ export class VerificationComponent implements OnInit {
       } else {
         this.inputs[currentInput + 1].nativeElement.focus();
       }
+    } else {
+      this.inputs[currentInput].nativeElement.value = '';
     }
   }
-
   onKey(event: any) {
+    console.log(event);
     this.calculateNextInput(event.target.id, event.key, event.target.value);
   }
 }
