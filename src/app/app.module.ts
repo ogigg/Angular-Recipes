@@ -26,6 +26,7 @@ import {
   EntityMetadataMap,
 } from '@ngrx/data';
 import { RecipesDataService } from './components/recipes/recipes-data.service';
+import { reducers, logoutReducer } from './reducers';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: 'http://localhost:4000/api/',
@@ -52,7 +53,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers, { metaReducers: [logoutReducer] }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
