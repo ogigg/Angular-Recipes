@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { RecipeEntityService } from '../recipes/recipes-entity.service';
 import { Recipe } from './../models/recipe.model';
+import { ApiService } from '../api.service';
 @Component({
   selector: 'app-recipe-page',
   templateUrl: './recipe-page.component.html',
@@ -18,21 +19,27 @@ export class RecipePageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store,
-    private recipeService: RecipeEntityService
-  ) {}
+    private recipeService: RecipeEntityService,
+    private apiService: ApiService
+  ) {
+    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
+    this.apiService.getRecipe(this.id).subscribe((recipe) => {
+      if (recipe) {
+        this.recipe = recipe;
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
+    });
+  }
   public displayedColumns: string[] = ['quantity', 'name'];
   async ngOnInit(): Promise<void> {
     this.edit = false;
-    this.id = parseInt(this.route.snapshot.paramMap.get('id'));
-    this.recipeService.collection$.subscribe((collection) => {
-      this.recipe = collection.entities[this.id];
-    });
   }
 
   async handleDelete(): Promise<void> {
     this.recipeService.delete(this.recipe.id);
     alert('Deleted!');
-    this.router.navigate(['/']);
+    this.router.navigate(['/dashboard']);
   }
 
   handleEditButton(): void {
