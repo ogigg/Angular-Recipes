@@ -7,7 +7,7 @@
     [infiniteScrollThrottle]="50"
     (scrolled)="onScroll()"
   >
-    <div class="col-md-auto" *ngFor="let recipe of recipes$ | async">
+    <div class="col-md-auto" *ngFor="let recipe of recipes">
       <app-recipe-thumbnail [recipe]="recipe"></app-recipe-thumbnail>
     </div>
   </div>
