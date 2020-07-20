@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Recipe } from './models/recipe.model';
 import { Observable } from 'rxjs';
+import { timeout } from 'rxjs/operators';
 
 export const pageUrl = 'http://localhost:4000';
 
@@ -16,7 +17,9 @@ export class ApiService {
   }
 
   getRecipe(id: Number): Observable<Recipe> {
-    return this.http.get<Recipe>(`${pageUrl}/api/recipes/${id}`);
+    return this.http
+      .get<Recipe>(`${pageUrl}/api/recipes/${id}`)
+      .pipe(timeout(2000));
   }
 
   addRecipe(formData, image: File): Observable<Recipe> {

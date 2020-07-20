@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { Recipe } from '../models/recipe.model';
 import { RecipeEntityService } from '../recipes/recipes-entity.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home-page',
@@ -10,10 +11,21 @@ import { RecipeEntityService } from '../recipes/recipes-entity.service';
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  public recipes$: Observable<Recipe[]>;
   constructor(private recipeService: RecipeEntityService) {}
-
+  private page: number = 1;
+  private recipesPerPage: number = 5;
+  public recipes: Recipe[];
   ngOnInit(): void {
-    this.recipes$ = this.recipeService.entities$;
+    this.getRecipes();
+  }
+
+  getRecipes() {
+    this.recipeService.entities$.subscribe((recipes) => {
+      this.recipes = recipes.slice(0, this.page * this.recipesPerPage);
+    });
+    this.page++;
+  }
+  onScroll() {
+    this.getRecipes();
   }
 }
