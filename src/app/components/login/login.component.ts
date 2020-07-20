@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
       this.snackBarMessage = res;
     });
   }
-  private redirectUrl = '/';
+  private redirectUrl = '/dashboard';
   private snackBarMessage: string = '';
   ngOnInit(): void {}
 
@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
     );
     if (response.success === true) {
       this.store.dispatch(login({ user: response.user }));
-
-      this.router.navigate([this.redirectUrl]);
+      this.router.navigate(['/login/2fa']); //[this.redirectUrl]);
     } else {
       this.snackBar.open(this.snackBarMessage, 'OK', {
         duration: 2000,

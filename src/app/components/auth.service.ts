@@ -33,6 +33,13 @@ export class AuthService {
     return response;
   }
 
+  public async verify(verificationCode, user: User) {
+    const data = { verificationCode: verificationCode, user: user };
+    const response = await this.http
+      .post<{ user: User; success: boolean }>(`${pageUrl}/api/login/2fa`, data)
+      .toPromise();
+    return response;
+  }
   public getToken(): string {
     const user = localStorage.getItem('user');
     if (user) {
@@ -44,14 +51,14 @@ export class AuthService {
   user$: Observable<User>;
   user: User = null;
   public async isAuthenticated(): Promise<boolean> {
-    this.store.pipe(select(selectUser)).subscribe(user=> this.user = user);
+    this.store.pipe(select(selectUser)).subscribe((user) => (this.user = user));
     if (this.user?.token) {
       let isAuthenticated = false;
-      new Observable(observer =>
+      new Observable((observer) =>
         observer.next(!this.jwtHelper.isTokenExpired(this.user.token))
       ).subscribe(
         (resp: boolean) => (isAuthenticated = resp),
-        err => this.store.dispatch(logout())
+        (err) => this.store.dispatch(logout())
       );
       return isAuthenticated;
     }
