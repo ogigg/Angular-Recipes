@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 import { SharedModule } from 'src/app/shared.module';
 import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
@@ -18,7 +20,12 @@ import { RecipesDataService } from '../recipes/recipes-data.service';
 
 @NgModule({
   declarations: [HomePageComponent],
-  imports: [CommonModule, HomePageRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    HomePageRoutingModule,
+    SharedModule,
+    InfiniteScrollModule,
+  ],
   providers: [
     RecipesResolver,
     RecipeEntityService,
