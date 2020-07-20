@@ -103,7 +103,9 @@ export class VerificationComponent implements OnInit {
       this.router.navigate([this.redirectUrl]); //[this.redirectUrl]);
     } else {
       this.snackBar.open(this.snackBarMessage, 'OK', {
-        duration: 2000,
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
       });
     }
   }
