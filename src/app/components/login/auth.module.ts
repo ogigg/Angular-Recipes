@@ -24,6 +24,7 @@ export const routes: Routes = [
     component: LoginComponent,
   },
 ];
+
 @NgModule({
   declarations: [LoginComponent],
   imports: [

@@ -32,7 +32,18 @@ export class AuthService {
       .toPromise();
     return response;
   }
-  public loginFb(providerId: string) {}
+  public async loginFb(fbToken: string) {
+    const data = {
+      fbToken: fbToken,
+    };
+    const response = await this.http
+      .post<{ user: User; success: boolean }>(
+        `${pageUrl}/api/login/facebook`,
+        data
+      )
+      .toPromise();
+    return response;
+  }
   public getToken(): string {
     const user = localStorage.getItem('user');
     if (user) {

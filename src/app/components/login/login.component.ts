@@ -49,9 +49,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
       console.log(user);
+      this.authService.loginFb(user.authToken);
       this.user = user;
       this.loggedIn = user != null;
-      this.store.dispatch;
     });
   }
 
@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit {
     const response = await this.authService.login(username, password);
     if (response.success === true) {
       this.store.dispatch(login({ user: response.user }));
-
       this.router.navigate([this.redirectUrl]);
     } else {
       this.snackBar.open(this.snackBarMessage, 'OK', {
