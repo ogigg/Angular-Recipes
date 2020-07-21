@@ -10,7 +10,6 @@ import { User } from './models/user.model';
 import { selectUser } from './login/auth.selectors';
 import { AuthState } from './login/auth.reducers';
 import { logout } from './login/auth.actions';
-import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -32,9 +31,9 @@ export class AuthService {
       .toPromise();
     return response;
   }
-  public async loginFb(fbToken: string) {
+  public async loginFb(fbToken: String) {
     const data = {
-      fbToken: fbToken,
+      access_token: fbToken,
     };
     const response = await this.http
       .post<{ user: User; success: boolean }>(

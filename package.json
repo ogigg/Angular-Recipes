@@ -48,6 +48,7 @@
     "ngx-autosize": "1.8.0",
     "passport": "0.4.1",
     "passport-facebook": "3.0.0",
+    "passport-facebook-token": "4.0.0",
     "rxjs": "6.5.5",
     "tslib": "1.10.0",
     "validator": "13.1.1",
