@@ -1,26 +1,31 @@
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
-
 const app = express();
 const port = 4000;
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
-
 const db = require("./database.js");
-
 const mongoose = require("mongoose"),
   User = require("./models/Users");
-
 const databaseName = "recipes";
 const databaseUrl = `mongodb://localhost:27017/${databaseName}`;
+const passport = require("passport");
+const passportConfig = require("./passport");
+passportConfig();
+const FacebookTokenStrategy = require("passport-facebook-token").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 mongoose.connect(databaseUrl, function (err) {
   if (err) throw err;
   console.log("Successfully connected to MongoDB");
 });
+const router = express.Router();
 app.use(cors());
 app.use("/static", express.static("images"));
 app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
+
 // var testUser = new User({
 //   email: "andrzej@recipes.com",
 //   name: "Andrzej Nowak",
@@ -154,6 +159,38 @@ app.post("/api/login/2fa", async function (req, res) {
     }
   });
 });
+
+app.post(
+  "/api/login/facebook",
+  passport.authenticate("facebook-token", { session: false }),
+  function (req, res, next) {
+    if (!req.user) {
+      return res.send(401, "User Not Authenticated");
+    }
+    const token = generateAccessToken(req.user.email);
+
+    const user = {
+      id: req.user.id,
+      email: req.user.email,
+      name: req.user.name,
+      token: token,
+    };
+
+    res.send({ user: user, success: true });
+  }
+);
+
+app.get(
+  "/api/login/facebook/callback",
+  passport.authenticate(
+    "facebook",
+    { session: false },
+    {
+      successRedirect: "/",
+      failureRedirect: "/login",
+    }
+  )
+);
 
 app.put(
   "/api/recipes/:id",
