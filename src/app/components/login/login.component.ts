@@ -44,14 +44,15 @@ export class LoginComponent implements OnInit {
   private redirectUrl = '/dashboard';
   private snackBarMessage: string = '';
 
-  ngOnInit(): void {
-    this.socialAuthService.authState.subscribe((user) => {
-      console.log(user);
-      this.signInWithFB(user.authToken);
-    });
-  }
+  ngOnInit(): void {}
   handleFbClick(): void {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.socialAuthService.authState.subscribe((user) => {
+      console.log(user);
+      if (user) {
+        this.signInWithFB(user.authToken);
+      }
+    });
   }
   async signInWithFB(token: string): Promise<void> {
     const response = await this.authService.loginFb(token);
