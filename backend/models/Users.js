@@ -26,6 +26,13 @@ const schema = new Schema({
     },
     select: false,
   },
+  googleProvider: {
+    type: {
+      id: String,
+      token: String,
+    },
+    select: false,
+  },
 });
 
 schema.pre("save", function (next) {
@@ -79,6 +86,43 @@ schema.statics.upsertFbUser = function (
           name: profile.displayName,
           email: profile.emails[0].value,
           facebookProvider: {
+            id: profile.id,
+            token: accessToken,
+          },
+        });
+
+        newUser.save(function (error, savedUser) {
+          if (error) {
+            console.log(error);
+          }
+          return cb(error, savedUser);
+        });
+      } else {
+        return cb(err, user);
+      }
+    }
+  );
+};
+
+schema.statics.upsertGoogleUser = function (
+  accessToken,
+  refreshToken,
+  profile,
+  cb
+) {
+  var that = this;
+  return this.findOne(
+    {
+      "googleProvider.id": profile.id,
+    },
+    function (err, user) {
+      // no user was found, lets create a new one
+      if (!user) {
+        var newUser = new that({
+          id: profile.id,
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          googleProvider: {
             id: profile.id,
             token: accessToken,
           },

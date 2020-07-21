@@ -179,19 +179,25 @@ app.post(
     res.send({ user: user, success: true });
   }
 );
-
-app.get(
-  "/api/login/facebook/callback",
-  passport.authenticate(
-    "facebook",
-    { session: false },
-    {
-      successRedirect: "/",
-      failureRedirect: "/login",
+app.post(
+  "/api/login/google",
+  passport.authenticate("google-token", { session: false }),
+  function (req, res, next) {
+    if (!req.user) {
+      return res.send(401, "User Not Authenticated");
     }
-  )
-);
+    const token = generateAccessToken(req.user.email);
 
+    const user = {
+      id: req.user.id,
+      email: req.user.email,
+      name: req.user.name,
+      token: token,
+    };
+
+    res.send({ user: user, success: true });
+  }
+);
 app.put(
   "/api/recipes/:id",
   authenticateToken,
