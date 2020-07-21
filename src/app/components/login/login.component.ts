@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
   private snackBarMessage: string = '';
 
   ngOnInit(): void {}
+
   handleFbClick(): void {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe((user) => {
@@ -53,12 +54,19 @@ export class LoginComponent implements OnInit {
   }
 
   async handleGoogleClick(): Promise<void> {
-    console.log('Google click!');
     const user: SocialUser = await this.socialAuthService.signIn(
       GoogleLoginProvider.PROVIDER_ID
     );
-    console.log(user);
-    this.authService.loginGoogle(user.authToken);
+
+    const response = await this.authService.loginGoogle(user.authToken);
+    if (response.success === true) {
+      this.store.dispatch(login({ user: response.user }));
+      this.router.navigate([this.redirectUrl]);
+    } else {
+      this.snackBar.open(this.snackBarMessage, 'OK', {
+        duration: 2000,
+      });
+    }
   }
 
   async signInWithFB(token: string): Promise<void> {
