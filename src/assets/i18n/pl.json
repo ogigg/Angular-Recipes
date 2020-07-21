@@ -37,6 +37,9 @@
   "verificationInfoLabel": "Możesz zmienić ustawienia podwójnej autoryzacji w ustawieniach",
   "verificationGoBackLabel": "Wróć do strony logowania",
   "resendCode": "Wyślij kod ponownie",
+  "login-facebook": "Zaloguj się używając Facebooka",
+  "login-google": "Zaloguj się używając  Google",
+  "login-github": "Zaloguj się używając  Github",
   "validation": {
     "description": "Opis jest wymagany",
     "image": "Zdjęcie jest wymagane.",

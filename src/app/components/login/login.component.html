@@ -84,7 +84,8 @@
           type="button"
           (click)="handleFbClick()"
         >
-          Facebook login
+          {{ "login-facebook" | translate }}
+          <i class="fa fa-facebook login-social-button-icon"></i>
         </button>
         <button
           mat-raised-button
@@ -93,7 +94,8 @@
           type="button"
           (click)="handleGoogleClick()"
         >
-          Google login
+          {{ "login-google" | translate
+          }}<i class="fa fa-google login-social-button-icon"></i>
         </button>
       </div>
     </form>
