@@ -14,10 +14,17 @@ const schema = new Schema({
     validate: [isEmail, "invalid email"],
     createIndexes: { unique: true },
   },
-  password: { type: String, required: true },
+  password: { type: String },
   verificationCode: {
     code: { type: Number },
     deadline: { type: Date },
+  },
+  facebookProvider: {
+    type: {
+      id: String,
+      token: String,
+    },
+    select: false,
   },
 });
 
@@ -51,6 +58,43 @@ schema.methods.comparePassword = function (candidatePassword, cb) {
     if (err) return cb(err);
     cb(null, isMatch);
   });
+};
+
+schema.statics.upsertFbUser = function (
+  accessToken,
+  refreshToken,
+  profile,
+  cb
+) {
+  var that = this;
+  return this.findOne(
+    {
+      "facebookProvider.id": profile.id,
+    },
+    function (err, user) {
+      // no user was found, lets create a new one
+      if (!user) {
+        var newUser = new that({
+          id: profile.id,
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          facebookProvider: {
+            id: profile.id,
+            token: accessToken,
+          },
+        });
+
+        newUser.save(function (error, savedUser) {
+          if (error) {
+            console.log(error);
+          }
+          return cb(error, savedUser);
+        });
+      } else {
+        return cb(err, user);
+      }
+    }
+  );
 };
 
 const Model = mongoose.model("User", schema);
