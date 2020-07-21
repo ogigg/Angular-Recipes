@@ -32,6 +32,11 @@
   "login-label": "Zaloguj się na swoje konto",
   "loginNoAccount": "Nie masz konta?",
   "loginForgotPassword": "Zapomniałeś hasła?",
+  "verificationLabel": "Wpisz kod weryfikacyjny który wysłaliśmy na adres ",
+  "verificationTimerLabel": "Powinien przyjść w przeciągu minuty ",
+  "verificationInfoLabel": "Możesz zmienić ustawienia podwójnej autoryzacji w ustawieniach",
+  "verificationGoBackLabel": "Wróć do strony logowania",
+  "resendCode": "Wyślij kod ponownie",
   "validation": {
     "description": "Opis jest wymagany",
     "image": "Zdjęcie jest wymagane.",
