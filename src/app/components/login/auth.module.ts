@@ -11,6 +11,7 @@ import {
   SocialLoginModule,
   SocialAuthServiceConfig,
   FacebookLoginProvider,
+  GoogleLoginProvider,
 } from 'angularx-social-login';
 
 import { LoginComponent } from './login.component';
@@ -46,6 +47,12 @@ export const routes: Routes = [
           {
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider('585082242207135'),
+          },
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '786468915692-5gifdou8gp0bq94sii363m04ackr2vja.apps.googleusercontent.com'
+            ),
           },
         ],
       } as SocialAuthServiceConfig,

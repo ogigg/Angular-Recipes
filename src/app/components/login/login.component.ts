@@ -4,16 +4,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {
   FacebookLoginProvider,
   SocialAuthService,
+  GoogleLoginProvider,
   SocialUser,
 } from 'angularx-social-login';
-import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 import { AppState } from 'src/app/reducers';
 import { login } from './auth.actions';
-import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -29,7 +28,6 @@ export class LoginComponent implements OnInit {
     translate: TranslateService,
     activatedRoute: ActivatedRoute,
     private store: Store<AppState>,
-    private recipesService: ApiService,
     private socialAuthService: SocialAuthService
   ) {
     activatedRoute.queryParams.subscribe((params) => {
@@ -48,12 +46,21 @@ export class LoginComponent implements OnInit {
   handleFbClick(): void {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
     this.socialAuthService.authState.subscribe((user) => {
-      console.log(user);
       if (user) {
         this.signInWithFB(user.authToken);
       }
     });
   }
+
+  async handleGoogleClick(): Promise<void> {
+    console.log('Google click!');
+    const user: SocialUser = await this.socialAuthService.signIn(
+      GoogleLoginProvider.PROVIDER_ID
+    );
+    console.log(user);
+    this.authService.loginGoogle(user.authToken);
+  }
+
   async signInWithFB(token: string): Promise<void> {
     const response = await this.authService.loginFb(token);
     if (response.success === true) {

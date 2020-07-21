@@ -44,6 +44,19 @@ export class AuthService {
     return response;
   }
 
+  public async loginGoogle(googleToken: String) {
+    const data = {
+      access_token: googleToken,
+    };
+    const response = await this.http
+      .post<{ user: User; success: boolean }>(
+        `${pageUrl}/api/login/google`,
+        data
+      )
+      .toPromise();
+    return response;
+  }
+
   public async verify(verificationCode, user: User) {
     const data = { verificationCode: verificationCode, user: user };
     const response = await this.http
