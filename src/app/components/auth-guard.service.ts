@@ -25,7 +25,7 @@ export class AuthGuardService implements CanActivate {
   ): boolean {
     this.store
       .pipe(select(selectIsLoggedIn))
-      .subscribe((resp: boolean) => this.isAuthenticated = resp);
+      .subscribe((res: boolean) => this.isAuthenticated = res);
     if (this.isAuthenticated) {
       return true;
     } else {

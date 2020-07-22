@@ -24,8 +24,8 @@ export class AppComponent {
     private router: Router,
     private recipeService: RecipeEntityService
   ) {
-    this.router.events.subscribe((e: RouterEvent) => {
-      this.checkEvent(e);
+    this.router.events.subscribe((event: RouterEvent) => {
+      this.checkEvent(event);
     });
     translate.setDefaultLang(translate.getBrowserLang());
   }
