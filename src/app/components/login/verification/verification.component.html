@@ -1,0 +1,158 @@
+<div class="login-background">
+  <div class="login-container">
+    <div class="row logo-container">
+      <mat-icon class="logo col-3">outdoor_grill</mat-icon>
+      <div class="col logo-text">{{ "appName" | translate }}</div>
+    </div>
+    <div class="row login-2fa-label">
+      {{ "verificationLabel" | translate }}
+      <div class="bold">{{ user.email }}</div>
+    </div>
+    <form [formGroup]="verificationForm" class="form form-register">
+      <div class="input-2fa-container row">
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input1"
+              id="input1"
+              type="password"
+              class="form-input"
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input1
+              formControlName="input1"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input2"
+              id="input2"
+              type="password"
+              class="form-input"
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input2
+              formControlName="input2"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input3"
+              id="input3"
+              type="password"
+              class="form-input"
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input3
+              formControlName="input3"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input4"
+              id="input4"
+              type="password"
+              class="form-input"
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input4
+              formControlName="input4"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input5"
+              id="input5"
+              type="password"
+              class="form-input"
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input5
+              formControlName="input5"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input6"
+              id="input6"
+              type="password"
+              class="form-input"
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input6
+              formControlName="input6"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row login-actions">
+        <div class="counter">
+          {{ "verificationTimerLabel" | translate: { timer: timer } }}
+          <a class="verification-resend">
+            {{ "resendCode" | translate }}
+          </a>
+        </div>
+        <div>
+          {{ "verificationInfoLabel" | translate }}
+        </div>
+        <div class="login-back">
+          <a routerLink="/login" routerLinkActive="active">
+            &larr; {{ "verificationGoBackLabel" | translate }}
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -169,7 +169,26 @@ app.post("/api/login", function (req, res) {
   let success = false;
   let user = undefined;
   if (loginData.email === "admin" && loginData.password === "admin") {
-    token = generateAccessToken(loginData.email);
+    success = true;
+    user = { id: "1", name: "admin", email: "admin@recipes.com", token: token };
+  }
+  res.send({ user: user, success: success });
+});
+
+app.post("/api/login/2fa", function (req, res) {
+  const data = req.body;
+  let token = null;
+  let success = false;
+  let user = undefined;
+  if (
+    data.verificationCode.input1 == "1" &&
+    data.verificationCode.input2 == "2" &&
+    data.verificationCode.input3 == "3" &&
+    data.verificationCode.input4 == "4" &&
+    data.verificationCode.input5 == "5" &&
+    data.verificationCode.input6 == "6"
+  ) {
+    token = generateAccessToken(data.user.email);
     success = true;
     user = { id: "1", name: "admin", email: "admin@recipes.com", token: token };
   }

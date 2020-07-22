@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     translate: TranslateService,
     activatedRoute: ActivatedRoute,
-    private store: Store<AppState>,
-    private recipesService: ApiService
+    private store: Store<AppState>
   ) {
     activatedRoute.queryParams.subscribe((params) => {
       if (params.returnUrl) {
@@ -35,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.snackBarMessage = res;
     });
   }
-  private redirectUrl = '/';
+  private redirectUrl = '/dashboard';
   private snackBarMessage: string = '';
   ngOnInit(): void {}
 
@@ -46,8 +45,7 @@ export class LoginComponent implements OnInit {
     );
     if (response.success === true) {
       this.store.dispatch(login({ user: response.user }));
-
-      this.router.navigate([this.redirectUrl]);
+      this.router.navigate(['/login/2fa']);
     } else {
       this.snackBar.open(this.snackBarMessage, 'OK', {
         duration: 2000,

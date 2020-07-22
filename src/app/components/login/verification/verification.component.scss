@@ -1,0 +1,59 @@
+@import "./../../../../scss/login-styles.scss";
+
+.input-2fa {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.col-2 {
+  padding: 5px;
+}
+.login-2fa-label {
+  font-size: 1.3em;
+  height: 1.3em;
+  margin-bottom: 20px;
+}
+.form-input {
+  font-size: 1em;
+  font-weight: 600;
+}
+:host ::ng-deep .mat-form-field-outline {
+  background-color: white;
+}
+
+.login-back {
+  color: $blue-color;
+  margin-top: 30px;
+}
+
+.login-back :hover {
+  color: darken($blue-color, 30%);
+}
+.login-back a {
+  text-decoration: none;
+}
+
+.input-2fa-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: right;
+}
+.input-2fa-item {
+  max-width: 40px;
+  margin-right: 5px;
+}
+
+.verification-resend {
+  color: $gray-color;
+}
+.verification-resend :hover {
+  color: darken($gray-color, 10%);
+}
+
+.bold {
+  font-weight: 600;
+}
