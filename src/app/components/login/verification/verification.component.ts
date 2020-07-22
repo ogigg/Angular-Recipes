@@ -51,6 +51,14 @@ export class VerificationComponent implements OnInit {
     input5: new FormControl(''),
     input6: new FormControl(''),
   });
+
+  public user: User;
+  public timer: number = 60;
+  private allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  private snackBarMessage: string = '';
+  private redirectUrl = '/dashboard';
+  private inputs: ElementRef[];
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -59,8 +67,8 @@ export class VerificationComponent implements OnInit {
     activatedRoute: ActivatedRoute,
     translate: TranslateService
   ) {
-    this.store.select(selectUser).subscribe((user) => (this.user = user));
-    activatedRoute.queryParams.subscribe((params) => {
+    this.store.select(selectUser).subscribe((user: User) => (this.user = user));
+    activatedRoute.queryParams.subscribe(params => {
       if (params.returnUrl) {
         this.redirectUrl = params.returnUrl;
       }
@@ -70,20 +78,12 @@ export class VerificationComponent implements OnInit {
     });
   }
 
-  private allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-  private snackBarMessage: string = '';
-  public user: User;
-  private redirectUrl = '/dashboard';
-  private inputs: ElementRef[];
-
   ngOnInit(): void {
     setTimeout(() => this.input1.nativeElement.focus());
     timer(0, 1000)
       .pipe(take(61))
-      .subscribe((timeElapsed) => (this.timer = 60 - timeElapsed));
+      .subscribe((timeElapsed: number) => (this.timer = 60 - timeElapsed));
   }
-  public timer: number = 60;
 
   ngAfterViewInit() {
     this.inputs = [
@@ -98,7 +98,7 @@ export class VerificationComponent implements OnInit {
 
   async login(form) {
     const response = await this.authService.verify(form.value, this.user);
-    if (response.success === true) {
+    if (response.success) {
       this.store.dispatch(login({ user: response.user }));
       this.router.navigate([this.redirectUrl]);
     } else {

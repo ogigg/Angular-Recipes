@@ -5,7 +5,8 @@
       <div class="col logo-text">{{ "appName" | translate }}</div>
     </div>
     <div class="row login-2fa-label">
-      {{ "verificationLabel" | translate }} <b>{{ user.email }}</b>
+      {{ "verificationLabel" | translate }}
+      <div class="bold">{{ user.email }}</div>
     </div>
     <form [formGroup]="verificationForm" class="form form-register">
       <div class="input-2fa-container row">
