@@ -33,7 +33,7 @@
   "loginNoAccount": "Don't have an account?",
   "loginForgotPassword": "Forgot password?",
   "verificationLabel": "Enter verification code. We sent it to ",
-  "verificationTimerLabel": "It should arrive within a minute ",
+  "verificationTimerLabel": "It should arrive within a minute ({{timer}})s.",
   "verificationInfoLabel": "You can change Two-Factor Authentication method in your profile settings",
   "verificationGoBackLabel": "Go back to login page",
   "resendCode": "Resend Code",

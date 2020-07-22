@@ -33,7 +33,7 @@
   "loginNoAccount": "Nie masz konta?",
   "loginForgotPassword": "Zapomniałeś hasła?",
   "verificationLabel": "Wpisz kod weryfikacyjny który wysłaliśmy na adres ",
-  "verificationTimerLabel": "Powinien przyjść w przeciągu minuty ",
+  "verificationTimerLabel": "Powinien przyjść w przeciągu minuty ({{timer}})s.",
   "verificationInfoLabel": "Możesz zmienić ustawienia podwójnej autoryzacji w ustawieniach",
   "verificationGoBackLabel": "Wróć do strony logowania",
   "resendCode": "Wyślij kod ponownie",
