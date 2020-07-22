@@ -1,0 +1,170 @@
+<div class="login-background">
+  <div class="login-container">
+    <div class="row logo-container">
+      <mat-icon class="logo col-3">outdoor_grill</mat-icon>
+      <div class="col logo-text">{{ "appName" | translate }}</div>
+    </div>
+    <div class="row login-2fa-label">
+      {{ "verificationLabel" | translate }} <b>{{ user.email }}</b>
+    </div>
+    <form #2faForm="ngForm" class="form form-register">
+      <div class="input-2fa-container row">
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input1"
+              id="input1"
+              type="password"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input1
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input2"
+              id="input2"
+              type="password"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input2
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input3"
+              id="input3"
+              type="password"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input3
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input4"
+              id="input4"
+              type="password"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input4
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input5"
+              id="input5"
+              type="password"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input5
+            />
+          </mat-form-field>
+        </div>
+        <div class="input-2fa-item">
+          <mat-form-field
+            appearance="outline"
+            class="input-2fa"
+            [hideRequiredMarker]="true"
+            [color]="'accent'"
+          >
+            <input
+              matInput
+              name="input6"
+              id="input6"
+              type="password"
+              class="form-input"
+              ngModel
+              required
+              maxlength="1"
+              (keyup)="onKey($event)"
+              #input6
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row login-actions">
+        <div class="counter">
+          {{ "verificationTimerLabel" | translate }} ({{ timer }}s).
+          <a class="verification-resend">
+            {{ "resendCode" | translate }}
+          </a>
+        </div>
+        <div>
+          {{ "verificationInfoLabel" | translate }}
+        </div>
+        <!-- <div class="col col-6 login-button">
+          <div class="override-button">
+            <button
+              class="login-button"
+              mat-raised-button
+              type="submit"
+              color="primary"
+              class="login-input"
+            >
+              {{ "login" | translate }}
+            </button>
+          </div>
+        </div> -->
+        <div class="login-back">
+          <a routerLink="/login" routerLinkActive="active">
+            &larr; {{ "verificationGoBackLabel" | translate }}
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { AppState } from 'src/app/reducers';
 import { AuthService } from '../auth.service';
 import { logout } from '../login/auth.actions';
 import { selectIsLoggedIn } from '../login/auth.selectors';
+import { SocialAuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,8 @@ import { selectIsLoggedIn } from '../login/auth.selectors';
 export class HeaderComponent implements OnInit {
   constructor(
     private translate: TranslateService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private socialAuthService: SocialAuthService
   ) {
     this.isLoggedIn$ = this.store.pipe(select(selectIsLoggedIn));
   }
@@ -38,6 +40,7 @@ export class HeaderComponent implements OnInit {
   }
 
   handleLogOut() {
+    this.socialAuthService.signOut();
     this.store.dispatch(logout());
   }
 }

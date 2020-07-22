@@ -10,7 +10,6 @@ import { User } from './models/user.model';
 import { selectUser } from './login/auth.selectors';
 import { AuthState } from './login/auth.reducers';
 import { logout } from './login/auth.actions';
-import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +31,39 @@ export class AuthService {
       .toPromise();
     return response;
   }
+  public async loginFb(fbToken: String) {
+    const data = {
+      access_token: fbToken,
+    };
+    const response = await this.http
+      .post<{ user: User; success: boolean }>(
+        `${pageUrl}/api/login/facebook`,
+        data
+      )
+      .toPromise();
+    return response;
+  }
 
+  public async loginGoogle(googleToken: String) {
+    const data = {
+      access_token: googleToken,
+    };
+    const response = await this.http
+      .post<{ user: User; success: boolean }>(
+        `${pageUrl}/api/login/google`,
+        data
+      )
+      .toPromise();
+    return response;
+  }
+
+  public async verify(verificationCode, user: User) {
+    const data = { verificationCode: verificationCode, user: user };
+    const response = await this.http
+      .post<{ user: User; success: boolean }>(`${pageUrl}/api/login/2fa`, data)
+      .toPromise();
+    return response;
+  }
   public getToken(): string {
     const user = localStorage.getItem('user');
     if (user) {
@@ -44,14 +75,14 @@ export class AuthService {
   user$: Observable<User>;
   user: User = null;
   public async isAuthenticated(): Promise<boolean> {
-    this.store.pipe(select(selectUser)).subscribe(user=> this.user = user);
+    this.store.pipe(select(selectUser)).subscribe((user) => (this.user = user));
     if (this.user?.token) {
       let isAuthenticated = false;
-      new Observable(observer =>
+      new Observable((observer) =>
         observer.next(!this.jwtHelper.isTokenExpired(this.user.token))
       ).subscribe(
         (resp: boolean) => (isAuthenticated = resp),
-        err => this.store.dispatch(logout())
+        (err) => this.store.dispatch(logout())
       );
       return isAuthenticated;
     }

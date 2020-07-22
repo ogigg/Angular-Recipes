@@ -9,7 +9,7 @@
     </div>
     <form
       #myform="ngForm"
-      (ngSubmit)="login(myform)"
+      (ngSubmit)="onSubmit(myform)"
       class="form form-register"
     >
       <div class="row">
@@ -77,6 +77,26 @@
             "loginForgotPassword" | translate
           }}</a>
         </div>
+        <button
+          mat-raised-button
+          class="login-social-button"
+          color="primary"
+          type="button"
+          (click)="handleFbClick()"
+        >
+          {{ "login-facebook" | translate }}
+          <i class="fa fa-facebook login-social-button-icon"></i>
+        </button>
+        <button
+          mat-raised-button
+          class="login-social-button"
+          color="secondary"
+          type="button"
+          (click)="handleGoogleClick()"
+        >
+          {{ "login-google" | translate
+          }}<i class="fa fa-google login-social-button-icon"></i>
+        </button>
       </div>
     </form>
   </div>
