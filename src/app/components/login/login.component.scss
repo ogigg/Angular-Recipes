@@ -1,58 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
-$source-sans-pro: "Source Sans Pro", sans-serif;
-
-$gray-font-size: 1em;
-$gray-color: rgba(152, 155, 155, 0.9);
-
-.login-background {
-  background-color: rgb(247, 247, 247);
-  font-family: $source-sans-pro;
-  height: 100%;
-  width: 100%;
-  margin-top: 0;
-}
-
-.login-label {
-  font-size: 1.3em;
-  height: 1.3em;
-  margin-bottom: 10px;
-}
-
-.login-input {
-  width: 100%;
-}
-
-.login-container {
-  margin: auto;
-  padding: 30px;
-  padding-top: 20vh;
-  max-width: 400px;
-}
-
-.logo-container {
-  min-height: 3em;
-  font-size: 2em;
-  text-align: left;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  margin-bottom: 30px;
-}
-
-.logo {
-  min-height: 5rem;
-  font-size: 5rem;
-  padding-left: 0;
-  margin-left: -15px;
-}
-
-.login-actions {
-  margin-top: 20px;
-}
-.login-button {
-  padding: 0;
-}
+@import "./../../../scss/login-styles.scss";
 
 .login-links {
   text-align: right;
@@ -85,21 +31,6 @@ input {
   font-size: $gray-font-size;
 }
 
-:host ::ng-deep .mat-form-field-outline {
-  background-color: white;
-}
-
-:host ::ng-deep .mat-form-field-wrapper {
-  padding: 0;
-  color: $gray-color;
-  font-size: $gray-font-size;
-}
-
-:host ::ng-deep .mat-form-field-label-wrapper label {
-  padding-left: 10px;
-  color: $gray-color;
-  font-size: $gray-font-size;
-}
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus textarea:-webkit-autofill,
@@ -107,5 +38,5 @@ textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
 }

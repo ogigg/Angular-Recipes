@@ -1,14 +1,4 @@
-@import url("./../login.component.scss");
-$source-sans-pro: "Source Sans Pro", sans-serif;
-$blue-color: #2e98ee;
-$gray-color: rgba(152, 155, 155, 0.9);
-.login-background {
-  background-color: rgb(247, 247, 247);
-  font-family: $source-sans-pro;
-  height: 100%;
-  width: 100%;
-  margin-top: 0;
-}
+@import "./../../../../scss/login-styles.scss";
 
 .input-2fa {
   width: 100%;
