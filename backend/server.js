@@ -176,19 +176,19 @@ app.post("/api/login", function (req, res) {
 });
 
 app.post("/api/login/2fa", function (req, res) {
-  const twofaData = req.body;
+  const data = req.body;
   let token = null;
   let success = false;
   let user = undefined;
   if (
-    twofaData.verificationCode.input1 == "1" &&
-    twofaData.verificationCode.input2 == "2" &&
-    twofaData.verificationCode.input3 == "3" &&
-    twofaData.verificationCode.input4 == "4" &&
-    twofaData.verificationCode.input5 == "5" &&
-    twofaData.verificationCode.input6 == "6"
+    data.verificationCode.input1 == "1" &&
+    data.verificationCode.input2 == "2" &&
+    data.verificationCode.input3 == "3" &&
+    data.verificationCode.input4 == "4" &&
+    data.verificationCode.input5 == "5" &&
+    data.verificationCode.input6 == "6"
   ) {
-    token = generateAccessToken(twofaData.user.email);
+    token = generateAccessToken(data.user.email);
     success = true;
     user = { id: "1", name: "admin", email: "admin@recipes.com", token: token };
   }

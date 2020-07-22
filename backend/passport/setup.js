@@ -31,18 +31,3 @@ passport.use(
       });
   })
 );
-
-// passport.authenticate("local", (err, user, info) => {
-//   if (err) {
-//     return res.status(400).json({ errors: err });
-//   }
-//   if (!user) {
-//     return res.status(400).json({ errors: "No users found" });
-//   }
-//   req.logIn(user, (err) => {
-//     if (err) {
-//       return res.status(400).json({ errors: err });
-//     }
-//     return res.status(200).json({ success: true });
-//   });
-// });

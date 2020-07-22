@@ -33,12 +33,14 @@ export class AuthService {
     return response;
   }
 
-  public async verify(verificationCode, user: User) {
+  public async verify(
+    verificationCode,
+    user: User
+  ): Promise<{ user: User; success: Boolean }> {
     const data = { verificationCode: verificationCode, user: user };
-    const response = await this.http
+    return await this.http
       .post<{ user: User; success: boolean }>(`${pageUrl}/api/login/2fa`, data)
       .toPromise();
-    return response;
   }
   public getToken(): string {
     const user = localStorage.getItem('user');

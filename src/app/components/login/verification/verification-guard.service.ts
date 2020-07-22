@@ -20,7 +20,7 @@ export class VerificationGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     this.store.pipe(select(selectUser)).subscribe((user) => {
-      if (user == null) {
+      if (!user) {
         this.router.navigateByUrl('/login');
         this.isUser = false;
       } else {

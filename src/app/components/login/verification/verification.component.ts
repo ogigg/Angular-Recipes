@@ -76,14 +76,14 @@ export class VerificationComponent implements OnInit {
   public user: User;
   private redirectUrl = '/dashboard';
   private inputs: ElementRef[];
+
   ngOnInit(): void {
     setTimeout(() => this.input1.nativeElement.focus());
     timer(0, 1000)
       .pipe(take(61))
       .subscribe((timeElapsed) => (this.timer = 60 - timeElapsed));
   }
-
-  timer = 60;
+  public timer: number = 60;
 
   ngAfterViewInit() {
     this.inputs = [
@@ -100,7 +100,7 @@ export class VerificationComponent implements OnInit {
     const response = await this.authService.verify(form.value, this.user);
     if (response.success === true) {
       this.store.dispatch(login({ user: response.user }));
-      this.router.navigate([this.redirectUrl]); //[this.redirectUrl]);
+      this.router.navigate([this.redirectUrl]);
     } else {
       this.snackBar.open(this.snackBarMessage, 'OK', {
         duration: 5000,
