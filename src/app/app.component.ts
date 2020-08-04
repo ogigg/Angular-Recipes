@@ -2,14 +2,6 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { login } from './components/login/auth.actions';
-import {
-  Router,
-  NavigationStart,
-  NavigationEnd,
-  NavigationCancel,
-  NavigationError,
-  RouterEvent,
-} from '@angular/router';
 import { RecipeEntityService } from './components/recipes/recipes-entity.service';
 
 @Component({
@@ -18,37 +10,22 @@ import { RecipeEntityService } from './components/recipes/recipes-entity.service
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  public title = 'angular-recipes';
+
   constructor(
     private translate: TranslateService,
     private store: Store,
-    private router: Router,
     private recipeService: RecipeEntityService
   ) {
-    this.router.events.subscribe((event: RouterEvent) => {
-      this.checkEvent(event);
-    });
     translate.setDefaultLang(translate.getBrowserLang());
   }
-  title = 'angular-recipes';
-  public isLoading: boolean = true;
+
   ngOnInit() {
     const userProfile = localStorage.getItem('user');
 
     if (userProfile) {
       this.store.dispatch(login({ user: JSON.parse(userProfile) }));
       this.recipeService.getAll();
-    }
-  }
-
-  checkEvent(routerEvent: RouterEvent): void {
-    if (routerEvent instanceof NavigationStart) {
-      this.isLoading = true;
-    } else if (
-      routerEvent instanceof NavigationEnd ||
-      routerEvent instanceof NavigationCancel ||
-      routerEvent instanceof NavigationError
-    ) {
-      this.isLoading = false;
     }
   }
 }
