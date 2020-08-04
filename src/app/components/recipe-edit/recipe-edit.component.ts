@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Recipe } from '../components/models/recipe.model';
 import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
-import { editRecipe } from '../components/recipes/recipes.actions';
-import { RecipeEntityService } from '../components/recipes/recipes-entity.service';
+import { Recipe } from '../models/recipe.model';
+import { RecipeEntityService } from '../recipes/recipes-entity.service';
 
 @Component({
   selector: 'app-recipe-edit',

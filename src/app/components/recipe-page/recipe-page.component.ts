@@ -32,7 +32,7 @@ export class RecipePageComponent implements OnInit {
   async handleDelete(): Promise<void> {
     this.recipeService.delete(this.recipe.id);
     alert('Deleted!');
-    this.router.navigate(['/']);
+    this.router.navigate(['/dashboard']);
   }
 
   handleEditButton(): void {
